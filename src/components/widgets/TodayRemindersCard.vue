@@ -88,6 +88,7 @@ export default {
 
 .today-reminders-card:hover {
   box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .today-reminders-card ::v-deep .el-card__header {
@@ -149,7 +150,7 @@ export default {
 .reminders-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px; /* Standardized to 8px */
   height: 100%;
 }
 
@@ -163,8 +164,10 @@ export default {
   border: 1px solid #f0f2f5;
   border-left-width: 4px;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01); /* Reduced shadow */
   cursor: default;
+  height: 42px; /* Reduced to fit */
+  box-sizing: border-box;
 }
 
 .reminder-item:hover {
@@ -174,7 +177,7 @@ export default {
 
 .reminder-item.urgent {
   border-left-color: #ff7875; /* Red accent for urgent */
-  background: linear-gradient(to right, #fff5f5, #fff);
+  background: #ffffff; /* Removed gradient */
 }
 
 .reminder-item.normal {

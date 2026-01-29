@@ -1,7 +1,7 @@
 <template>
   <el-card
     class="pending-approvals-card"
-    :body-style="{ padding: '16px', display: 'flex', flexDirection: 'column' }"
+    :body-style="{ padding: '12px', display: 'flex', flexDirection: 'column' }"
   >
     <div slot="header" class="card-header">
       <div class="header-icon">✓</div>
@@ -76,6 +76,7 @@ export default {
         { name: "资金审批", count: 8, expanded: false },
         { name: "科研项目管理审批", count: 4, expanded: false },
         { name: "勘探作业审批", count: 6, expanded: false },
+        { name: "应急采购项目审批", count: 3, expanded: false },
       ],
     };
   },
@@ -182,11 +183,11 @@ export default {
 .approvals-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px; /* Reduced from 12px */
+  gap: 8px; /* Reduced to 8px */
   flex: 1;
-  overflow-y: auto; /* Allow scrolling when expanded */
+  overflow-y: auto;
   padding-right: 2px;
-  margin-top: 4px; /* Reduced from 10px */
+  margin-top: 0;
   align-content: start;
   padding-bottom: 4px;
 }
@@ -207,7 +208,8 @@ export default {
   transition: all 0.3s ease;
   cursor: pointer;
   position: relative;
-  height: 100%; /* Fill grid cell */
+  height: 42px; /* Reduced to 42px */
+  box-sizing: border-box;
 }
 
 .approval-item:hover {

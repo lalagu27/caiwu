@@ -119,8 +119,8 @@ export default {
 .modules-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px; /* Reduced from 12px */
-  height: 100%;
+  gap: 8px; /* Reduced to 8px */
+  align-content: start;
 }
 
 .module-item {
@@ -136,7 +136,8 @@ export default {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  height: 46px; /* Reduced to fit 3 rows snugly */
+  height: 42px; /* Reduced to 42px */
+  box-sizing: border-box;
 }
 /* ... existing module-item::before styles ... */
 /* ... existing module-item:hover styles ... */

@@ -219,15 +219,30 @@ export default {
 .schedule-list {
   display: flex;
   flex-direction: column;
-  gap: 8px; /* Reduced from 15px */
+  gap: 8px; /* Reduced to 8px */
   flex: 1;
   position: relative;
   padding-left: 45px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 0;
+  padding-bottom: 0;
   border: none;
   margin: 0;
-  overflow-y: hidden; /* Hide scrollbar if possible, or auto */
+  overflow-y: hidden;
+}
+
+/* ... existing timeline styles ... */
+
+.schedule-card-inner {
+  display: flex;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: #fafbfc;
+  transition: all 0.2s;
+  align-items: center;
+  border: 1px solid #f0f2f5;
+  height: 100%; /* Fill wrapper */
+  box-sizing: border-box;
 }
 
 /* Calendar Styles */
@@ -329,6 +344,8 @@ export default {
 .schedule-item {
   position: relative;
   transition: all 0.2s;
+  height: 42px; /* Enforcing height on wrapper */
+  box-sizing: border-box;
 }
 
 .timeline-dot {
@@ -376,6 +393,8 @@ export default {
   transition: all 0.2s;
   align-items: center; /* Better vertical alignment */
   border: 1px solid #f0f2f5;
+  height: 42px;
+  box-sizing: border-box;
 }
 
 .schedule-item.meeting .schedule-card-inner {
@@ -406,7 +425,7 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0px;
 }
 
 .schedule-title {
