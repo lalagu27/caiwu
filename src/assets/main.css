@@ -1,0 +1,113 @@
+:root {
+  /* 精确匹配参考图配色 */
+  --primary-color: #4A7BF7;
+  /* 主蓝色 - 图表主色 */
+  --primary-dark: #3A6BE6;
+  --primary-light: #E3F0FF;
+  /* 蓝色卡片背景 */
+  --accent-color: #FF9F43;
+  --accent-light: #FFE9D9;
+  /* 橙色卡片背景 */
+  --secondary-color: #5FC9F8;
+
+  /* 文字色 */
+  --text-primary: #2C3E50;
+  --text-secondary: #7F8C8D;
+  --text-tertiary: #BDC3C7;
+  --text-color: #2C3E50;
+
+  /* 背景色 - 精确匹配参考图 */
+  --bg-main: #E8EDF5;
+  /* 浅蓝灰主背景 */
+  --bg-card: #FFFFFF;
+  /* 卡片白色背景 */
+  --bg-hover: #F8FAFB;
+  --bg-color: #E8EDF5;
+  --border-color: #D8DEE9;
+  /* 边框色 */
+
+  /* 卡片背景色 - 参考图精确匹配 */
+  --card-blue-bg: #E3F0FF;
+  --card-orange-bg: #FFE9D9;
+  --card-purple-bg: #F3E8FF;
+  --card-pink-bg: #FFE4E8;
+  --card-green-bg: #E8F5E9;
+
+  /* 语义色 */
+  --success-color: #52C41A;
+  --warning-color: #FAAD14;
+  --danger-color: #F5222D;
+  --info-color: #1890FF;
+
+  /* 渐变色 */
+  --gradient-blue: linear-gradient(135deg, #5B8FF9 0%, #4A7BF7 100%);
+  --gradient-orange: linear-gradient(135deg, #FFB067 0%, #FF9F43 100%);
+  --gradient-green: linear-gradient(135deg, #6DD592 0%, #52C41A 100%);
+
+  /* 阴影系统 - 更柔和 */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 8px 0 rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 16px 0 rgba(0, 0, 0, 0.10);
+  --shadow-xl: 0 12px 24px 0 rgba(0, 0, 0, 0.12);
+
+  /* 间距系统 */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* 圆角系统 */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  /* 字体大小层级 */
+  --font-xs: 10px;
+  --font-sm: 11px;
+  --font-base: 12px;
+  --font-md: 13px;
+  --font-lg: 14px;
+  --font-xl: 16px;
+  --font-2xl: 20px;
+  --font-3xl: 24px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: var(--bg-main);
+  min-height: 100vh;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
