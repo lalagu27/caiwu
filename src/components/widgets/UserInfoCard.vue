@@ -157,26 +157,26 @@ export default {
   position: absolute;
   top: 12px;
   right: 12px;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(8px);
-  padding: 6px 12px;
-  border-radius: 20px;
-  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.15);
+  /* Removed heavy badge styles for a cleaner look */
+  padding: 4px 8px;
   display: flex;
   align-items: center;
   gap: 6px;
   font-size: 12px;
-  font-weight: 600;
-  color: #2196f3;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  font-family: "Roboto Mono", monospace;
+  font-weight: 500;
+  color: #909399; /* Subtle gray */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
   z-index: 10;
   transition: all 0.3s ease;
+  opacity: 0.8;
 }
 
 .date-badge:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.25);
+  opacity: 1;
+  color: #409eff; /* Highlight on hover */
+  background: rgba(255, 255, 255, 0.5); /* Very subtle hover bg */
+  border-radius: 12px;
 }
 
 .date-badge i {
