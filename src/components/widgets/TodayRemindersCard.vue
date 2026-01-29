@@ -59,8 +59,12 @@ export default {
 }
 
 .today-reminders-card ::v-deep .el-card__header {
-  padding: 8px 12px; /* Reduced padding */
-  border-bottom: 1px solid #f2f6fc;
+  padding: 8px 12px;
+  height: 48px; /* Fixed height for alignment */
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px dashed #dcdfe6; /* Dashed separator */
 }
 
 .today-reminders-card ::v-deep .el-card__body {

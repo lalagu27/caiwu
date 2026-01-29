@@ -474,7 +474,7 @@ export default {
 
 .kpi-cards-container ::v-deep .el-card__header {
   padding: 8px 12px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: none; /* Remove separator line */
 }
 
 .kpi-cards-container ::v-deep .el-card__body {

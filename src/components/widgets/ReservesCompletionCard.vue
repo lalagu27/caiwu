@@ -162,7 +162,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: none; /* Remove separator line */
 }
 
 .chart-header h3 {

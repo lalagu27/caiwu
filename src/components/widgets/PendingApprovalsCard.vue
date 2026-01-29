@@ -115,7 +115,11 @@ export default {
 
 .pending-approvals-card ::v-deep .el-card__header {
   padding: 8px 12px;
-  border-bottom: 1px solid #f2f6fc;
+  height: 48px; /* Fixed height for alignment */
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px dashed #dcdfe6; /* Dashed separator */
 }
 
 .pending-approvals-card ::v-deep .el-card__body {
