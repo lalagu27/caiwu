@@ -124,11 +124,11 @@ export default {
                 color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
                   {
                     offset: 0,
-                    color: ["#4A90E2", "#5AD8A6", "#F6BD16"][index],
+                    color: "#2B3674", // Theme Blue
                   },
                   {
                     offset: 1,
-                    color: ["#6BA3E8", "#7FE4BB", "#F8C947"][index],
+                    color: "#4A7BF7", // Lighter Tech Blue
                   },
                 ]),
                 borderRadius: 6,
@@ -188,17 +188,23 @@ export default {
 
 <style scoped>
 .chart-card {
-  background: #ffffff;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  background: var(--bg-card);
   border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
   flex: 1;
   display: flex;
   flex-direction: column;
   min-height: 0;
   overflow: hidden;
+  transition: all 0.3s ease;
 }
 
+.chart-card:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: #d0d7e8;
+  transform: translateY(-2px);
+}
 .chart-card ::v-deep .el-card__header {
   padding: 0 12px;
   height: 48px;

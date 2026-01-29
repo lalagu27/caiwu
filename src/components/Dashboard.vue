@@ -271,8 +271,8 @@ export default {
             smooth: false,
             symbol: "circle",
             symbolSize: 4,
-            lineStyle: { color: "#00C292", width: 2 },
-            itemStyle: { color: "#00C292" },
+            lineStyle: { color: "#2B3674", width: 2 }, // Theme Blue
+            itemStyle: { color: "#2B3674" },
           },
           {
             name: "销售气量",
@@ -284,8 +284,8 @@ export default {
             smooth: false,
             symbol: "circle",
             symbolSize: 4,
-            lineStyle: { color: "#FF5252", width: 2 },
-            itemStyle: { color: "#FF5252" },
+            lineStyle: { color: "#4A7BF7", width: 2 }, // Tech Blue
+            itemStyle: { color: "#4A7BF7" },
           },
         ],
       });
@@ -381,7 +381,7 @@ export default {
             type: "bar",
             stack: "plan",
             data: planOil,
-            itemStyle: { color: "#b2f7c9" },
+            itemStyle: { color: "#A3AED0" }, // Plan = Mid Grey
             barWidth: "30%",
           },
           {
@@ -389,7 +389,7 @@ export default {
             type: "bar",
             stack: "plan",
             data: planGas,
-            itemStyle: { color: "#f7b2b2" },
+            itemStyle: { color: "#D3D9E6" }, // Plan = Light Grey
             barWidth: "30%",
           },
           // 实际堆叠柱
@@ -398,7 +398,8 @@ export default {
             type: "bar",
             stack: "act",
             data: actOil,
-            itemStyle: { color: "#00e600" },
+            data: actOil,
+            itemStyle: { color: "#2B3674" }, // Act = Theme Blue
             barWidth: "30%",
           },
           {
@@ -406,7 +407,8 @@ export default {
             type: "bar",
             stack: "act",
             data: actGas,
-            itemStyle: { color: "#ff0000" },
+            data: actGas,
+            itemStyle: { color: "#4A7BF7" }, // Act = Tech Blue
             barWidth: "30%",
           },
           // 折线图
@@ -415,7 +417,7 @@ export default {
             type: "line",
             yAxisIndex: 1,
             data: planAcc,
-            itemStyle: { color: "#ff8c00" },
+            itemStyle: { color: "#A3AED0" }, // Plan Line = Grey
             lineStyle: { width: 2 },
           },
           {
@@ -423,9 +425,9 @@ export default {
             type: "line",
             yAxisIndex: 1,
             data: actAcc,
-            itemStyle: { color: "#800080" },
+            itemStyle: { color: "#2B3674" }, // Act Line = Theme Blue
             lineStyle: { width: 2 },
-            symbol: "diamond",
+            symbol: "circle",
             symbolSize: 8,
           },
         ],
@@ -454,10 +456,10 @@ export default {
         series: [
           {
             data: [
-              { value: 120, itemStyle: { color: "#5B8FF9" } },
-              { value: 180, itemStyle: { color: "#FF9F43" } },
-              { value: 150, itemStyle: { color: "#5B8FF9" } },
-              { value: 80, itemStyle: { color: "#FF9F43" } },
+              { value: 120, itemStyle: { color: "#2B3674" } }, // Theme Blue
+              { value: 180, itemStyle: { color: "#4A7BF7" } }, // Tech Blue
+              { value: 150, itemStyle: { color: "#2B3674" } },
+              { value: 80, itemStyle: { color: "#4A7BF7" } },
             ],
             type: "bar",
             barWidth: "40%",
@@ -495,12 +497,12 @@ export default {
             smooth: true,
             symbol: "circle",
             symbolSize: 4,
-            lineStyle: { color: "#52C41A", width: 2 },
-            itemStyle: { color: "#52C41A" },
+            lineStyle: { color: "#2B3674", width: 2 }, // Theme Blue
+            itemStyle: { color: "#2B3674" },
             areaStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "rgba(82, 196, 26, 0.15)" },
-                { offset: 1, color: "rgba(82, 196, 26, 0.02)" },
+                { offset: 0, color: "rgba(43, 54, 116, 0.15)" },
+                { offset: 1, color: "rgba(43, 54, 116, 0.02)" },
               ]),
             },
           },
@@ -619,7 +621,7 @@ export default {
             type: "bar",
             data: [33, null, null, null, null],
             barWidth: 15,
-            itemStyle: { color: "#EF6C00" }, // 橙色
+            itemStyle: { color: "#2B3674" }, // Theme Blue
             yAxisIndex: 0,
           },
           // 本年 - 其他 (右轴)
@@ -628,7 +630,7 @@ export default {
             type: "bar",
             data: [null, 17, 29, 15, 17],
             barWidth: 15,
-            itemStyle: { color: "#EF6C00" },
+            itemStyle: { color: "#2B3674" },
             yAxisIndex: 1,
           },
           // 上年 - 现金流 (左轴)
@@ -637,7 +639,7 @@ export default {
             type: "bar",
             data: [32.5, null, null, null, null],
             barWidth: 15,
-            itemStyle: { color: "#AB47BC" }, // 紫色
+            itemStyle: { color: "#A3AED0" }, // Grey
             yAxisIndex: 0,
           },
           // 上年 - 其他 (右轴)
@@ -646,7 +648,7 @@ export default {
             type: "bar",
             data: [null, 20, 16, 18, 20],
             barWidth: 15,
-            itemStyle: { color: "#AB47BC" },
+            itemStyle: { color: "#A3AED0" }, // Grey
             yAxisIndex: 1,
           },
         ],
@@ -730,11 +732,13 @@ export default {
 }
 
 .center-col .center-visual {
-  flex: 0 0 auto;
+  flex: 2; /* 占2份，形成2:1比例 */
+  min-height: 0;
 }
 
 .center-col .chart-bottom {
-  flex: 1 0 280px;
+  flex: 1; /* 占1份，形成2:1比例 */
+  min-height: 0;
 }
 
 /* Chart Cards */
@@ -798,14 +802,15 @@ export default {
 }
 
 .tab {
-  padding: 2px 8px;
+  padding: 1px 6px; /* Reduced padding */
   background: transparent;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
-  font-size: var(--font-xs);
+  font-size: 12px; /* Explicit small font */
   color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.2s;
+  line-height: 1.5;
 }
 
 .tab.active {

@@ -138,8 +138,8 @@ export default {
             barWidth: 12,
             itemStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "#4A90E2" },
-                { offset: 1, color: "#357ABD" },
+                { offset: 0, color: "#2B3674" }, // Theme Blue for Completed
+                { offset: 1, color: "#4A7BF7" },
               ]),
               borderRadius: [4, 4, 0, 0],
             },
@@ -158,17 +158,23 @@ export default {
 
 <style scoped>
 .chart-card {
-  background: #ffffff;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  background: var(--bg-card);
   border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
   flex: 1;
   display: flex;
   flex-direction: column;
   min-height: 0;
   overflow: hidden;
+  transition: all 0.3s ease;
 }
 
+.chart-card:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: #d0d7e8;
+  transform: translateY(-2px);
+}
 .chart-card ::v-deep .el-card__header {
   padding: 0 12px;
   height: 48px;
@@ -217,20 +223,20 @@ export default {
 }
 
 .tab {
-  padding: 2px 8px;
+  padding: 1px 6px; /* Matched to Dashboard */
   background: transparent;
-  border: 1px solid var(--border-color, #ebeef5);
-  border-radius: 2px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
   font-size: 12px;
-  color: #909399;
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.2s;
-  outline: none;
+  line-height: 1.5;
 }
 
 .tab.active {
-  background: #409eff;
+  background: var(--primary-color); /* Navy Blue */
   color: white;
-  border-color: #409eff;
+  border-color: var(--primary-color);
 }
 </style>

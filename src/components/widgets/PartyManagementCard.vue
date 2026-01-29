@@ -45,16 +45,14 @@ export default {
 
 <style scoped>
 .party-management-card {
-  background: linear-gradient(to bottom, #e3f2fd, #f5f9ff);
-  border-top: 3px solid #2196f3;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  border: 1px solid #ebeef5;
-  /* border-left removed */
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
   display: flex;
   flex-direction: column;
   height: 100%;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
 }
 
 .party-management-card ::v-deep .el-card__header {
@@ -71,7 +69,8 @@ export default {
 }
 
 .party-management-card:hover {
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-sm);
+  border-color: #d0d7e8;
   transform: translateY(-2px);
 }
 
@@ -83,16 +82,16 @@ export default {
 }
 
 .header-icon {
-  width: 30px; /* Reduced from 36px */
-  height: 30px; /* Reduced from 36px */
-  border-radius: 12px;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #f4f7fe; /* Uniform Neutral */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px; /* Reduced from 18px */
-  color: #fff;
-  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2);
+  font-size: 16px;
+  color: #2b3674; /* Uniform Navy */
+  box-shadow: none;
 }
 
 .header-text {
@@ -154,30 +153,16 @@ export default {
   transition: all 0.3s ease;
 }
 
-/* Individual Colors for Icons */
-.module-0 .icon-wrapper {
-  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-  color: #2563eb;
+/* Strict De-noising: Unified Icons */
+.module-item .icon-wrapper {
+  background: #f4f7fe; /* Light Grey/Blue */
+  color: #2b3674; /* Navy Blue */
 }
-.module-1 .icon-wrapper {
-  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-  color: #16a34a;
-}
-.module-2 .icon-wrapper {
-  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
-  color: #ea580c;
-}
-.module-3 .icon-wrapper {
-  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-  color: #dc2626;
-}
-.module-4 .icon-wrapper {
-  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
-  color: #9333ea;
-}
-.module-5 .icon-wrapper {
-  background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
-  color: #0891b2;
+
+.module-item:hover .icon-wrapper {
+  background: #2b3674;
+  color: #fff;
+  transform: scale(1.05); /* Subtle scale */
 }
 
 .module-item:hover .icon-wrapper {
@@ -185,7 +170,7 @@ export default {
 }
 
 .module-name {
-  font-size: 13px;
+  font-size: 13px; /* 统一内容字体 */
   font-weight: 600;
   color: #4b5563;
   transition: color 0.3s;

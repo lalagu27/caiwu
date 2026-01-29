@@ -1,111 +1,102 @@
 :root {
-  /* 精确匹配参考图配色 */
-  --primary-color: #4A7BF7;
-  /* 主蓝色 - 图表主色 */
-  --primary-dark: #3A6BE6;
-  --primary-light: #E3F0FF;
-  /* 蓝色卡片背景 */
-  --accent-color: #FF9F43;
-  --accent-light: #FFE9D9;
-  /* 橙色卡片背景 */
-  --secondary-color: #5FC9F8;
+  /* =========================================
+     Strict Visual De-noising Palette
+     Theme: Industrial Deep Blue / Tech Grey
+     ========================================= */
 
-  /* 文字色 */
-  --text-primary: #2C3E50;
-  --text-secondary: #7F8C8D;
-  --text-tertiary: #BDC3C7;
-  --text-color: #2C3E50;
+  /* 1. Primary Brand Colors (Industrial/Energy) */
+  --primary-color: #2B3674;
+  /* Deep Navy Blue - Main Brand */
+  --primary-light: #F4F7FE;
+  /* Very Light Blue-Grey - Page BG */
+  --primary-dark: #1B2559;
+  /* Darker Navy - Headings */
 
-  /* 背景色 - 精确匹配参考图 */
-  --bg-main: #E8EDF5;
-  /* 浅蓝灰主背景 */
+  /* 2. Semantic Colors (Strict Usage) */
+  --success-color: #05CD99;
+  /* Green - ONLY for Growth/Success */
+  --warning-color: #FFB547;
+  /* Orange - ONLY for Warning/Pre-alert */
+  --danger-color: #EE5D50;
+  /* Red - ONLY for Failure/Decline/Alert */
+  --info-color: #2B3674;
+  /* Neutral Information - Use Primary */
+
+  /* 3. Neutral/Grey Scale (Text & Borders) */
+  --text-primary: #1B2559;
+  /* Dark Navy for high emphasis text */
+  --text-secondary: #8F9BBA;
+  /* Cool Grey for labels/secondary text */
+  --text-tertiary: #A3AED0;
+  /* Lighter Grey */
+  --border-color: #E0E5F2;
+  /* Subtle cool grey border */
+
+  /* 4. Backgrounds */
+  --bg-main: #F4F7FE;
+  /* Page Background */
   --bg-card: #FFFFFF;
-  /* 卡片白色背景 */
-  --bg-hover: #F8FAFB;
-  --bg-color: #E8EDF5;
-  --border-color: #D8DEE9;
-  /* 边框色 */
+  /* Card Background */
+  --bg-hover: #F8F9FA;
+  /* Hover State */
 
-  /* 卡片背景色 - 参考图精确匹配 */
-  --card-blue-bg: #E3F0FF;
-  --card-orange-bg: #FFE9D9;
-  --card-purple-bg: #F3E8FF;
-  --card-pink-bg: #FFE4E8;
-  --card-green-bg: #E8F5E9;
+  /* 5. Components - De-noised */
+  /* Shadows: Removed heavy floating shadows, kept extremely subtle depth */
+  --shadow-none: none;
+  --shadow-xs: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0px 4px 10px rgba(112, 144, 176, 0.08);
+  /* Very soft */
 
-  /* 语义色 */
-  --success-color: #52C41A;
-  --warning-color: #FAAD14;
-  --danger-color: #F5222D;
-  --info-color: #1890FF;
-
-  /* 渐变色 */
-  --gradient-blue: linear-gradient(135deg, #5B8FF9 0%, #4A7BF7 100%);
-  --gradient-orange: linear-gradient(135deg, #FFB067 0%, #FF9F43 100%);
-  --gradient-green: linear-gradient(135deg, #6DD592 0%, #52C41A 100%);
-
-  /* 阴影系统 - 更柔和 */
-  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
-  --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 8px 0 rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 16px 0 rgba(0, 0, 0, 0.10);
-  --shadow-xl: 0 12px 24px 0 rgba(0, 0, 0, 0.12);
-
-  /* 间距系统 */
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
-
-  /* 圆角系统 */
+  /* Radius: Softer 8-12px range as requested */
   --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-
-  /* 字体大小层级 */
-  --font-xs: 10px;
-  --font-sm: 11px;
-  --font-base: 12px;
-  --font-md: 13px;
-  --font-lg: 14px;
-  --font-xl: 16px;
-  --font-2xl: 20px;
-  --font-3xl: 24px;
+  --radius-md: 10px;
+  /* Standard Card Radius */
+  --radius-lg: 12px;
 }
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
-    'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--text-primary);
-  font-size: 14px;
-  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   background-color: var(--bg-main);
-  min-height: 100vh;
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Scrollbar styling */
+/* Generalized De-noised Card Style */
+.d-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  /* Thin border */
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+  /* Minimal shadow */
+  transition: all 0.2s ease;
+}
+
+.d-card:hover {
+  box-shadow: var(--shadow-sm);
+  /* Subtle lift */
+  border-color: #d0d7e8;
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-track {
   background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

@@ -61,7 +61,7 @@
     <!-- Calendar View -->
     <div v-else class="calendar-wrapper">
       <el-calendar v-model="currentDate">
-        <template slot="dateCell" slot-scope="{ date, data }">
+        <template slot="dateCell" slot-scope="{ data }">
           <el-tooltip
             v-if="hasSchedule(data.day)"
             class="item"
@@ -147,12 +147,10 @@ export default {
 
 <style scoped>
 .weekly-schedule-card {
-  background: linear-gradient(to bottom, #e3f2fd, #f5f9ff);
-  border-top: 3px solid #2196f3;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  border: 1px solid #ebeef5;
-  /* border-left removed */
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -175,7 +173,8 @@ export default {
 }
 
 .weekly-schedule-card:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
+  border-color: #d0d7e8;
   transform: translateY(-2px);
 }
 
@@ -196,16 +195,16 @@ export default {
 }
 
 .header-icon {
-  width: 30px; /* Reduced from 32px */
-  height: 30px; /* Reduced from 32px */
-  border-radius: 8px; /* Standardized rounded square */
-  background: rgba(59, 130, 246, 0.1);
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #f4f7fe; /* Uniform Neutral */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px; /* Increased size */
+  font-size: 16px;
   flex-shrink: 0;
-  color: #3b82f6;
+  color: #2b3674; /* Uniform Navy */
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -230,7 +229,7 @@ export default {
 
 .schedule-count {
   font-size: 12px;
-  color: #409eff; /* Changed to Blue */
+  color: var(--primary-color);
   margin-top: 0;
   font-weight: 600;
 }
@@ -312,7 +311,7 @@ export default {
 }
 
 .calendar-wrapper ::v-deep .el-calendar-table td.is-selected .text {
-  background: #409eff;
+  background: #2b3674; /* Navy */
   color: #fff;
   border-radius: 50%;
   width: 20px;
@@ -342,7 +341,7 @@ export default {
 }
 
 .is-today {
-  color: #409eff;
+  color: #2b3674; /* Navy */
   font-weight: bold;
 }
 
@@ -390,13 +389,13 @@ export default {
 
 /* Soft color variants for different types */
 .schedule-item.meeting .timeline-dot {
-  background: #7db4e6;
-  box-shadow: 0 0 0 2px rgba(125, 180, 230, 0.2);
+  background: #2b3674; /* Navy */
+  box-shadow: 0 0 0 2px rgba(43, 54, 116, 0.1);
 }
 
 .schedule-item.trip .timeline-dot {
-  background: #9fc5e8;
-  box-shadow: 0 0 0 2px rgba(159, 197, 232, 0.2);
+  background: #a3aed0; /* Grey for trip */
+  box-shadow: 0 0 0 2px rgba(163, 174, 208, 0.2);
 }
 
 .schedule-item:hover .timeline-dot {
@@ -426,6 +425,11 @@ export default {
   border-color: #e8f3fc;
 }
 
+.schedule-item:hover .schedul.week-day.active {
+  background: #2b3674; /* Navy */
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(43, 54, 116, 0.2);
+}
 .schedule-item:hover .schedule-card-inner {
   background: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -448,7 +452,7 @@ export default {
 }
 
 .schedule-title {
-  font-size: 14px;
+  font-size: 13px; /* 统一内容字体 */
   font-weight: 600;
   color: #303133;
 }
@@ -462,6 +466,6 @@ export default {
   padding: 0 4px;
   font-size: 12px;
   margin-left: auto; /* Push to right */
-  color: #409eff;
+  color: #2b3674; /* 统一Navy蓝 */
 }
 </style>

@@ -101,17 +101,16 @@ export default {
 
 <style scoped>
 .pending-approvals-card {
-  background: linear-gradient(to bottom, #e3f2fd, #f5f9ff);
-  border-top: 3px solid #2196f3;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  border: 1px solid #ebeef5;
-  /* border-left removed */
   position: relative;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   height: 100%;
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow-xs);
 }
 
 .pending-approvals-card ::v-deep .el-card__header {
@@ -145,18 +144,18 @@ export default {
 }
 
 .header-icon {
-  width: 30px; /* Reduced from 36px */
-  height: 30px; /* Reduced from 36px */
-  border-radius: 12px;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #f4f7fe; /* Uniform Neutral */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px; /* Reduced from 18px */
+  font-size: 16px;
   flex-shrink: 0;
   font-weight: 700;
-  color: #fff;
-  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2);
+  color: #2b3674; /* Uniform Navy */
+  box-shadow: none;
 }
 
 .header-text {
@@ -167,17 +166,17 @@ export default {
 }
 
 .card-title {
-  font-size: 14px; /* Reduced from 16px */
+  font-size: 14px; /* 统一标题字体 */
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-primary);
   line-height: 1.2;
 }
 
 .card-subtitle {
   font-size: 12px;
-  color: #409eff; /* Changed to Blue */
+  color: #2b3674; /* Navy */
   margin-top: 0;
-  font-weight: 600; /* Standardized to 600 */
+  font-weight: 600;
 }
 
 .approvals-list {
@@ -237,34 +236,16 @@ export default {
   transition: all 0.3s ease;
 }
 
-/* Individual Colors for Icons - matching gradient style */
-.approval-0 .icon-wrapper {
-  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-  color: #2563eb;
-}
-.approval-1 .icon-wrapper {
-  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-  color: #16a34a;
-}
-.approval-2 .icon-wrapper {
-  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
-  color: #ea580c;
-}
-.approval-3 .icon-wrapper {
-  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-  color: #dc2626;
-}
-.approval-4 .icon-wrapper {
-  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
-  color: #9333ea;
-}
-.approval-5 .icon-wrapper {
-  background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
-  color: #0891b2;
+/* Strict De-noising: Unified Icons */
+.approval-item .icon-wrapper {
+  background: #f4f7fe; /* Light Grey/Blue */
+  color: #2b3674; /* Navy Blue */
 }
 
 .approval-item:hover .icon-wrapper {
-  transform: scale(1.1);
+  background: #2b3674;
+  color: #ffffff;
+  /* 移除缩放效果，保持稳定 */
 }
 
 .approval-info {
@@ -275,7 +256,7 @@ export default {
 }
 
 .approval-name {
-  font-size: 13px;
+  font-size: 13px; /* 统一内容字体 */
   color: #374151;
   font-weight: 600;
 }
@@ -298,9 +279,9 @@ export default {
 }
 
 .approval-item:hover .approval-badge {
-  background: #3b82f6;
+  background: #2b3674; /* Navy */
   color: #fff;
-  border-color: #3b82f6;
+  border-color: #2b3674;
 }
 
 .expand-icon {

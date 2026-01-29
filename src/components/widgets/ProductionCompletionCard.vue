@@ -167,7 +167,7 @@ export default {
             type: "bar",
             stack: "plan",
             data: rawData.planOil,
-            itemStyle: { color: "#9ef7ba" }, // Light Green
+            itemStyle: { color: "#A3AED0" }, // Plan Oil = Mid Grey
             barWidth: "25%",
           },
           {
@@ -175,7 +175,7 @@ export default {
             type: "bar",
             stack: "plan",
             data: scaledData.planGas, // Scaled data
-            itemStyle: { color: "#f59da1" }, // Light Red
+            itemStyle: { color: "#D3D9E6" }, // Plan Gas = Light Grey
             barWidth: "25%",
           },
           // Stack 2: Actual
@@ -184,7 +184,7 @@ export default {
             type: "bar",
             stack: "act",
             data: rawData.actOil,
-            itemStyle: { color: "#00e600" }, // Bright Green
+            itemStyle: { color: "#2B3674" }, // Act Oil = Navy Blue (Standard)
             barWidth: "25%",
           },
           {
@@ -192,7 +192,7 @@ export default {
             type: "bar",
             stack: "act",
             data: scaledData.actGas, // Scaled data
-            itemStyle: { color: "#ff0000" }, // Red
+            itemStyle: { color: "#4318FF" }, // Act Gas = Vivid Blue
             barWidth: "25%",
           },
         ],
@@ -206,10 +206,18 @@ export default {
 
 <style scoped>
 .chart-card {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
   min-height: 250px;
+  transition: all 0.3s ease;
+}
+
+.chart-card:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: #d0d7e8;
+  transform: translateY(-2px);
 }
 
 .chart-card ::v-deep .el-card__header {

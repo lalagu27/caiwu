@@ -3,10 +3,10 @@
     class="center-visual"
     :body-style="{
       padding: '12px',
-      height: 'auto',
+      flex: 1,
       display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      flexDirection: 'column',
+      minHeight: 0,
     }"
   >
     <div class="visual-content">
@@ -31,20 +31,34 @@ export default {
 <style scoped>
 .center-visual {
   position: relative;
-  height: auto;
+  height: 100%; /* 响应父容器flex高度 */
   background: #fff;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.center-visual ::v-deep .el-card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .visual-content {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .kpi-overlay {
   width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 </style>

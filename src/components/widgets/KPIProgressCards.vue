@@ -213,11 +213,9 @@ export default {
       }
     },
     getSegmentColor(n) {
-      // 使用 360 度全色谱，每30度一个颜色，确保每段颜色区分明显
-      // 从红色(0)到紫红色(330)
-      const hue = (n - 1) * 30;
-      // 稍微调整饱和度和亮度让颜色更鲜艳清晰
-      return `hsl(${hue}, 90%, 60%)`;
+      // De-noised: Use Theme Blue gradient or single color
+      // Opacity change or single color for clean look
+      return "var(--primary-color)";
     },
     initChart1() {
       if (!this.$refs.chart1) return;
@@ -270,10 +268,7 @@ export default {
             type: "bar",
             barWidth: "60%",
             itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "#4A90E2" },
-                { offset: 1, color: "#357ABD" },
-              ]),
+              color: "#2B3674", // Theme Blue
               borderRadius: [2, 2, 0, 0],
             },
           },
@@ -339,16 +334,16 @@ export default {
             smooth: true,
             symbol: "circle",
             symbolSize: 6,
-            lineStyle: { color: "#FF9F43", width: 2 },
+            lineStyle: { color: "#2B3674", width: 2 }, // Navy Blue (Neutral/Corporate)
             itemStyle: {
-              color: "#FF9F43",
+              color: "#2B3674",
               borderWidth: 2,
               borderColor: "#fff",
             },
             areaStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "rgba(255, 159, 67, 0.3)" },
-                { offset: 1, color: "rgba(255, 159, 67, 0.05)" },
+                { offset: 0, color: "rgba(43, 54, 116, 0.2)" },
+                { offset: 1, color: "rgba(43, 54, 116, 0.05)" },
               ]),
             },
             markLine: {
@@ -428,10 +423,7 @@ export default {
             type: "bar",
             barWidth: "60%",
             itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "#9C27B0" },
-                { offset: 1, color: "#7B1FA2" },
-              ]),
+              color: "#2B3674", // Theme Blue
               borderRadius: [2, 2, 0, 0],
             },
           },
@@ -491,10 +483,7 @@ export default {
             type: "bar",
             barWidth: "60%",
             itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "#52C41A" },
-                { offset: 1, color: "#389E0D" },
-              ]),
+              color: "#2B3674", // Theme Blue
               borderRadius: [2, 2, 0, 0],
             },
           },
@@ -558,7 +547,7 @@ export default {
 }
 
 .kpi-card {
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   padding: 10px;
@@ -570,7 +559,8 @@ export default {
 }
 
 .kpi-card:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
+  border-color: #d0d7e8;
   transform: translateY(-2px);
 }
 
@@ -590,17 +580,14 @@ export default {
   font-size: 14px;
 }
 
-.kpi-icon.profit {
-  background: linear-gradient(135deg, #4a90e2, #357abd);
-}
-.kpi-icon.cost {
-  background: linear-gradient(135deg, #ff9f43, #ff6b6b);
-}
-.kpi-icon.investment {
-  background: linear-gradient(135deg, #9c27b0, #7b1fa2);
-}
+/* Unified Icon Backgrounds - De-noised */
+/* Strict De-noising: Unified Icons */
+.kpi-icon.profit,
+.kpi-icon.cost,
+.kpi-icon.investment,
 .kpi-icon.revenue {
-  background: linear-gradient(135deg, #52c41a, #389e0d);
+  background: #f4f7fe; /* Light Grey/Blue Background */
+  color: #2b3674; /* Deep Navy Blue Icon */
 }
 
 .kpi-title {

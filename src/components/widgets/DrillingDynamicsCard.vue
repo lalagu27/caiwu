@@ -3,7 +3,7 @@
     class="drilling-dynamics-card"
     :body-style="{
       padding: '0px',
-      height: '100%',
+      flex: 1,
       display: 'flex',
       flexDirection: 'column',
     }"
@@ -97,24 +97,43 @@ export default {
 
 <style scoped>
 .drilling-dynamics-card {
-  background: #ffffff;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  background: var(--bg-card);
   border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
   flex: 1;
   display: flex;
   flex-direction: column;
   min-height: 0;
   overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.drilling-dynamics-card:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: #d0d7e8;
+  transform: translateY(-2px);
 }
 
 .drilling-dynamics-card ::v-deep .el-card__header {
   padding: 0 12px !important;
   height: 48px !important;
+  min-height: 48px !important;
+  max-height: 48px !important;
   display: flex !important;
   align-items: center !important;
   border-bottom: 1px solid var(--border-color);
   box-sizing: border-box;
+  background-color: transparent;
+  flex-shrink: 0 !important;
+}
+
+.drilling-dynamics-card ::v-deep .el-card__body {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
 }
 
 /* Inner header container */
@@ -129,9 +148,9 @@ export default {
 .chart-header h3 {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 8px; /* Standard gap */
   margin: 0;
-  font-size: 14px; /* Standardized to 14px */
+  font-size: 14px; /* Standard font */
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -139,21 +158,21 @@ export default {
 .chart-header h3::before {
   content: "";
   display: inline-block;
-  width: 4px;
-  height: 14px;
-  background: #4a7bf7; /* Blue accent to match others */
+  width: 4px; /* Standard marker */
+  height: 14px; /* Standard marker height */
+  background: #4a7bf7;
   border-radius: 2px;
 }
 
 .header-date {
-  font-size: 12px;
+  font-size: 12px; /* Standard date font */
   color: #999;
   font-weight: normal;
 }
 
 .table-container {
   flex: 1;
-  overflow: auto;
+  overflow-y: auto; /* Keep scroll */
   padding: 0;
 }
 
@@ -165,35 +184,37 @@ export default {
 }
 
 .custom-table th {
-  background-color: #e3f2fd; /* Light blue header */
-  color: #606266;
+  background-color: #f8fafc; /* Very light grey, almost white */
+  color: #64748b; /* Slate Grey for headers */
   font-weight: 600;
-  padding: 8px 4px;
+  padding: 10px 8px; /* Slightly more padding */
   text-align: center;
   white-space: nowrap;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .custom-table td {
-  padding: 8px 4px;
+  padding: 10px 8px;
   text-align: center;
-  border-bottom: 1px solid #ebeef5;
-  color: #333;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155; /* Dark grey for content */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .custom-table tr:hover td {
-  background-color: #fafafa;
+  background-color: #f8fafc;
 }
 
 .well-name {
-  color: #67c23a; /* Green text */
-  font-weight: 600;
+  color: #2b3674; /* Navy Blue */
+  font-weight: 600; /* Reduced from 700 */
 }
 
 .activity-content {
   text-align: left;
-  padding-left: 8px;
+  padding-left: 12px;
+  color: #475569;
 }
 </style>

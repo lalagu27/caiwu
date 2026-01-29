@@ -19,7 +19,7 @@
       <div class="avatar">
         <i
           class="el-icon-user-solid"
-          style="font-size: 40px; color: #7986cb"
+          style="font-size: 40px; color: #2b3674"
         ></i>
       </div>
       <div class="online-indicator"></div>
@@ -132,10 +132,10 @@ export default {
 
 <style scoped>
 .user-info-card {
-  background: linear-gradient(to bottom, #e3f2fd, #f5f9ff);
-  border-top: 3px solid #2196f3;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -144,39 +144,27 @@ export default {
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
-  border: 1px solid #ebeef5;
-  /* border-left removed for cleaner look */
 }
 
 .user-info-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
+  border-color: #d0d7e8;
+  transform: translateY(-2px);
 }
 
 .date-badge {
   position: absolute;
   top: 12px;
   right: 12px;
-  /* Removed heavy badge styles for a cleaner look */
   padding: 4px 8px;
   display: flex;
   align-items: center;
   gap: 6px;
   font-size: 12px;
   font-weight: 500;
-  color: #909399; /* Subtle gray */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-secondary);
+  font-family: -apple-system, sans-serif;
   z-index: 10;
-  transition: all 0.3s ease;
-  opacity: 0.8;
-}
-
-.date-badge:hover {
-  opacity: 1;
-  color: #409eff; /* Highlight on hover */
-  background: rgba(255, 255, 255, 0.5); /* Very subtle hover bg */
-  border-radius: 12px;
 }
 
 .date-badge i {
@@ -189,17 +177,16 @@ export default {
 }
 
 .avatar {
-  width: 70px; /* Reduced from 90px */
-  height: 70px; /* Reduced from 90px */
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  padding: 4px;
-  background: rgba(103, 58, 183, 0.1);
-  box-shadow: 0 4px 12px rgba(103, 58, 183, 0.15);
-  transition: transform 0.3s ease;
+  padding: 0;
+  background: #eff4fb; /* Light Tech Grey */
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden; /* Ensure circle shape */
+  color: #2b3674; /* Navy Blue */
+  font-size: 32px;
 }
 
 /* ... existing styles ... */
@@ -213,10 +200,10 @@ export default {
 }
 
 .user-name {
-  font-size: 18px; /* Reduced from 22px */
+  font-size: 16px;
   font-weight: 700;
-  color: #303133;
-  letter-spacing: 0.5px;
+  color: var(--text-primary);
+  margin-bottom: 2px;
 }
 
 /* ... existing styles ... */
@@ -233,9 +220,9 @@ export default {
 }
 
 .stat-value {
-  font-size: 16px; /* Reduced from 18px */
+  font-size: 16px;
   font-weight: 700;
-  color: #3b82f6;
+  color: var(--primary-color);
   line-height: 1;
 }
 

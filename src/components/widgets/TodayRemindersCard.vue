@@ -86,20 +86,21 @@ export default {
 
 <style scoped>
 .today-reminders-card {
-  background: linear-gradient(to bottom, #e3f2fd, #f5f9ff);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
-  border: 1px solid #ebeef5;
   height: 100%;
 }
 
 .today-reminders-card:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
+  border-color: #d0d7e8;
   transform: translateY(-2px);
 }
 
@@ -127,16 +128,16 @@ export default {
 }
 
 .header-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  background: linear-gradient(135deg, #409eff 0%, #79bbff 100%);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #f4f7fe; /* Uniform Neutral Background */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  color: #fff;
-  box-shadow: 0 2px 6px rgba(64, 158, 255, 0.3);
+  font-size: 16px;
+  color: #2b3674; /* Uniform Navy Icon */
+  box-shadow: none;
 }
 
 .header-text {
@@ -147,14 +148,14 @@ export default {
 }
 
 .card-title {
-  font-size: 14px;
+  font-size: 14px; /* 统一标题字体 */
   font-weight: 700;
-  color: #303133;
+  color: var(--text-primary);
 }
 
 .reminder-count {
   font-size: 12px;
-  color: #409eff;
+  color: #2b3674; /* Navy */
   margin-top: 0;
   font-weight: 600;
 }
@@ -193,7 +194,7 @@ export default {
 }
 
 .reminder-item.normal {
-  border-left-color: #69c0ff; /* Blue accent for normal */
+  border-left-color: #2b3674; /* Navy for normal */
 }
 
 .reminder-content {
@@ -214,30 +215,26 @@ export default {
 }
 
 .reminder-item.urgent .reminder-time-badge {
-  color: #ff7875;
-  background: rgba(255, 120, 117, 0.1);
+  color: #ee5d50; /* Red only for Urgent */
+  background: rgba(238, 93, 80, 0.1);
 }
 
 .reminder-item.normal .reminder-time-badge {
-  color: #409eff;
-  background: rgba(64, 158, 255, 0.1);
+  color: #8f9bba; /* Grey for normal */
+  background: #f4f7fe;
 }
 
 .reminder-text {
-  font-size: 13px;
+  font-size: 13px; /* 统一内容字体 */
   color: #303133;
-  font-weight: 500;
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+  font-weight: 600; /* 统一字重 */
 }
 
 .detail-btn {
   padding: 0 4px;
   font-size: 12px;
   margin-left: 8px;
-  color: #409eff;
+  color: #2b3674; /* Navy Text */
   flex-shrink: 0;
 }
 
