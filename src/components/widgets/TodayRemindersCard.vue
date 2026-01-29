@@ -241,6 +241,16 @@ export default {
   flex-shrink: 0;
 }
 
+.reminder-status-icon {
+  color: #c0c4cc;
+  font-size: 16px;
+}
+
+.reminder-item.urgent .reminder-status-icon {
+  color: #ff7875;
+  animation: pulse 2s infinite;
+}
+
 @keyframes pulse {
   0% {
     transform: scale(1);
