@@ -11,8 +11,8 @@
     <div slot="header" class="chart-header">
       <h3>
         <span>钻井动态</span>
-        <span class="header-date">[2026/1/28]</span>
       </h3>
+      <span class="header-date">[2026/1/28]</span>
     </div>
     <div class="table-container">
       <table class="custom-table">
@@ -121,6 +121,7 @@ export default {
 .chart-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 100%;
   width: 100%;
 }

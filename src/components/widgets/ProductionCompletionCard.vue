@@ -9,12 +9,8 @@
     }"
   >
     <div slot="header" class="chart-header">
-      <h3>
-        油气产量完成情况
-        <span style="font-size: 12px; color: #999; margin-left: 8px"
-          >[{{ currentDate }}]</span
-        >
-      </h3>
+      <h3>油气产量完成情况</h3>
+      <span style="font-size: 12px; color: #999">[{{ currentDate }}]</span>
       <div class="header-actions">
         <!-- Optional icons if needed, mimicking image -->
       </div>
@@ -218,6 +214,13 @@ export default {
   display: flex;
   align-items: center;
   border-bottom: 1px solid #ebeef5;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .chart-header h3 {

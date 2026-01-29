@@ -7,7 +7,6 @@
       <div class="header-icon">★</div>
       <div class="header-text">
         <div class="card-title">党群管理</div>
-        <div class="card-subtitle">Party Management</div>
       </div>
     </div>
     <div class="modules-grid">
@@ -80,6 +79,7 @@ export default {
   display: flex;
   align-items: center;
   gap: 8px; /* Reduced gap */
+  width: 100%; /* Ensure full width */
 }
 
 .header-icon {
@@ -97,6 +97,9 @@ export default {
 
 .header-text {
   flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .card-title {
@@ -109,7 +112,7 @@ export default {
 .card-subtitle {
   font-size: 12px;
   color: #9ca3af;
-  margin-top: 2px;
+  margin-top: 0;
   font-weight: 500;
 }
 

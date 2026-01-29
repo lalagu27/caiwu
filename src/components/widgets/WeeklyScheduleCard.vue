@@ -11,7 +11,13 @@
   >
     <div slot="header" class="card-header">
       <div class="header-left">
-        <div class="header-icon">📅</div>
+        <div
+          class="header-icon"
+          @click="showCalendar = !showCalendar"
+          title="切换视图"
+        >
+          📅
+        </div>
         <div class="header-text">
           <div class="card-title">本周计划</div>
           <div class="schedule-count" v-if="!showCalendar">
@@ -19,15 +25,6 @@
           </div>
           <div class="schedule-count" v-else>日历视图</div>
         </div>
-      </div>
-      <div class="header-actions">
-        <el-button
-          type="text"
-          icon="el-icon-date"
-          @click="showCalendar = !showCalendar"
-          title="切换视图"
-          :style="{ color: showCalendar ? '#409EFF' : '#909399' }"
-        ></el-button>
       </div>
     </div>
 
@@ -176,6 +173,7 @@ export default {
   display: flex;
   align-items: center;
   gap: 8px; /* Reduced gap */
+  flex: 1; /* Take remaining space */
 }
 
 .header-icon {
@@ -189,10 +187,20 @@ export default {
   font-size: 16px; /* Reduced size */
   flex-shrink: 0;
   color: #3b82f6;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.header-icon:hover {
+  background: rgba(59, 130, 246, 0.2);
+  transform: scale(1.05);
 }
 
 .header-text {
-  /* flex: 1; removed */
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .card-title {
@@ -203,8 +211,9 @@ export default {
 
 .schedule-count {
   font-size: 12px;
-  color: #909399;
-  margin-top: 2px;
+  color: #409eff; /* Changed to Blue */
+  margin-top: 0;
+  font-weight: 600;
 }
 
 .schedule-list {

@@ -140,6 +140,7 @@ export default {
   align-items: center;
   gap: 8px; /* Reduced gap */
   flex-shrink: 0;
+  width: 100%; /* Ensure full width */
 }
 
 .header-icon {
@@ -159,6 +160,9 @@ export default {
 
 .header-text {
   flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .card-title {
@@ -170,9 +174,9 @@ export default {
 
 .card-subtitle {
   font-size: 12px;
-  color: #9ca3af;
-  margin-top: 2px;
-  font-weight: 500;
+  color: #409eff; /* Changed to Blue */
+  margin-top: 0;
+  font-weight: 600; /* Standardized to 600 */
 }
 
 .approvals-list {
