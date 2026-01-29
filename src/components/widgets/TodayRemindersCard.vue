@@ -27,15 +27,13 @@
           </div>
           <div class="reminder-text">{{ reminder.event }}</div>
         </div>
-        <div class="reminder-status-icon">
-          <i
-            :class="
-              reminder.type === 'urgent'
-                ? 'el-icon-warning'
-                : 'el-icon-chat-dot-round'
-            "
-          ></i>
-        </div>
+        <el-button
+          type="text"
+          size="mini"
+          class="detail-btn"
+          @click.stop="viewDetail(reminder)"
+          >详情</el-button
+        >
       </div>
     </div>
   </el-card>
@@ -68,6 +66,20 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    viewDetail(reminder) {
+      this.$alert(
+        `<strong>${reminder.event}</strong><br>时间：${
+          reminder.time
+        }<br>状态：${reminder.type === "urgent" ? "紧急" : "普通"}`,
+        "提醒详情",
+        {
+          dangerouslyUseHTMLString: true,
+          confirmButtonText: "知道了",
+        }
+      );
+    },
   },
 };
 </script>
@@ -215,16 +227,18 @@ export default {
   font-size: 13px;
   color: #303133;
   font-weight: 500;
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
-.reminder-status-icon {
-  color: #c0c4cc;
-  font-size: 16px;
-}
-
-.reminder-item.urgent .reminder-status-icon {
-  color: #ff7875;
-  animation: pulse 2s infinite;
+.detail-btn {
+  padding: 0 4px;
+  font-size: 12px;
+  margin-left: 8px;
+  color: #409eff;
+  flex-shrink: 0;
 }
 
 @keyframes pulse {

@@ -47,6 +47,13 @@
             <div class="schedule-title">{{ item.title }}</div>
             <div class="schedule-time">{{ item.time }}</div>
           </div>
+          <el-button
+            type="text"
+            size="mini"
+            class="detail-btn"
+            @click.stop="viewDetail(item)"
+            >详情</el-button
+          >
         </div>
       </div>
     </div>
@@ -121,6 +128,18 @@ export default {
     getScheduleContent(day) {
       const item = this.schedules.find((s) => s.date === day);
       return item ? `${item.time} ${item.title}` : "";
+    },
+    viewDetail(item) {
+      this.$alert(
+        `<strong>${item.title}</strong><br>时间：${item.time}<br>类型：${
+          item.type === "meeting" ? "会议" : "差旅"
+        }`,
+        "日程详情",
+        {
+          dangerouslyUseHTMLString: true,
+          confirmButtonText: "知道了",
+        }
+      );
     },
   },
 };
@@ -437,5 +456,12 @@ export default {
 .schedule-time {
   font-size: 12px;
   color: #909399;
+}
+
+.detail-btn {
+  padding: 0 4px;
+  font-size: 12px;
+  margin-left: auto; /* Push to right */
+  color: #409eff;
 }
 </style>
