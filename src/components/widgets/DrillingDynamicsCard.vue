@@ -109,8 +109,20 @@ export default {
 }
 
 .drilling-dynamics-card ::v-deep .el-card__header {
-  padding: 8px 12px;
+  padding: 0 12px !important;
+  height: 48px !important;
+  display: flex !important;
+  align-items: center !important;
   border-bottom: 1px solid var(--border-color);
+  box-sizing: border-box;
+}
+
+/* Inner header container */
+.chart-header {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
 .chart-header h3 {

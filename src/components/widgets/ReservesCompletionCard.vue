@@ -157,12 +157,21 @@ export default {
   overflow: hidden;
 }
 
+.chart-card ::v-deep .el-card__header {
+  padding: 0 12px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  border-bottom: none; /* Keep no border as requested */
+}
+
 .chart-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
-  border-bottom: none; /* Remove separator line */
+  border-bottom: none; /* Separator removed */
+  width: 100%; /* Ensure full width for justification */
 }
 
 .chart-header h3 {

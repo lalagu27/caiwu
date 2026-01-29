@@ -119,7 +119,7 @@ export default {
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  border-bottom: 2px dashed #dcdfe6; /* Dashed separator */
+  border-bottom: 1px solid #dcdfe6; /* Revert to solid separator */
 }
 
 .pending-approvals-card ::v-deep .el-card__body {

@@ -739,7 +739,10 @@ export default {
 }
 
 .chart-card ::v-deep .el-card__header {
-  padding: 8px 12px;
+  padding: 0 12px;
+  height: 48px;
+  display: flex;
+  align-items: center;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -751,9 +754,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 4px;
+  margin-bottom: 0;
   flex-shrink: 0;
-  height: auto;
+  width: 100%;
+  height: 100%;
 }
 
 .chart-header h3 {

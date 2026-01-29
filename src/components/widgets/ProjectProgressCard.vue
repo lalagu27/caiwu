@@ -187,6 +187,14 @@ export default {
   overflow: hidden;
 }
 
+.chart-card ::v-deep .el-card__header {
+  padding: 0 12px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
 .chart-header h3 {
   margin: 0;
   font-size: 14px;

@@ -151,7 +151,7 @@ export default {
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  border-bottom: 2px dashed #dcdfe6; /* Dashed separator */
+  border-bottom: 1px solid #dcdfe6; /* Revert to solid separator */
 }
 
 .weekly-schedule-card ::v-deep .el-card__body {
@@ -169,6 +169,7 @@ export default {
   justify-content: space-between; /* Split left and right */
   gap: 8px; /* Reduced gap */
   flex-shrink: 0;
+  width: 100%; /* Ensure full width */
 }
 
 .header-left {
@@ -223,10 +224,12 @@ export default {
 /* Calendar Styles */
 .calendar-wrapper {
   flex: 1;
-  overflow: hidden;
+  /* overflow: hidden; removed to allow scrolling */
   font-size: 12px;
   margin: -10px; /* Counteract padding to use full width */
   margin-top: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .calendar-wrapper ::v-deep .el-calendar__header {
