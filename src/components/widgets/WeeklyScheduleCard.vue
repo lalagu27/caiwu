@@ -198,12 +198,12 @@ export default {
 .header-icon {
   width: 30px; /* Reduced from 32px */
   height: 30px; /* Reduced from 32px */
-  border-radius: 50%;
+  border-radius: 8px; /* Standardized rounded square */
   background: rgba(59, 130, 246, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px; /* Reduced size */
+  font-size: 18px; /* Increased size */
   flex-shrink: 0;
   color: #3b82f6;
   cursor: pointer;
