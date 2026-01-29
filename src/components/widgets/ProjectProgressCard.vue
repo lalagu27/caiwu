@@ -9,7 +9,18 @@
     }"
   >
     <div slot="header" class="chart-header">
-      <h3>重点项目执行进度</h3>
+      <h3>
+        重点项目执行进度
+        <span
+          style="
+            font-size: 12px;
+            color: #999;
+            margin-left: 8px;
+            font-weight: normal;
+          "
+          >[{{ currentYear }}年]</span
+        >
+      </h3>
     </div>
     <div class="chart-body" ref="chart"></div>
   </el-card>
@@ -23,6 +34,7 @@ export default {
   data() {
     return {
       chart: null,
+      currentYear: new Date().getFullYear(),
     };
   },
   mounted() {

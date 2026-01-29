@@ -9,7 +9,12 @@
     }"
   >
     <div slot="header" class="chart-header">
-      <h3>新增经济可采储量</h3>
+      <h3>
+        新增经济可采储量
+        <span style="font-size: 12px; color: #999; margin-left: 8px"
+          >[{{ currentDate }}]</span
+        >
+      </h3>
       <div class="chart-tabs">
         <button
           class="tab"
@@ -47,7 +52,14 @@ export default {
     return {
       chart: null,
       period: "月",
+      currentDate: "",
     };
+  },
+  created() {
+    const today = new Date();
+    this.currentDate = `${today.getFullYear()}/${(today.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}`;
   },
   mounted() {
     this.$nextTick(() => {

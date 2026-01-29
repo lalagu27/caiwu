@@ -11,6 +11,10 @@
       gap: '12px',
     }"
   >
+    <div class="date-badge">
+      <i class="el-icon-date"></i>
+      <span>{{ currentDate }}</span>
+    </div>
     <div class="avatar-container">
       <div class="avatar">
         <i
@@ -73,7 +77,14 @@ export default {
         approvals: 28, // 待办审批总数 (5+3+2+8+4+6)
         schedules: 3, // 本周计划数量
       },
+      currentDate: "",
     };
+  },
+  created() {
+    const today = new Date();
+    this.currentDate = `${today.getFullYear()}/${(today.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}/${today.getDate().toString().padStart(2, "0")}`;
   },
   computed: {
     avatarUrl() {
@@ -140,6 +151,36 @@ export default {
 .user-info-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-md);
+}
+
+.date-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  padding: 6px 12px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #2196f3;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  font-family: "Roboto Mono", monospace;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.date-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.25);
+}
+
+.date-badge i {
+  font-size: 14px;
 }
 
 .avatar-container {

@@ -27,7 +27,12 @@
           }"
         >
           <div slot="header" class="chart-header">
-            <h3>油气销售对比</h3>
+            <h3>
+              油气销售对比
+              <span style="font-size: 12px; color: #999; margin-left: 8px"
+                >[{{ currentDate }}]</span
+              >
+            </h3>
             <div class="chart-tabs">
               <button
                 class="tab"
@@ -119,7 +124,7 @@
             <h3>
               盈利能力
               <span style="font-size: 12px; color: #999; margin-left: 8px"
-                >[2017]</span
+                >[2025]</span
               >
             </h3>
           </div>
@@ -189,7 +194,14 @@ export default {
       charts: {},
       periodChart1: "月",
       periodChart2: "月",
+      currentDate: "",
     };
+  },
+  created() {
+    const today = new Date();
+    this.currentDate = `${today.getFullYear()}/${(today.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}`;
   },
   methods: {
     handleResize() {

@@ -13,7 +13,18 @@
       <div class="kpi-card">
         <div class="kpi-header">
           <div class="kpi-icon profit">💰</div>
-          <div class="kpi-title">税前利润</div>
+          <div class="kpi-title">
+            税前利润
+            <span
+              style="
+                font-size: 12px;
+                color: #999;
+                margin-left: 4px;
+                font-weight: normal;
+              "
+              >[{{ currentYear }}年]</span
+            >
+          </div>
         </div>
         <div class="kpi-value">
           <span class="current">85.2</span>
@@ -41,7 +52,18 @@
       <div class="kpi-card">
         <div class="kpi-header">
           <div class="kpi-icon cost">⚡</div>
-          <div class="kpi-title">桶油五项</div>
+          <div class="kpi-title">
+            桶油五项
+            <span
+              style="
+                font-size: 12px;
+                color: #999;
+                margin-left: 4px;
+                font-weight: normal;
+              "
+              >[{{ currentYear }}年]</span
+            >
+          </div>
         </div>
         <div class="kpi-value">
           <span class="current">19.14</span>
@@ -61,7 +83,18 @@
       <div class="kpi-card">
         <div class="kpi-header">
           <div class="kpi-icon investment">📊</div>
-          <div class="kpi-title">战新投资</div>
+          <div class="kpi-title">
+            战新投资
+            <span
+              style="
+                font-size: 12px;
+                color: #999;
+                margin-left: 4px;
+                font-weight: normal;
+              "
+              >[{{ currentYear }}年]</span
+            >
+          </div>
         </div>
         <div class="kpi-value">
           <span class="current">22.5</span>
@@ -89,7 +122,18 @@
       <div class="kpi-card">
         <div class="kpi-header">
           <div class="kpi-icon revenue">💵</div>
-          <div class="kpi-title">战新收入</div>
+          <div class="kpi-title">
+            战新收入
+            <span
+              style="
+                font-size: 12px;
+                color: #999;
+                margin-left: 4px;
+                font-weight: normal;
+              "
+              >[{{ currentYear }}年]</span
+            >
+          </div>
         </div>
         <div class="kpi-value">
           <span class="current">58.8</span>
@@ -125,6 +169,7 @@ export default {
   data() {
     return {
       charts: {},
+      currentYear: new Date().getFullYear(),
     };
   },
   mounted() {
