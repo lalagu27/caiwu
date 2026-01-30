@@ -152,7 +152,8 @@ export default {
   margin: 0;
   font-size: 14px; /* Standard font */
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--primary-color);
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
 }
 
 .chart-header h3::before {
@@ -160,13 +161,14 @@ export default {
   display: inline-block;
   width: 4px; /* Standard marker */
   height: 14px; /* Standard marker height */
-  background: #4a7bf7;
+  background: var(--primary-color);
+  box-shadow: 0 0 8px var(--primary-color);
   border-radius: 2px;
 }
 
 .header-date {
   font-size: 12px; /* Standard date font */
-  color: #999;
+  color: var(--text-secondary);
   font-weight: normal;
 }
 

@@ -131,13 +131,13 @@ export default {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: var(--primary-light); /* Uniform Neutral Background */
+  background: var(--bg-hover); /* Uniform Neutral Background */
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
   color: var(--primary-color); /* Uniform Navy Icon */
-  box-shadow: none;
+  box-shadow: 0 0 8px var(--primary-color);
 }
 
 .header-text {
@@ -150,12 +150,13 @@ export default {
 .card-title {
   font-size: 14px; /* 统一标题字体 */
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--primary-color);
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
 }
 
 .reminder-count {
   font-size: 12px;
-  color: var(--primary-color); /* Navy */
+  color: var(--text-secondary); /* Navy */
   margin-top: 0;
   font-weight: 600;
 }

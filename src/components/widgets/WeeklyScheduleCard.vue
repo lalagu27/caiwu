@@ -205,6 +205,7 @@ export default {
   font-size: 16px;
   flex-shrink: 0;
   color: var(--primary-color); /* Uniform Navy */
+  box-shadow: 0 0 8px var(--primary-color); /* Glow */
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -224,7 +225,9 @@ export default {
 .card-title {
   font-size: 14px; /* Reduced from 16px */
   font-weight: 700;
-  color: var(--text-primary);
+  font-weight: 700;
+  color: var(--primary-color);
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
 }
 
 .schedule-count {

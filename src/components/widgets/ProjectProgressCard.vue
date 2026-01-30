@@ -14,7 +14,7 @@
         <span
           style="
             font-size: 12px;
-            color: #999;
+            color: var(--text-secondary);
             margin-left: 8px;
             font-weight: normal;
           "
@@ -217,7 +217,8 @@ export default {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--primary-color);
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
   display: flex;
   align-items: center;
 }
@@ -227,7 +228,8 @@ export default {
   display: inline-block;
   width: 4px;
   height: 14px;
-  background: #4a7bf7;
+  background: var(--primary-color);
+  box-shadow: 0 0 8px var(--primary-color);
   margin-right: 8px;
   border-radius: 2px;
 }

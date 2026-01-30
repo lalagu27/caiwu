@@ -155,7 +155,7 @@ export default {
   flex-shrink: 0;
   font-weight: 700;
   color: var(--primary-color); /* Uniform Navy */
-  box-shadow: none;
+  box-shadow: 0 0 8px var(--primary-color);
 }
 
 .header-text {
@@ -168,7 +168,8 @@ export default {
 .card-title {
   font-size: 14px; /* 统一标题字体 */
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--primary-color);
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
   line-height: 1.2;
 }
 

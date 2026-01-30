@@ -11,7 +11,12 @@
     <div slot="header" class="chart-header">
       <h3>
         新增经济可采储量
-        <span style="font-size: 12px; color: #999; margin-left: 8px"
+        <span
+          style="
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-left: 8px;
+          "
           >[{{ currentDate }}]</span
         >
       </h3>
@@ -196,7 +201,8 @@ export default {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--primary-color);
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.3); /* Slight glow */
   display: flex;
   align-items: center;
 }
@@ -206,7 +212,8 @@ export default {
   display: inline-block;
   width: 4px;
   height: 14px;
-  background: #4a7bf7;
+  background: var(--primary-color);
+  box-shadow: 0 0 8px var(--primary-color);
   margin-right: 8px;
   border-radius: 2px;
 }
@@ -238,5 +245,6 @@ export default {
   background: var(--primary-color); /* Navy Blue */
   color: white;
   border-color: var(--primary-color);
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.2); /* Glow for active tab */
 }
 </style>
