@@ -41,11 +41,11 @@
   /* Hover State */
 
   /* 5. Components - De-noised */
-  /* Shadows: Removed heavy floating shadows, kept extremely subtle depth */
+  /* 明亮模式：无阴影，纯扁平化设计 */
   --shadow-none: none;
-  --shadow-xs: 0px 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-sm: 0px 4px 10px rgba(112, 144, 176, 0.08);
-  /* Very soft */
+  --shadow-xs: none;
+  --shadow-sm: none;
+  /* 无阴影 */
 
   /* Radius: Softer 8-12px range as requested */
   --radius-sm: 4px;
@@ -285,6 +285,7 @@ body {
 .dark-theme [style*="color: #FFFFFF"] {
   color: var(--text-primary) !important;
 }
+
 /* =========================================
    暗黑模式 - ECharts Tooltip 优化
    ========================================= */
@@ -299,4 +300,10 @@ body {
 .dark-theme .echarts-tooltip *,
 .dark-theme div[style*="position: absolute"][style*="pointer-events: none"] * {
   color: #CBD5E1 !important;
+}
+/* =========================================
+   明亮模式 - 强制移除所有阴影
+   ========================================= */
+body:not(.dark-theme) * {
+  box-shadow: none !important;
 }
