@@ -263,4 +263,27 @@ export default {
     opacity: 1;
   }
 }
+
+/* 暗黑模式适配 */
+.dark-theme .reminder-item {
+  background: var(--bg-hover);
+  border-color: var(--border-color);
+}
+
+.dark-theme .reminder-time-badge {
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.dark-theme .reminder-item.urgent .reminder-time-badge {
+  color: #ff7875;
+  background: rgba(255, 120, 117, 0.1);
+  border-color: rgba(255, 120, 117, 0.3);
+}
+
+.dark-theme .reminder-item.normal .reminder-time-badge {
+  color: var(--text-secondary);
+  background: var(--bg-card);
+}
 </style>
