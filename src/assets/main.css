@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   /* =========================================
      Strict Visual De-noising Palette
      Theme: Industrial Deep Blue / Tech Grey
@@ -55,49 +55,67 @@
 }
 
 /* =========================================
-   Dark Theme (Cyberpunk / Data Center)
+   Dark Theme (Enhanced Cyberpunk / Data Center)
    ========================================= */
 .dark-theme {
-  /* 1. Primary Brand Colors */
-  --primary-color: #00F0FF;
-  /* Neon Cyan for primary actions/text */
-  --primary-light: #0B1120;
-  /* Deep Navy - Page BG */
-  --primary-dark: #050B14;
-  /* Darker Navy */
+  /* 1. Primary Brand Colors - 优化的青色系 */
+  --primary-color: #00E5FF;
+  /* 更亮的霓虹青色 - 提升可读性 */
+  --primary-light: #0A0E1A;
+  /* 更深的页面背景 - 增强对比度 */
+  --primary-dark: #050911;
+  /* 最深的背景色 */
 
-  /* 2. Semantic Colors */
-  --success-color: #00F0FF;
-  /* Cyan for success */
-  --warning-color: #FACC15;
-  /* Bright Yellow */
-  --danger-color: #FF3366;
-  /* Neon Red */
-  --info-color: #2B65F0;
-  /* Electric Blue */
+  /* 2. Semantic Colors - 增强的语义色 */
+  --success-color: #00FFA3;
+  /* 霓虹绿色 - 更鲜明的成功提示 */
+  --warning-color: #FFB800;
+  /* 金黄色 - 更强的警告感 */
+  --danger-color: #FF4757;
+  /* 更亮的红色 - 增强警示效果 */
+  --info-color: #4C9AFF;
+  /* 明亮的蓝色 */
 
-  /* 3. Text Colors */
-  --text-primary: #FFFFFF;
-  /* White */
+  /* 3. Text Colors - 优化的文本层次 */
+  --text-primary: #CBD5E1;
+  /* 青灰色 - 柔和舒适，非纯白 */
   --text-secondary: #94A3B8;
-  /* Blue Grey */
+  /* 中性蓝灰 - 平衡的次要文本 */
   --text-tertiary: #64748B;
-  /* Darker Grey */
+  /* 深蓝灰 - 三级文本 */
   --border-color: #1E293B;
-  /* Dark Blue Grey Border */
+  /* 更深的边框 - 微妙但清晰 */
 
-  /* 4. Backgrounds */
-  --bg-main: #0B1120;
-  /* Deepest Navy */
-  --bg-card: #111827;
-  /* Slightly lighter Navy */
-  --bg-hover: #1F2937;
-  /* Hover State */
+  /* 4. Backgrounds - 深层次背景 */
+  --bg-main: #0A0E1A;
+  /* 深蓝黑背景 - 高级感 */
+  --bg-card: #0F1629;
+  /* 卡片背景 - 与主背景有明显区别 */
+  --bg-hover: #1A2235;
+  /* 悬浮状态 - 更亮的反馈 */
 
-  /* 5. Components */
-  --shadow-xs: 0px 1px 2px rgba(0, 0, 0, 0.5);
-  --shadow-sm: 0px 4px 10px rgba(0, 240, 255, 0.1);
-  /* Cyan Glow */
+  /* 5. Components - 增强的阴影和光晕 */
+  --shadow-xs: 0px 2px 4px rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0px 4px 16px rgba(0, 229, 255, 0.2);
+  /* 更强的青色光晕 */
+  --shadow-md: 0px 8px 24px rgba(0, 229, 255, 0.25);
+  /* 中等光晕 */
+  --shadow-glow: 0px 0px 20px rgba(0, 229, 255, 0.3);
+  /* 霓虹光晕效果 */
+
+  /* 6. Hover States - 增强的交互反馈 */
+  --hover-border: #334155;
+  /* 更亮的悬浮边框 */
+  --hover-glow: rgba(0, 229, 255, 0.4);
+  /* 悬浮光晕 */
+
+  /* 7. 图表专用颜色 */
+  --chart-primary: #00E5FF;
+  /* 图表主色 */
+  --chart-grid: rgba(255, 255, 255, 0.05);
+  /* 网格线 */
+  --chart-text: #94A3B8;
+  /* 图表文本 */
 }
 
 * {
@@ -121,13 +139,25 @@ body {
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-xs);
   /* Minimal shadow */
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .d-card:hover {
   box-shadow: var(--shadow-sm);
   /* Subtle lift */
   border-color: #d0d7e8;
+}
+
+/* 暗黑模式下的卡片增强 */
+.dark-theme .d-card {
+  border-color: #1E293B;
+  box-shadow: var(--shadow-xs);
+}
+
+.dark-theme .d-card:hover {
+  border-color: var(--hover-border);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
 }
 
 /* Scrollbar */
@@ -137,7 +167,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ccc;
+  background: var(--text-tertiary);
   border-radius: 3px;
 }
 
@@ -146,5 +176,112 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  background: var(--text-secondary);
+}
+
+/* Dark mode scrollbar enhancement */
+.dark-theme ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+.dark-theme ::-webkit-scrollbar-thumb:hover {
+  background: #64748B;
+}
+
+/* =========================================
+   暗黑模式增强效果
+   ========================================= */
+
+/* 青色文本光晕效果 */
+.dark-theme .stat-value,
+.dark-theme .metric-value,
+.dark-theme .kpi-value {
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+}
+
+/* 标题增强 */
+.dark-theme h1,
+.dark-theme h2,
+.dark-theme h3 {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* 重点数据高亮 */
+.dark-theme .highlight-number {
+  color: var(--primary-color);
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+}
+
+/* 输入框暗黑优化 */
+.dark-theme input,
+.dark-theme select,
+.dark-theme textarea {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.dark-theme input:focus,
+.dark-theme select:focus,
+.dark-theme textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0, 229, 255, 0.1);
+}
+
+/* 按钮暗黑优化 */
+.dark-theme button:not(.el-button) {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.dark-theme button:hover:not(.el-button) {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.2);
+}
+
+/* 表格优化 */
+.dark-theme table {
+  border-color: var(--border-color);
+}
+
+.dark-theme th {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.dark-theme td {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.dark-theme tr:hover {
+  background: var(--bg-hover);
+}
+
+/* 徽章和标签优化 */
+.dark-theme .badge,
+.dark-theme .tag {
+  background: var(--bg-hover);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+/* 分割线优化 */
+.dark-theme hr,
+.dark-theme .divider {
+  border-color: var(--border-color);
+  opacity: 0.5;
+}
+
+/* =========================================
+   暗黑模式 - 强制覆盖白色文字
+   ========================================= */
+.dark-theme [style*="color: white"],
+.dark-theme [style*="color: #fff"],
+.dark-theme [style*="color: #FFF"],
+.dark-theme [style*="color: #ffffff"],
+.dark-theme [style*="color: #FFFFFF"] {
+  color: var(--text-primary) !important;
 }

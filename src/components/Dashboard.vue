@@ -858,7 +858,7 @@ export default {
 
 .tab.active {
   background: var(--primary-color); /* Navy Blue */
-  color: white;
+  color: var(--text-primary);
   border-color: var(--primary-color);
   box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
 }

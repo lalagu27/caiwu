@@ -132,16 +132,27 @@ export default {
             data: projects.map((p, index) => ({
               value: p.value,
               itemStyle: {
-                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                  {
-                    offset: 0,
-                    color: "#2B3674",
-                  },
-                  {
-                    offset: 1,
-                    color: "#4A7BF7",
-                  },
-                ]),
+                color: isDark
+                  ? new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                      {
+                        offset: 0,
+                        color: "#0EA5E9",
+                      },
+                      {
+                        offset: 1,
+                        color: "#00E5FF",
+                      },
+                    ])
+                  : new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                      {
+                        offset: 0,
+                        color: "#2B3674",
+                      },
+                      {
+                        offset: 1,
+                        color: "#4A7BF7",
+                      },
+                    ]),
                 borderRadius: 6,
               },
             })),
@@ -249,5 +260,25 @@ export default {
   flex: 1;
   min-height: 150px; /* Adjust as needed */
   width: 100%;
+}
+
+/* 暗黑模式下的图表卡片增强 */
+.dark-theme .chart-card {
+  border-color: #1e293b;
+  box-shadow: var(--shadow-xs);
+}
+
+.dark-theme .chart-card:hover {
+  border-color: var(--hover-border);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-3px);
+}
+
+.dark-theme .chart-header h3 {
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+}
+
+.dark-theme .chart-header h3::before {
+  box-shadow: 0 0 12px var(--primary-color);
 }
 </style>

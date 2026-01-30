@@ -181,6 +181,18 @@ export default {
   transform: translateY(-2px);
 }
 
+/* 暗黑模式下的用户卡片增强 */
+.dark-theme .user-info-card {
+  border-color: #1e293b;
+  box-shadow: var(--shadow-xs);
+}
+
+.dark-theme .user-info-card:hover {
+  border-color: var(--hover-border);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-3px);
+}
+
 .date-badge {
   position: absolute;
   top: 12px;
