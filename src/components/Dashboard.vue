@@ -29,7 +29,12 @@
           <div slot="header" class="chart-header">
             <h3>
               油气销售对比
-              <span style="font-size: 12px; color: #999; margin-left: 8px"
+              <span
+                style="
+                  font-size: 12px;
+                  color: var(--text-secondary);
+                  margin-left: 8px;
+                "
                 >[{{ currentDate }}]</span
               >
             </h3>
@@ -73,7 +78,12 @@
           <div slot="header" class="chart-header">
             <h3>
               油气产量分月对比
-              <span style="font-size: 12px; color: #999; margin-left: 8px"
+              <span
+                style="
+                  font-size: 12px;
+                  color: var(--text-secondary);
+                  margin-left: 8px;
+                "
                 >[2025/11]</span
               >
             </h3>
@@ -123,7 +133,12 @@
           <div slot="header" class="chart-header">
             <h3>
               盈利能力
-              <span style="font-size: 12px; color: #999; margin-left: 8px"
+              <span
+                style="
+                  font-size: 12px;
+                  color: var(--text-secondary);
+                  margin-left: 8px;
+                "
                 >[2025]</span
               >
             </h3>
@@ -307,7 +322,7 @@ export default {
       this.charts.chart1 = chart;
     },
 
-    initChart2() {
+    initChart2(textColor, lineColor, themeBlue, techBlue) {
       if (!this.$refs.chart2) return;
       const chart = echarts.init(this.$refs.chart2);
 
@@ -357,15 +372,15 @@ export default {
           width: "90%",
           itemWidth: 10,
           itemHeight: 10,
-          textStyle: { fontSize: 10 },
-          itemGap: 15,
+          textStyle: { fontSize: 10, color: textColor },
+          itemGap: 15, // Fixed legend gap
         },
         grid: { top: 45, right: 50, bottom: 40, left: 35 },
         xAxis: {
           type: "category",
           data: months,
-          axisLine: { lineStyle: { color: "#999" } },
-          axisLabel: { color: "#333", fontSize: 11 },
+          axisLine: { lineStyle: { color: lineColor } },
+          axisLabel: { color: textColor, fontSize: 11 },
           axisTick: { show: false },
         },
         yAxis: [
@@ -375,9 +390,16 @@ export default {
             min: 0,
             max: 120,
             interval: 20,
-            axisLabel: { color: "#333" },
-            nameTextStyle: { align: "left", padding: [0, 0, 0, -30] },
-            splitLine: { show: true, lineStyle: { type: "dashed" } },
+            axisLabel: { color: textColor },
+            nameTextStyle: {
+              align: "left",
+              padding: [0, 0, 0, -30],
+              color: textColor,
+            },
+            splitLine: {
+              show: true,
+              lineStyle: { type: "dashed", color: lineColor },
+            },
           },
           {
             type: "value",
@@ -385,7 +407,7 @@ export default {
             min: 0,
             max: 1200,
             interval: 200,
-            axisLabel: { color: "#333" },
+            axisLabel: { color: textColor },
             splitLine: { show: false },
           },
         ],
@@ -567,7 +589,7 @@ export default {
 
       this.charts.chart5 = chart;
     },
-    initChart6() {
+    initChart6(textColor, lineColor, themeBlue, techBlue) {
       if (!this.$refs.chart6) return;
       const chart = echarts.init(this.$refs.chart6);
 
@@ -582,6 +604,7 @@ export default {
           icon: "rect",
           itemWidth: 12,
           itemHeight: 12,
+          textStyle: { color: textColor },
         },
         grid: {
           top: 30,
@@ -599,8 +622,8 @@ export default {
             "桶油五项成本",
             "桶油综合成本",
           ],
-          axisLine: { lineStyle: { color: "#E1E8ED" } },
-          axisLabel: { color: "#7F8C8D", fontSize: 10, interval: 0 },
+          axisLine: { lineStyle: { color: lineColor } },
+          axisLabel: { color: textColor, fontSize: 10, interval: 0 },
           axisTick: { show: false },
         },
         yAxis: [
@@ -610,10 +633,13 @@ export default {
             min: 0,
             max: 35,
             interval: 5,
-            axisLabel: { color: "#7F8C8D" },
-            splitLine: { show: true, lineStyle: { type: "dashed" } },
+            axisLabel: { color: textColor },
+            splitLine: {
+              show: true,
+              lineStyle: { type: "dashed", color: lineColor },
+            },
             nameTextStyle: {
-              color: "#7F8C8D",
+              color: textColor,
               align: "left",
               padding: [0, 0, 0, -30],
             },
@@ -624,9 +650,9 @@ export default {
             min: 0,
             max: 60,
             interval: 10,
-            axisLabel: { color: "#7F8C8D" },
+            axisLabel: { color: textColor },
             splitLine: { show: false },
-            nameTextStyle: { color: "#7F8C8D" },
+            nameTextStyle: { color: textColor },
           },
         ],
         series: [
@@ -795,10 +821,10 @@ export default {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--primary-color);
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
   display: flex;
   align-items: center;
-  gap: 6px;
 }
 
 .chart-header h3::before {
@@ -806,7 +832,9 @@ export default {
   display: inline-block;
   width: 4px;
   height: 14px;
-  background: #4a7bf7;
+  background: var(--primary-color);
+  box-shadow: 0 0 8px var(--primary-color);
+  margin-right: 8px;
   border-radius: 2px;
   flex-shrink: 0;
 }
@@ -817,11 +845,11 @@ export default {
 }
 
 .tab {
-  padding: 1px 6px; /* Reduced padding */
+  padding: 1px 6px;
   background: transparent;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
-  font-size: 12px; /* Explicit small font */
+  font-size: 12px;
   color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.2s;
@@ -829,9 +857,10 @@ export default {
 }
 
 .tab.active {
-  background: var(--primary-color);
+  background: var(--primary-color); /* Navy Blue */
   color: white;
   border-color: var(--primary-color);
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
 }
 
 .chart-body {

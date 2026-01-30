@@ -47,46 +47,42 @@ export default {
     this.$nextTick(() => {
       this.initChart();
       window.addEventListener("resize", this.handleResize);
+      window.addEventListener("theme-change", this.handleThemeChange);
     });
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener("theme-change", this.handleThemeChange);
     if (this.chart) this.chart.dispose();
   },
   methods: {
     handleResize() {
       if (this.chart) this.chart.resize();
     },
+    handleThemeChange() {
+      this.initChart();
+    },
     initChart() {
       if (!this.$refs.chart) return;
-      this.chart = echarts.init(this.$refs.chart);
+      let chart = echarts.getInstanceByDom(this.$refs.chart);
+      if (!chart) chart = echarts.init(this.$refs.chart);
+      this.chart = chart;
+
+      const isDark = document.body.classList.contains("dark-theme");
+      const textColor = isDark ? "#A3AED0" : "#666";
+      const axisLineColor = isDark ? "#2B3674" : "#999";
+      const splitLineColor = isDark ? "#112240" : "#eee";
 
       // Configuration for Scaling
-      // Left Axis (Oil): 0 - 35,000
-      // Right Axis (Gas): 0 - 1,200
-      // Scale Ratio = 35000 / 1200 = 29.16666
       const OIL_MAX = 35000;
       const GAS_MAX = 1200;
       const RATIO = OIL_MAX / GAS_MAX;
 
-      // Data (Estimated from image)
-      // Today: Plan Oil ~19k, Act Oil ~20k. Plan Gas ~4.5mm(scaled) -> ~150 visual? No.
-      // Look at image:
-      // Today Plan Bar: Green part ~19k. Red part adds up to ~32k. So Red part height is ~13k.
-      // Real Gas Value = 13000 / RATIO = 13000 / 29.16 = ~445 万方.
-      // Today Act Bar: Green part ~20k. Red part adds up to ~30k. Red height ~10k.
-      // Real Gas Value = 10000 / 29.16 = ~340 万方.
-
-      // Year Plan Bar: Green ~18k. Red adds to ~30k (height ~12k).
-      // Real Gas ~ 12000/29.16 = ~410.
-      // Year Act Bar: Green ~18k. Red adds to ~27k (height ~9k).
-      // Real Gas ~ 308.
-
       const rawData = {
         planOil: [19000, 18000],
         actOil: [20000, 18500],
-        planGas: [450, 420], // Real values in WanFang
-        actGas: [350, 300], // Real values in WanFang
+        planGas: [450, 420],
+        actGas: [350, 300],
       };
 
       const scaledData = {
@@ -102,9 +98,8 @@ export default {
             let res = params[0].name + "<br/>";
             params.forEach((param) => {
               let val = param.value;
-              // If it's Gas (series name contains '气'), divide by RATIO for display
               if (param.seriesName.includes("气")) {
-                val = Math.round(val / RATIO); // Restore original value
+                val = Math.round(val / RATIO);
               }
               res +=
                 param.marker +
@@ -128,7 +123,7 @@ export default {
           left: "center",
           itemWidth: 10,
           itemHeight: 10,
-          textStyle: { fontSize: 11 },
+          textStyle: { fontSize: 11, color: textColor },
         },
         grid: {
           top: 40,
@@ -139,8 +134,8 @@ export default {
         xAxis: {
           type: "category",
           data: ["当日产量", "当年产量"],
-          axisLine: { lineStyle: { color: "#999" } },
-          axisLabel: { color: "#666", fontSize: 12 },
+          axisLine: { lineStyle: { color: axisLineColor } },
+          axisLabel: { color: textColor, fontSize: 12 },
           axisTick: { show: false },
         },
         yAxis: [
@@ -150,9 +145,16 @@ export default {
             min: 0,
             max: OIL_MAX,
             interval: 5000,
-            axisLabel: { color: "#666" },
-            splitLine: { show: true, lineStyle: { type: "dashed" } },
-            nameTextStyle: { align: "right", padding: [0, 10, 0, 0] },
+            axisLabel: { color: textColor },
+            splitLine: {
+              show: true,
+              lineStyle: { type: "dashed", color: splitLineColor },
+            },
+            nameTextStyle: {
+              align: "right",
+              padding: [0, 10, 0, 0],
+              color: textColor,
+            },
           },
           {
             type: "value",
@@ -160,44 +162,46 @@ export default {
             min: 0,
             max: GAS_MAX,
             interval: 200,
-            axisLabel: { color: "#666" },
+            axisLabel: { color: textColor },
             splitLine: { show: false },
-            nameTextStyle: { align: "left", padding: [0, 0, 0, 10] },
+            nameTextStyle: {
+              align: "left",
+              padding: [0, 0, 0, 10],
+              color: textColor,
+            },
           },
         ],
         series: [
-          // Stack 1: Plan
           {
             name: "计划产量(油)",
             type: "bar",
             stack: "plan",
             data: rawData.planOil,
-            itemStyle: { color: "#A3AED0" }, // Plan Oil = Mid Grey
+            itemStyle: { color: "#A3AED0" },
             barWidth: "25%",
           },
           {
             name: "计划产量(气)",
             type: "bar",
             stack: "plan",
-            data: scaledData.planGas, // Scaled data
-            itemStyle: { color: "#D3D9E6" }, // Plan Gas = Light Grey
+            data: scaledData.planGas,
+            itemStyle: { color: "#D3D9E6" },
             barWidth: "25%",
           },
-          // Stack 2: Actual
           {
             name: "实际产量(油)",
             type: "bar",
             stack: "act",
             data: rawData.actOil,
-            itemStyle: { color: "#2B3674" }, // Act Oil = Navy Blue (Standard)
+            itemStyle: { color: "#2B3674" },
             barWidth: "25%",
           },
           {
             name: "实际产量(气)",
             type: "bar",
             stack: "act",
-            data: scaledData.actGas, // Scaled data
-            itemStyle: { color: "#4318FF" }, // Act Gas = Vivid Blue
+            data: scaledData.actGas,
+            itemStyle: { color: "#4318FF" },
             barWidth: "25%",
           },
         ],

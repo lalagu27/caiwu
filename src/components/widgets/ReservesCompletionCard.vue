@@ -70,19 +70,32 @@ export default {
     this.$nextTick(() => {
       this.initChart();
       window.addEventListener("resize", this.handleResize);
+      window.addEventListener("theme-change", this.handleThemeChange);
     });
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener("theme-change", this.handleThemeChange);
     if (this.chart) this.chart.dispose();
   },
   methods: {
     handleResize() {
       if (this.chart) this.chart.resize();
     },
+    handleThemeChange() {
+      this.initChart();
+    },
     initChart() {
       if (!this.$refs.chart) return;
-      this.chart = echarts.init(this.$refs.chart);
+      let chart = echarts.getInstanceByDom(this.$refs.chart);
+      if (!chart) chart = echarts.init(this.$refs.chart);
+      this.chart = chart;
+
+      const isDark = document.body.classList.contains("dark-theme");
+      const textColor = isDark ? "#A3AED0" : "#666";
+      const headingColor = isDark ? "#A3AED0" : "#999";
+      const axisLineColor = isDark ? "#2B3674" : "#E1E8ED";
+      const splitLineColor = isDark ? "#112240" : "#F0F4F9";
 
       const option = {
         tooltip: {
@@ -95,7 +108,7 @@ export default {
           right: 10,
           itemWidth: 10,
           itemHeight: 10,
-          textStyle: { fontSize: 11, color: "#666" },
+          textStyle: { fontSize: 11, color: textColor },
         },
         grid: {
           top: 40,
@@ -107,8 +120,8 @@ export default {
         xAxis: {
           type: "category",
           data: ["1月", "2月", "3月", "4月", "5月", "6月"],
-          axisLine: { lineStyle: { color: "#E1E8ED" } },
-          axisLabel: { color: "#666", fontSize: 11 },
+          axisLine: { lineStyle: { color: axisLineColor } },
+          axisLabel: { color: textColor, fontSize: 11 },
           axisTick: { show: false },
         },
         yAxis: {
@@ -116,10 +129,10 @@ export default {
           name: "万吨",
           nameTextStyle: {
             padding: [0, 0, 0, -20],
-            color: "#999",
+            color: headingColor,
           },
-          splitLine: { lineStyle: { color: "#F0F4F9", type: "dashed" } },
-          axisLabel: { color: "#666", fontSize: 11 },
+          splitLine: { lineStyle: { color: splitLineColor, type: "dashed" } },
+          axisLabel: { color: textColor, fontSize: 11 },
         },
         series: [
           {
@@ -128,13 +141,10 @@ export default {
             data: [100, 100, 100, 120, 120, 120],
             barWidth: 12,
             itemStyle: {
-              color: "#e0e0e0", // Grey for target
+              color: isDark ? "#334155" : "#e0e0e0", // Dark grey for target in dark mode
               borderRadius: [4, 4, 0, 0],
             },
-            barGap: "-100%", // Overlap bars if desired, or separte. Typical Target/Actual is overlapping or side-by-side.
-            // Let's do side-by-side for clarity first, or better:
-            // "Target" as a background bar or line?
-            // User asked for "Target vs Completed". Side-by-side is clearest.
+            barGap: "20%",
           },
           {
             name: "已完成",
@@ -143,7 +153,7 @@ export default {
             barWidth: 12,
             itemStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "#2B3674" }, // Theme Blue for Completed
+                { offset: 0, color: "#2B3674" },
                 { offset: 1, color: "#4A7BF7" },
               ]),
               borderRadius: [4, 4, 0, 0],
@@ -151,9 +161,6 @@ export default {
           },
         ],
       };
-
-      // Update config for side-by-side (remove barGap/barCategoryGap if I set them)
-      option.series[0].barGap = "20%"; // Default gap
 
       this.chart.setOption(option);
     },

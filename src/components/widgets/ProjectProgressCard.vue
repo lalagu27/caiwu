@@ -41,19 +41,30 @@ export default {
     this.$nextTick(() => {
       this.initChart();
       window.addEventListener("resize", this.handleResize);
+      window.addEventListener("theme-change", this.handleThemeChange);
     });
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener("theme-change", this.handleThemeChange);
     if (this.chart) this.chart.dispose();
   },
   methods: {
     handleResize() {
       if (this.chart) this.chart.resize();
     },
+    handleThemeChange() {
+      this.initChart();
+    },
     initChart() {
       if (!this.$refs.chart) return;
-      this.chart = echarts.init(this.$refs.chart);
+      let chart = echarts.getInstanceByDom(this.$refs.chart);
+      if (!chart) chart = echarts.init(this.$refs.chart);
+      this.chart = chart;
+
+      const isDark = document.body.classList.contains("dark-theme");
+      const textColor = isDark ? "#A3AED0" : "#333";
+      const bgBarColor = isDark ? "#111C44" : "#e8eef5"; // Dark navy for dark mode bg bar
 
       const projects = [
         {
@@ -76,7 +87,7 @@ export default {
       const option = {
         grid: {
           top: 25,
-          right: 50, // Increase right padding to prevent label cutoff
+          right: 50,
           bottom: 0,
           left: 10,
           containLabel: false,
@@ -105,10 +116,10 @@ export default {
             barGap: "-100%",
             barCategoryGap: "35%",
             data: projects.map((p) => 100),
-            barWidth: 12, // Thicker bars
+            barWidth: 12,
             itemStyle: {
-              color: "#e8eef5",
-              borderRadius: 6, // Slightly more round
+              color: bgBarColor,
+              borderRadius: 6,
             },
             silent: true,
           },
@@ -124,17 +135,17 @@ export default {
                 color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
                   {
                     offset: 0,
-                    color: "#2B3674", // Theme Blue
+                    color: "#2B3674",
                   },
                   {
                     offset: 1,
-                    color: "#4A7BF7", // Lighter Tech Blue
+                    color: "#4A7BF7",
                   },
                 ]),
                 borderRadius: 6,
               },
             })),
-            barWidth: 12, // Thicker bars
+            barWidth: 12,
             label: { show: false },
           },
           // 项目名称标签（使用scatter类型在左侧显示）
@@ -151,7 +162,7 @@ export default {
                 const name = projects[params.data[1]].name;
                 return name;
               },
-              color: "#333",
+              color: textColor, // Dynamic color
               fontSize: 12,
               fontWeight: 500,
               align: "left",
@@ -170,8 +181,8 @@ export default {
               show: true,
               position: "right",
               formatter: (params) => projects[params.data[1]].value + "%",
-              color: "#333",
-              fontSize: 14, // Larger font
+              color: textColor, // Dynamic color
+              fontSize: 14,
               fontWeight: 600,
               align: "left",
               offset: [10, 0],
