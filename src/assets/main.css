@@ -301,9 +301,16 @@ body {
 .dark-theme div[style*="position: absolute"][style*="pointer-events: none"] * {
   color: #CBD5E1 !important;
 }
+
 /* =========================================
    明亮模式 - 强制移除所有阴影
    ========================================= */
 body:not(.dark-theme) * {
+  box-shadow: none !important;
+}
+/* 特别移除标题竖条和图标的发光效果 */
+body:not(.dark-theme) .chart-header h3::before,
+body:not(.dark-theme) .card-header h3::before,
+body:not(.dark-theme) .header-icon {
   box-shadow: none !important;
 }
