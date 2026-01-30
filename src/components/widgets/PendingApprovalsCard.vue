@@ -147,14 +147,14 @@ export default {
   width: 30px;
   height: 30px;
   border-radius: 8px;
-  background: #f4f7fe; /* Uniform Neutral */
+  background: var(--primary-light); /* Uniform Neutral */
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
   flex-shrink: 0;
   font-weight: 700;
-  color: #2b3674; /* Uniform Navy */
+  color: var(--primary-color); /* Uniform Navy */
   box-shadow: none;
 }
 
@@ -174,7 +174,7 @@ export default {
 
 .card-subtitle {
   font-size: 12px;
-  color: #2b3674; /* Navy */
+  color: var(--primary-color); /* Navy */
   margin-top: 0;
   font-weight: 600;
 }
@@ -197,8 +197,8 @@ export default {
 }
 
 .approval-item {
-  background: #f8fafc;
-  border: 1px solid #f1f5f9;
+  background: var(--bg-hover);
+  border: 1px solid var(--border-color);
   border-radius: 10px;
   padding: 8px 12px;
   display: flex;
@@ -212,14 +212,14 @@ export default {
 }
 
 .approval-item:hover {
-  background: #ffffff;
+  background: var(--bg-card);
   border-color: #bfdbfe;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transform: translateY(-1px);
 }
 
 .approval-item.expanded {
-  background: #eff6ff;
+  background: var(--bg-hover);
   border-color: #bfdbfe;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -238,8 +238,8 @@ export default {
 
 /* Strict De-noising: Unified Icons */
 .approval-item .icon-wrapper {
-  background: #f4f7fe; /* Light Grey/Blue */
-  color: #2b3674; /* Navy Blue */
+  background: var(--primary-light); /* Light Grey/Blue */
+  color: var(--primary-color); /* Navy Blue */
 }
 
 .approval-item:hover .icon-wrapper {
@@ -257,7 +257,7 @@ export default {
 
 .approval-name {
   font-size: 13px; /* 统一内容字体 */
-  color: #374151;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
@@ -267,15 +267,15 @@ export default {
 }
 
 .approval-badge {
-  background: #fff;
-  color: #64748b;
+  background: var(--bg-hover);
+  color: var(--text-secondary);
   font-size: 12px;
   padding: 2px 8px;
   border-radius: 12px;
   font-weight: 600;
   min-width: 20px;
   text-align: center;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
 }
 
 .approval-item:hover .approval-badge {
@@ -297,7 +297,7 @@ export default {
 }
 
 .approval-details {
-  background: #fff;
+  background: var(--bg-card);
   border: 1px solid #bfdbfe;
   border-top: none;
   margin-top: -1px;
@@ -324,8 +324,8 @@ export default {
   align-items: center;
   font-size: 12px;
   padding: 6px 0;
-  color: #4b5563;
-  border-bottom: 1px dashed #f1f5f9;
+  color: var(--text-secondary);
+  border-bottom: 1px dashed var(--border-color);
 }
 
 .detail-row:last-child {

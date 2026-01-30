@@ -184,37 +184,37 @@ export default {
 }
 
 .custom-table th {
-  background-color: #f8fafc; /* Very light grey, almost white */
-  color: #64748b; /* Slate Grey for headers */
+  background-color: var(--bg-hover); /* Very light grey, almost white */
+  color: var(--text-secondary); /* Slate Grey for headers */
   font-weight: 600;
   padding: 10px 8px; /* Slightly more padding */
   text-align: center;
   white-space: nowrap;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .custom-table td {
   padding: 10px 8px;
   text-align: center;
-  border-bottom: 1px solid #f1f5f9;
-  color: #334155; /* Dark grey for content */
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary); /* Dark grey for content */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .custom-table tr:hover td {
-  background-color: #f8fafc;
+  background-color: var(--bg-hover);
 }
 
 .well-name {
-  color: #2b3674; /* Navy Blue */
+  color: var(--primary-color); /* Navy Blue */
   font-weight: 600; /* Reduced from 700 */
 }
 
 .activity-content {
   text-align: left;
   padding-left: 12px;
-  color: #475569;
+  color: var(--text-secondary);
 }
 </style>

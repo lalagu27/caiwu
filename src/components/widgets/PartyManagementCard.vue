@@ -85,12 +85,12 @@ export default {
   width: 30px;
   height: 30px;
   border-radius: 8px;
-  background: #f4f7fe; /* Uniform Neutral */
+  background: var(--primary-light); /* Uniform Neutral */
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  color: #2b3674; /* Uniform Navy */
+  color: var(--primary-color); /* Uniform Navy */
   box-shadow: none;
 }
 
@@ -104,7 +104,7 @@ export default {
 .card-title {
   font-size: 14px; /* Reduced from 16px */
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-primary);
   line-height: 1.2;
 }
 
@@ -128,9 +128,9 @@ export default {
   align-items: center;
   gap: 8px;
   padding: 8px;
-  background: #f8fafc;
+  background: var(--bg-hover);
   border-radius: 12px;
-  border: 1px solid #f1f5f9;
+  border: 1px solid var(--border-color);
   transition: all 0.3s ease;
   cursor: pointer;
   position: relative;
@@ -155,8 +155,8 @@ export default {
 
 /* Strict De-noising: Unified Icons */
 .module-item .icon-wrapper {
-  background: #f4f7fe; /* Light Grey/Blue */
-  color: #2b3674; /* Navy Blue */
+  background: var(--primary-light); /* Light Grey/Blue */
+  color: var(--primary-color); /* Navy Blue */
 }
 
 .module-item:hover .icon-wrapper {
@@ -172,11 +172,11 @@ export default {
 .module-name {
   font-size: 13px; /* 统一内容字体 */
   font-weight: 600;
-  color: #4b5563;
+  color: var(--text-primary);
   transition: color 0.3s;
 }
 
 .module-item:hover .module-name {
-  color: #1f2937;
+  color: var(--primary-color);
 }
 </style>

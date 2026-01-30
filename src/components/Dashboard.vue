@@ -181,10 +181,12 @@ export default {
     this.$nextTick(() => {
       this.initCharts();
       window.addEventListener("resize", this.handleResize);
+      window.addEventListener("theme-change", this.handleThemeChange);
     });
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener("theme-change", this.handleThemeChange);
     Object.values(this.charts).forEach((chart) => {
       if (chart) chart.dispose();
     });
@@ -209,24 +211,35 @@ export default {
         if (chart) chart.resize();
       });
     },
-    initCharts() {
-      this.initChart1();
-      this.initChart2();
-      this.initChart3();
-      this.initChart4();
-      this.initChart5();
-      this.initChart6();
+    handleThemeChange() {
+      // Re-init charts with new theme colors
+      this.initCharts();
     },
-    initChart1() {
+    initCharts() {
+      const isDark = document.body.classList.contains("dark-theme");
+      const textColor = isDark ? "#A3AED0" : "#666";
+      const lineColor = isDark ? "#2B3674" : "#E1E8ED";
+      const themeBlue = isDark ? "#00F0FF" : "#2B3674";
+      const techBlue = isDark ? "#2B65F0" : "#4A7BF7";
+
+      this.initChart1(textColor, lineColor, themeBlue, techBlue);
+      this.initChart2(textColor, lineColor, themeBlue, techBlue);
+      this.initChart3(textColor, lineColor, themeBlue, techBlue);
+      this.initChart4(textColor, lineColor, themeBlue, techBlue);
+      this.initChart5(textColor, lineColor, themeBlue, techBlue);
+      this.initChart6(textColor, lineColor, themeBlue, techBlue);
+    },
+    initChart1(textColor, lineColor, themeBlue, techBlue) {
       if (!this.$refs.chart1) return;
-      const chart = echarts.init(this.$refs.chart1);
+      let chart = echarts.getInstanceByDom(this.$refs.chart1);
+      if (!chart) chart = echarts.init(this.$refs.chart1);
 
       chart.setOption({
         title: {
           text: "油当量(万方)",
           textStyle: {
             fontSize: 12,
-            color: "#666",
+            color: textColor,
             fontWeight: "normal",
           },
           top: 10,
@@ -243,13 +256,14 @@ export default {
           itemWidth: 12,
           itemHeight: 12,
           itemGap: 20,
+          textStyle: { color: textColor },
         },
         grid: { top: 40, right: 20, bottom: 20, left: 15, containLabel: true },
         xAxis: {
           type: "category",
           data: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"],
-          axisLine: { lineStyle: { color: "#E1E8ED" } },
-          axisLabel: { color: "#666", fontSize: 11 },
+          axisLine: { lineStyle: { color: lineColor } },
+          axisLabel: { color: textColor, fontSize: 11 },
           axisTick: { show: true, alignWithLabel: true },
         },
         yAxis: {
@@ -257,8 +271,8 @@ export default {
           min: 0,
           max: 700000,
           interval: 100000,
-          splitLine: { lineStyle: { color: "#F0F4F9", type: "dashed" } },
-          axisLabel: { color: "#666", fontSize: 11 },
+          splitLine: { lineStyle: { color: lineColor, type: "dashed" } },
+          axisLabel: { color: textColor, fontSize: 11 },
         },
         series: [
           {
@@ -271,8 +285,8 @@ export default {
             smooth: false,
             symbol: "circle",
             symbolSize: 4,
-            lineStyle: { color: "#2B3674", width: 2 }, // Theme Blue
-            itemStyle: { color: "#2B3674" },
+            lineStyle: { color: themeBlue, width: 2 }, // Theme Blue
+            itemStyle: { color: themeBlue },
           },
           {
             name: "销售气量",
@@ -284,14 +298,15 @@ export default {
             smooth: false,
             symbol: "circle",
             symbolSize: 4,
-            lineStyle: { color: "#4A7BF7", width: 2 }, // Tech Blue
-            itemStyle: { color: "#4A7BF7" },
+            lineStyle: { color: techBlue, width: 2 }, // Tech Blue
+            itemStyle: { color: techBlue },
           },
         ],
       });
 
       this.charts.chart1 = chart;
     },
+
     initChart2() {
       if (!this.$refs.chart2) return;
       const chart = echarts.init(this.$refs.chart2);

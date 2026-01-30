@@ -15,11 +15,18 @@
       <i class="el-icon-date"></i>
       <span>{{ currentDate }}</span>
     </div>
+    <div
+      class="theme-toggle"
+      @click="toggleTheme"
+      :title="isDark ? '切换亮色' : '切换暗色'"
+    >
+      <span class="toggle-icon">{{ isDark ? "🌙" : "☀️" }}</span>
+    </div>
     <div class="avatar-container">
       <div class="avatar">
         <i
           class="el-icon-user-solid"
-          style="font-size: 40px; color: #2b3674"
+          style="font-size: 40px; color: var(--primary-color)"
         ></i>
       </div>
       <div class="online-indicator"></div>
@@ -78,6 +85,7 @@ export default {
         schedules: 3, // 本周计划数量
       },
       currentDate: "",
+      isDark: false,
     };
   },
   created() {
@@ -85,6 +93,16 @@ export default {
     this.currentDate = `${today.getFullYear()}/${(today.getMonth() + 1)
       .toString()
       .padStart(2, "0")}/${today.getDate().toString().padStart(2, "0")}`;
+
+    // Initialize theme from local storage or system preference
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      this.isDark = true;
+      document.body.classList.add("dark-theme");
+    } else {
+      this.isDark = false;
+      document.body.classList.remove("dark-theme");
+    }
   },
   computed: {
     avatarUrl() {
@@ -125,6 +143,17 @@ export default {
       e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
         this.name
       )}&background=random&color=fff&size=128&rounded=true&bold=true`;
+    },
+    toggleTheme() {
+      this.isDark = !this.isDark;
+      if (this.isDark) {
+        document.body.classList.add("dark-theme");
+        localStorage.setItem("theme", "dark");
+      } else {
+        document.body.classList.remove("dark-theme");
+        localStorage.setItem("theme", "light");
+      }
+      window.dispatchEvent(new Event("theme-change"));
     },
   },
 };
@@ -167,6 +196,34 @@ export default {
   z-index: 10;
 }
 
+.theme-toggle {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  border: 1px solid var(--border-color);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  background: var(--primary-light);
+  border-color: var(--primary-color);
+}
+
+.toggle-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
 .date-badge i {
   font-size: 14px;
 }
@@ -181,15 +238,32 @@ export default {
   height: 64px;
   border-radius: 50%;
   padding: 0;
-  background: #eff4fb; /* Light Tech Grey */
+  background: var(--bg-hover); /* Light Tech Grey */
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #2b3674; /* Navy Blue */
+  color: var(--primary-color); /* Navy Blue/Cyan */
   font-size: 32px;
 }
 
 /* ... existing styles ... */
+
+.welcome-message {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.welcome-text {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.welcome-icon {
+  font-size: 16px;
+}
 
 .user-details {
   display: flex;
@@ -206,6 +280,12 @@ export default {
   margin-bottom: 2px;
 }
 
+.user-position {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
 /* ... existing styles ... */
 
 .user-stats {
@@ -215,7 +295,7 @@ export default {
   width: 100%;
   padding: 8px 8px 4px 8px; /* Reduced padding */
   margin-top: 4px; /* Reduced margin */
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid var(--border-color);
   gap: 8px;
 }
 
@@ -228,13 +308,13 @@ export default {
 
 .stat-label {
   font-size: 11px;
-  color: #909399;
+  color: var(--text-secondary);
   white-space: nowrap;
 }
 
 .stat-divider {
   width: 1px;
   height: 28px;
-  background: #e4e7ed;
+  background: var(--border-color);
 }
 </style>

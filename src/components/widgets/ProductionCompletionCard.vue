@@ -225,7 +225,7 @@ export default {
   height: 48px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #ebeef5;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .chart-header {
@@ -239,7 +239,7 @@ export default {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
-  color: #303133;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
 }

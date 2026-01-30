@@ -176,10 +176,12 @@ export default {
     this.$nextTick(() => {
       this.initCharts();
       window.addEventListener("resize", this.handleResize);
+      window.addEventListener("theme-change", this.handleThemeChange);
     });
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener("theme-change", this.handleThemeChange);
     Object.values(this.charts).forEach((chart) => {
       if (chart) chart.dispose();
     });
@@ -190,11 +192,20 @@ export default {
         if (chart) chart.resize();
       });
     },
+    handleThemeChange() {
+      // Re-init charts with new theme colors
+      this.initCharts();
+    },
     initCharts() {
-      this.initChart1(); // 税前利润月度趋势
-      this.initChart2(); // 桶油五项月度趋势
-      this.initChart3(); // 战新投资月度趋势
-      this.initChart4(); // 战新收入月度趋势
+      const isDark = document.body.classList.contains("dark-theme");
+      const textColor = isDark ? "#A3AED0" : "#999";
+      const lineColor = isDark ? "#2B3674" : "#E1E8ED";
+      const themeBlue = isDark ? "#00F0FF" : "#2B3674"; // Cyan in dark mode
+
+      this.initChart1(textColor, lineColor, themeBlue); // 税前利润月度趋势
+      this.initChart2(textColor, lineColor, themeBlue); // 桶油五项月度趋势
+      this.initChart3(textColor, lineColor, themeBlue); // 战新投资月度趋势
+      this.initChart4(textColor, lineColor, themeBlue); // 战新收入月度趋势
     },
     getActiveSegments(percentage) {
       return Math.round((percentage / 100) * 12);
@@ -217,15 +228,19 @@ export default {
       // Opacity change or single color for clean look
       return "var(--primary-color)";
     },
-    initChart1() {
+    initChart1(textColor, lineColor, themeBlue) {
       if (!this.$refs.chart1) return;
-      const chart = echarts.init(this.$refs.chart1);
+      // Dispose old instance to apply new clean state or just setOption with merge?
+      // Dispose is safer for complete theme switch if needed, but setOption is faster.
+      // Let's rely on setOption merging, but for colors we might want to be explicit.
+      let chart = echarts.getInstanceByDom(this.$refs.chart1);
+      if (!chart) chart = echarts.init(this.$refs.chart1);
 
       chart.setOption({
         title: {
           text: "亿元",
           textStyle: {
-            color: "#999",
+            color: textColor,
             fontSize: 10,
             fontWeight: "normal",
           },
@@ -252,15 +267,23 @@ export default {
             "10月",
           ],
           show: true,
-          axisLine: { show: true, lineStyle: { color: "#E1E8ED" } },
+          axisLine: { show: true, lineStyle: { color: lineColor } },
           axisTick: { show: false },
-          axisLabel: { color: "#999", fontSize: 10, interval: 0, rotate: 45 },
+          axisLabel: {
+            color: textColor,
+            fontSize: 10,
+            interval: 0,
+            rotate: 45,
+          },
         },
         yAxis: {
           type: "value",
           show: true,
-          splitLine: { show: true, lineStyle: { type: "dashed" } },
-          axisLabel: { color: "#999", fontSize: 10 },
+          splitLine: {
+            show: true,
+            lineStyle: { type: "dashed", color: lineColor },
+          },
+          axisLabel: { color: textColor, fontSize: 10 },
         },
         series: [
           {
@@ -268,7 +291,7 @@ export default {
             type: "bar",
             barWidth: "60%",
             itemStyle: {
-              color: "#2B3674", // Theme Blue
+              color: themeBlue, // Theme Blue
               borderRadius: [2, 2, 0, 0],
             },
           },
@@ -277,15 +300,16 @@ export default {
 
       this.charts.chart1 = chart;
     },
-    initChart2() {
+    initChart2(textColor, lineColor, themeBlue) {
       if (!this.$refs.chart2) return;
-      const chart = echarts.init(this.$refs.chart2);
+      let chart = echarts.getInstanceByDom(this.$refs.chart2);
+      if (!chart) chart = echarts.init(this.$refs.chart2);
 
       chart.setOption({
         title: {
           text: "$/桶",
           textStyle: {
-            color: "#999",
+            color: textColor,
             fontSize: 10,
             fontWeight: "normal",
           },
@@ -312,17 +336,25 @@ export default {
             "10月",
           ],
           show: true,
-          axisLine: { show: true, lineStyle: { color: "#E1E8ED" } },
+          axisLine: { show: true, lineStyle: { color: lineColor } },
           axisTick: { show: false },
-          axisLabel: { color: "#999", fontSize: 10, interval: 0, rotate: 45 },
+          axisLabel: {
+            color: textColor,
+            fontSize: 10,
+            interval: 0,
+            rotate: 45,
+          },
         },
         yAxis: {
           type: "value",
           show: true,
           min: 18.5,
           max: 19.14,
-          splitLine: { show: true, lineStyle: { type: "dashed" } },
-          axisLabel: { color: "#999", fontSize: 10 },
+          splitLine: {
+            show: true,
+            lineStyle: { type: "dashed", color: lineColor },
+          },
+          axisLabel: { color: textColor, fontSize: 10 },
         },
         series: [
           {
@@ -334,9 +366,9 @@ export default {
             smooth: true,
             symbol: "circle",
             symbolSize: 6,
-            lineStyle: { color: "#2B3674", width: 2 }, // Navy Blue (Neutral/Corporate)
+            lineStyle: { color: themeBlue, width: 2 }, // Navy Blue (Neutral/Corporate)
             itemStyle: {
-              color: "#2B3674",
+              color: themeBlue,
               borderWidth: 2,
               borderColor: "#fff",
             },
@@ -372,15 +404,16 @@ export default {
 
       this.charts.chart2 = chart;
     },
-    initChart3() {
+    initChart3(textColor, lineColor, themeBlue) {
       if (!this.$refs.chart3) return;
-      const chart = echarts.init(this.$refs.chart3);
+      let chart = echarts.getInstanceByDom(this.$refs.chart3);
+      if (!chart) chart = echarts.init(this.$refs.chart3);
 
       chart.setOption({
         title: {
           text: "亿元",
           textStyle: {
-            color: "#999",
+            color: textColor,
             fontSize: 10,
             fontWeight: "normal",
           },
@@ -407,15 +440,23 @@ export default {
             "10月",
           ],
           show: true,
-          axisLine: { show: true, lineStyle: { color: "#E1E8ED" } },
+          axisLine: { show: true, lineStyle: { color: lineColor } },
           axisTick: { show: false },
-          axisLabel: { color: "#999", fontSize: 10, interval: 0, rotate: 45 },
+          axisLabel: {
+            color: textColor,
+            fontSize: 10,
+            interval: 0,
+            rotate: 45,
+          },
         },
         yAxis: {
           type: "value",
           show: true,
-          splitLine: { show: true, lineStyle: { type: "dashed" } },
-          axisLabel: { color: "#999", fontSize: 10 },
+          splitLine: {
+            show: true,
+            lineStyle: { type: "dashed", color: lineColor },
+          },
+          axisLabel: { color: textColor, fontSize: 10 },
         },
         series: [
           {
@@ -423,24 +464,24 @@ export default {
             type: "bar",
             barWidth: "60%",
             itemStyle: {
-              color: "#2B3674", // Theme Blue
+              color: themeBlue, // Theme Blue
               borderRadius: [2, 2, 0, 0],
             },
           },
         ],
       });
-
       this.charts.chart3 = chart;
     },
-    initChart4() {
+    initChart4(textColor, lineColor, themeBlue) {
       if (!this.$refs.chart4) return;
-      const chart = echarts.init(this.$refs.chart4);
+      let chart = echarts.getInstanceByDom(this.$refs.chart4);
+      if (!chart) chart = echarts.init(this.$refs.chart4);
 
       chart.setOption({
         title: {
           text: "亿元",
           textStyle: {
-            color: "#999",
+            color: textColor,
             fontSize: 10,
             fontWeight: "normal",
           },
@@ -467,15 +508,23 @@ export default {
             "10月",
           ],
           show: true,
-          axisLine: { show: true, lineStyle: { color: "#E1E8ED" } },
+          axisLine: { show: true, lineStyle: { color: lineColor } },
           axisTick: { show: false },
-          axisLabel: { color: "#999", fontSize: 10, interval: 0, rotate: 45 },
+          axisLabel: {
+            color: textColor,
+            fontSize: 10,
+            interval: 0,
+            rotate: 45,
+          },
         },
         yAxis: {
           type: "value",
           show: true,
-          splitLine: { show: true, lineStyle: { type: "dashed" } },
-          axisLabel: { color: "#999", fontSize: 10 },
+          splitLine: {
+            show: true,
+            lineStyle: { type: "dashed", color: lineColor },
+          },
+          axisLabel: { color: textColor, fontSize: 10 },
         },
         series: [
           {
@@ -483,13 +532,12 @@ export default {
             type: "bar",
             barWidth: "60%",
             itemStyle: {
-              color: "#2B3674", // Theme Blue
+              color: themeBlue, // Theme Blue
               borderRadius: [2, 2, 0, 0],
             },
           },
         ],
       });
-
       this.charts.chart4 = chart;
     },
   },
@@ -586,8 +634,8 @@ export default {
 .kpi-icon.cost,
 .kpi-icon.investment,
 .kpi-icon.revenue {
-  background: #f4f7fe; /* Light Grey/Blue Background */
-  color: #2b3674; /* Deep Navy Blue Icon */
+  background: var(--primary-light); /* Light Grey/Blue Background */
+  color: var(--primary-color); /* Deep Navy Blue Icon */
 }
 
 .kpi-title {
@@ -634,7 +682,7 @@ export default {
 }
 
 .progress-bar.segmented {
-  background: #f0f2f5; /* 整体灰底 */
+  background: var(--bg-hover); /* 整体灰底 */
   display: flex;
   gap: 0; /* 无间隙 */
   overflow: hidden;

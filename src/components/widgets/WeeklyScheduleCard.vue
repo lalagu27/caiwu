@@ -198,13 +198,13 @@ export default {
   width: 30px;
   height: 30px;
   border-radius: 8px;
-  background: #f4f7fe; /* Uniform Neutral */
+  background: var(--primary-light); /* Uniform Neutral */
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
   flex-shrink: 0;
-  color: #2b3674; /* Uniform Navy */
+  color: var(--primary-color); /* Uniform Navy */
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -224,7 +224,7 @@ export default {
 .card-title {
   font-size: 14px; /* Reduced from 16px */
   font-weight: 700;
-  color: #303133;
+  color: var(--text-primary);
 }
 
 .schedule-count {
@@ -255,10 +255,10 @@ export default {
   gap: 8px;
   padding: 4px 8px;
   border-radius: 8px;
-  background: #fafbfc;
+  background: var(--bg-hover);
   transition: all 0.2s;
   align-items: center;
-  border: 1px solid #f0f2f5;
+  border: 1px solid var(--border-color);
   height: 100%; /* Fill wrapper */
   box-sizing: border-box;
 }
@@ -355,7 +355,7 @@ export default {
   top: 10px;
   bottom: 10px;
   width: 2px;
-  background: #e4e7ed;
+  background: var(--border-color);
   border-radius: 1px;
 }
 
@@ -371,13 +371,13 @@ export default {
   height: 24px; /* Reduced from 28px */
   border-radius: 50%;
   background: #ccc;
-  border: 2px solid #fff; /* Thinner border */
+  border: 2px solid var(--bg-card); /* Thinner border */
   position: absolute;
   left: -32px; /* Adjusted position */
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
-  box-shadow: 0 0 0 1px #e4e7ed;
+  box-shadow: 0 0 0 1px var(--border-color);
   transition: all 0.3s;
   display: flex;
   align-items: center;
@@ -416,13 +416,13 @@ export default {
 }
 
 .schedule-item.meeting .schedule-card-inner {
-  background: #f8fbfe;
-  border-color: #e3f0fc;
+  background: var(--bg-hover);
+  border-color: var(--border-color);
 }
 
 .schedule-item.trip .schedule-card-inner {
-  background: #f9fcfe;
-  border-color: #e8f3fc;
+  background: var(--bg-hover);
+  border-color: var(--border-color);
 }
 
 .schedule-item:hover .schedul.week-day.active {
@@ -431,7 +431,7 @@ export default {
   box-shadow: 0 4px 10px rgba(43, 54, 116, 0.2);
 }
 .schedule-item:hover .schedule-card-inner {
-  background: #ffffff;
+  background: var(--bg-card);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   transform: translateX(2px);
 }
@@ -454,12 +454,12 @@ export default {
 .schedule-title {
   font-size: 13px; /* 统一内容字体 */
   font-weight: 600;
-  color: #303133;
+  color: var(--text-primary);
 }
 
 .schedule-time {
   font-size: 12px;
-  color: #909399;
+  color: var(--text-secondary);
 }
 
 .detail-btn {

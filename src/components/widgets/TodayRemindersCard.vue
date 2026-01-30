@@ -131,12 +131,12 @@ export default {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: #f4f7fe; /* Uniform Neutral Background */
+  background: var(--primary-light); /* Uniform Neutral Background */
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  color: #2b3674; /* Uniform Navy Icon */
+  color: var(--primary-color); /* Uniform Navy Icon */
   box-shadow: none;
 }
 
@@ -155,7 +155,7 @@ export default {
 
 .reminder-count {
   font-size: 12px;
-  color: #2b3674; /* Navy */
+  color: var(--primary-color); /* Navy */
   margin-top: 0;
   font-weight: 600;
 }
@@ -173,7 +173,7 @@ export default {
   justify-content: space-between;
   padding: 10px 12px;
   border-radius: 8px;
-  background: #ffffff;
+  background: var(--bg-card);
   border: 1px solid #f0f2f5;
   border-left-width: 4px;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -190,7 +190,7 @@ export default {
 
 .reminder-item.urgent {
   border-left-color: #ff7875; /* Red accent for urgent */
-  background: #ffffff; /* Removed gradient */
+  background: var(--bg-card); /* Removed gradient */
 }
 
 .reminder-item.normal {
@@ -226,7 +226,7 @@ export default {
 
 .reminder-text {
   font-size: 13px; /* 统一内容字体 */
-  color: #303133;
+  color: var(--text-primary);
   font-weight: 600; /* 统一字重 */
 }
 
