@@ -285,3 +285,18 @@ body {
 .dark-theme [style*="color: #FFFFFF"] {
   color: var(--text-primary) !important;
 }
+/* =========================================
+   暗黑模式 - ECharts Tooltip 优化
+   ========================================= */
+.dark-theme .echarts-tooltip,
+.dark-theme div[style*="position: absolute"][style*="pointer-events: none"] {
+  background: rgba(15, 22, 41, 0.95) !important;
+  border: 1px solid #334155 !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark-theme .echarts-tooltip *,
+.dark-theme div[style*="position: absolute"][style*="pointer-events: none"] * {
+  color: #CBD5E1 !important;
+}

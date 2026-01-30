@@ -237,14 +237,53 @@ export default {
       const themeBlue = isDark ? "#00F0FF" : "#2B3674";
       const techBlue = isDark ? "#2B65F0" : "#4A7BF7";
 
-      this.initChart1(textColor, lineColor, themeBlue, techBlue);
-      this.initChart2(textColor, lineColor, themeBlue, techBlue);
+      const tooltipConfig = {
+        backgroundColor: isDark
+          ? "rgba(15, 22, 41, 0.95)"
+          : "rgba(255, 255, 255, 0.95)",
+        borderColor: isDark ? "#334155" : "#ddd",
+        borderWidth: 1,
+        textStyle: {
+          color: isDark ? "#CBD5E1" : "#333",
+        },
+      };
+
+      this.initChart1(
+        textColor,
+        lineColor,
+        themeBlue,
+        techBlue,
+        isDark,
+        tooltipConfig
+      );
+      this.initChart2(
+        textColor,
+        lineColor,
+        themeBlue,
+        techBlue,
+        isDark,
+        tooltipConfig
+      );
       this.initChart3(textColor, lineColor, themeBlue, techBlue);
       this.initChart4(textColor, lineColor, themeBlue, techBlue);
       this.initChart5(textColor, lineColor, themeBlue, techBlue);
-      this.initChart6(textColor, lineColor, themeBlue, techBlue);
+      this.initChart6(
+        textColor,
+        lineColor,
+        themeBlue,
+        techBlue,
+        isDark,
+        tooltipConfig
+      );
     },
-    initChart1(textColor, lineColor, themeBlue, techBlue) {
+    initChart1(
+      textColor,
+      lineColor,
+      themeBlue,
+      techBlue,
+      isDark,
+      tooltipConfig
+    ) {
       if (!this.$refs.chart1) return;
       let chart = echarts.getInstanceByDom(this.$refs.chart1);
       if (!chart) chart = echarts.init(this.$refs.chart1);
@@ -262,6 +301,7 @@ export default {
         },
         tooltip: {
           trigger: "axis",
+          ...tooltipConfig,
         },
         legend: {
           data: ["销售油量", "销售气量"],
@@ -322,7 +362,14 @@ export default {
       this.charts.chart1 = chart;
     },
 
-    initChart2(textColor, lineColor, themeBlue, techBlue) {
+    initChart2(
+      textColor,
+      lineColor,
+      themeBlue,
+      techBlue,
+      isDark,
+      tooltipConfig
+    ) {
       if (!this.$refs.chart2) return;
       const chart = echarts.init(this.$refs.chart2);
 
@@ -354,7 +401,8 @@ export default {
         tooltip: {
           trigger: "axis",
           axisPointer: { type: "shadow" },
-          confine: true, // Prevent tooltip clipping
+          confine: true,
+          ...tooltipConfig,
         },
         legend: {
           data: [
@@ -589,7 +637,14 @@ export default {
 
       this.charts.chart5 = chart;
     },
-    initChart6(textColor, lineColor, themeBlue, techBlue) {
+    initChart6(
+      textColor,
+      lineColor,
+      themeBlue,
+      techBlue,
+      isDark,
+      tooltipConfig
+    ) {
       if (!this.$refs.chart6) return;
       const chart = echarts.init(this.$refs.chart6);
 
@@ -597,6 +652,7 @@ export default {
         tooltip: {
           trigger: "axis",
           axisPointer: { type: "shadow" },
+          ...tooltipConfig,
         },
         legend: {
           data: ["本年", "上年"],

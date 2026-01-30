@@ -200,12 +200,24 @@ export default {
       const isDark = document.body.classList.contains("dark-theme");
       const textColor = isDark ? "#A3AED0" : "#999";
       const lineColor = isDark ? "#2B3674" : "#E1E8ED";
-      const themeBlue = isDark ? "#00F0FF" : "#2B3674"; // Cyan in dark mode
+      const themeBlue = isDark ? "#00F0FF" : "#2B3674";
 
-      this.initChart1(textColor, lineColor, themeBlue); // 税前利润月度趋势
-      this.initChart2(textColor, lineColor, themeBlue); // 桶油五项月度趋势
-      this.initChart3(textColor, lineColor, themeBlue); // 战新投资月度趋势
-      this.initChart4(textColor, lineColor, themeBlue); // 战新收入月度趋势
+      // 通用tooltip配置
+      const tooltipConfig = {
+        backgroundColor: isDark
+          ? "rgba(15, 22, 41, 0.95)"
+          : "rgba(255, 255, 255, 0.95)",
+        borderColor: isDark ? "#334155" : "#ddd",
+        borderWidth: 1,
+        textStyle: {
+          color: isDark ? "#CBD5E1" : "#333",
+        },
+      };
+
+      this.initChart1(textColor, lineColor, themeBlue, tooltipConfig);
+      this.initChart2(textColor, lineColor, themeBlue, tooltipConfig);
+      this.initChart3(textColor, lineColor, themeBlue, tooltipConfig);
+      this.initChart4(textColor, lineColor, themeBlue, tooltipConfig);
     },
     getActiveSegments(percentage) {
       return Math.round((percentage / 100) * 12);
@@ -228,7 +240,7 @@ export default {
       // Opacity change or single color for clean look
       return "var(--primary-color)";
     },
-    initChart1(textColor, lineColor, themeBlue) {
+    initChart1(textColor, lineColor, themeBlue, tooltipConfig) {
       if (!this.$refs.chart1) return;
       // Dispose old instance to apply new clean state or just setOption with merge?
       // Dispose is safer for complete theme switch if needed, but setOption is faster.
@@ -250,6 +262,7 @@ export default {
         tooltip: {
           trigger: "axis",
           formatter: "{b}: {c}亿元",
+          ...tooltipConfig,
         },
         grid: { top: 10, right: 10, bottom: 35, left: 35 },
         xAxis: {
@@ -300,7 +313,7 @@ export default {
 
       this.charts.chart1 = chart;
     },
-    initChart2(textColor, lineColor, themeBlue) {
+    initChart2(textColor, lineColor, themeBlue, tooltipConfig) {
       if (!this.$refs.chart2) return;
       let chart = echarts.getInstanceByDom(this.$refs.chart2);
       if (!chart) chart = echarts.init(this.$refs.chart2);
@@ -319,6 +332,7 @@ export default {
         tooltip: {
           trigger: "axis",
           formatter: "{b}: {c}$/桶",
+          ...tooltipConfig,
         },
         grid: { top: 15, right: 10, bottom: 35, left: 35 },
         xAxis: {
@@ -404,7 +418,7 @@ export default {
 
       this.charts.chart2 = chart;
     },
-    initChart3(textColor, lineColor, themeBlue) {
+    initChart3(textColor, lineColor, themeBlue, tooltipConfig) {
       if (!this.$refs.chart3) return;
       let chart = echarts.getInstanceByDom(this.$refs.chart3);
       if (!chart) chart = echarts.init(this.$refs.chart3);
@@ -423,6 +437,7 @@ export default {
         tooltip: {
           trigger: "axis",
           formatter: "{b}: {c}亿元",
+          ...tooltipConfig,
         },
         grid: { top: 10, right: 10, bottom: 35, left: 35 },
         xAxis: {
@@ -472,7 +487,7 @@ export default {
       });
       this.charts.chart3 = chart;
     },
-    initChart4(textColor, lineColor, themeBlue) {
+    initChart4(textColor, lineColor, themeBlue, tooltipConfig) {
       if (!this.$refs.chart4) return;
       let chart = echarts.getInstanceByDom(this.$refs.chart4);
       if (!chart) chart = echarts.init(this.$refs.chart4);
@@ -491,6 +506,7 @@ export default {
         tooltip: {
           trigger: "axis",
           formatter: "{b}: {c}亿元",
+          ...tooltipConfig,
         },
         grid: { top: 10, right: 10, bottom: 35, left: 35 },
         xAxis: {
