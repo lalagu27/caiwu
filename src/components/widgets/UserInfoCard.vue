@@ -95,13 +95,17 @@ export default {
       .padStart(2, "0")}/${today.getDate().toString().padStart(2, "0")}`;
 
     // Initialize theme from local storage or system preference
+    // Initialize theme from local storage or system preference
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      this.isDark = true;
-      document.body.classList.add("dark-theme");
-    } else {
+    // Default to dark mode if no theme is saved, or if saved theme is 'dark'
+    if (savedTheme === "light") {
       this.isDark = false;
       document.body.classList.remove("dark-theme");
+    } else {
+      this.isDark = true;
+      document.body.classList.add("dark-theme");
+      // Optionally save it if it wasn't valid
+      if (!savedTheme) localStorage.setItem("theme", "dark");
     }
   },
   computed: {
