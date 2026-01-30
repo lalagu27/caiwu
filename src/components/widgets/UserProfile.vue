@@ -201,7 +201,7 @@ export default {
   border-radius: var(--radius-md);
   font-size: var(--font-lg);
   font-weight: 500;
-  color: var(--text-secondary);
+  color: #409eff;
   cursor: pointer;
   transition: all 0.2s ease;
 }

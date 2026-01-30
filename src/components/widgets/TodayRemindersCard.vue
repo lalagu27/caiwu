@@ -234,7 +234,7 @@ export default {
   padding: 0 4px;
   font-size: 12px;
   margin-left: 8px;
-  color: #2b3674; /* Navy Text */
+  color: #409eff; /* Element Blue */
   flex-shrink: 0;
 }
 

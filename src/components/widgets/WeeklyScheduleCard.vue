@@ -466,6 +466,6 @@ export default {
   padding: 0 4px;
   font-size: 12px;
   margin-left: auto; /* Push to right */
-  color: #2b3674; /* 统一Navy蓝 */
+  color: #409eff; /* Element Blue */
 }
 </style>
