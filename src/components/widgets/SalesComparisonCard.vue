@@ -39,7 +39,6 @@
             凝析油
           </div>
         </div>
-        <div class="action-btn">导出</div>
       </div>
     </div>
 
@@ -509,17 +508,6 @@ export default {
   color: var(--primary-dark);
   font-weight: 600;
   box-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
-}
-
-.action-btn {
-  font-size: 12px;
-  color: var(--primary-color);
-  cursor: pointer;
-  padding: 2px 8px;
-  border: 1px solid var(--primary-color);
-  border-radius: 4px;
-  opacity: 0.8;
-  transition: all 0.3s;
 }
 
 .chart-wrapper {
