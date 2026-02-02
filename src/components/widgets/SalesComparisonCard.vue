@@ -290,104 +290,34 @@ export default {
           },
         ],
         series: [
-          // ========== 计划月销量 (左侧圆柱组) ==========
+          // ========== 计划月销量 (2D Bar) ==========
           {
             name: "计划月销量",
-            type: "pictorialBar",
-            symbol: "circle",
-            symbolSize: [14, 6],
-            symbolOffset: [-5.5, 3],
-            z: 11,
-            barGap: "-100%",
-            data: currentData.planMonth,
-            itemStyle: { color: "rgba(0, 150, 150, 0.6)" },
-            tooltip: { show: false },
-          },
-          {
-            name: "计划月销量",
-            type: "pictorialBar",
-            symbol: "rect",
-            symbolSize: [10, "100%"],
-            symbolOffset: [-5.5, 0],
-            z: 10,
-            barGap: "-100%",
+            type: "bar",
+            barWidth: 10,
+            barGap: "20%",
             data: currentData.planMonth,
             itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                { offset: 0, color: "rgba(0, 180, 180, 0.8)" },
-                { offset: 0.5, color: "rgba(0, 240, 240, 1)" },
-                { offset: 1, color: "rgba(0, 180, 180, 0.8)" },
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: "rgba(0, 240, 240, 1)" },
+                { offset: 1, color: "rgba(0, 150, 150, 0.6)" },
               ]),
+              borderRadius: [2, 2, 0, 0],
             },
           },
-          {
-            name: "计划月销量",
-            type: "pictorialBar",
-            symbol: "circle",
-            symbolSize: [10, 6],
-            symbolOffset: [-5.5, -3],
-            symbolPosition: "end",
-            z: 12,
-            barGap: "-100%",
-            data: currentData.planMonth,
-            itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                { offset: 0, color: "rgba(0, 200, 200, 0.85)" },
-                { offset: 0.5, color: "rgba(120, 255, 255, 1)" },
-                { offset: 1, color: "rgba(0, 200, 200, 0.85)" },
-              ]),
-            },
-            tooltip: { show: false },
-          },
-
-          // ========== 实际月销量 (右侧圆柱组) ==========
+          // ========== 实际月销量 (2D Bar) ==========
           {
             name: "实际月销量",
-            type: "pictorialBar",
-            symbol: "circle",
-            symbolSize: [10, 6],
-            symbolOffset: [5.5, 3],
-            z: 11,
-            barGap: "-100%",
-            data: currentData.actMonth,
-            itemStyle: { color: "rgba(30, 80, 200, 0.6)" },
-            tooltip: { show: false },
-          },
-          {
-            name: "实际月销量",
-            type: "pictorialBar",
-            symbol: "rect",
-            symbolSize: [10, "100%"],
-            symbolOffset: [5.5, 0],
-            z: 10,
-            barGap: "-100%",
+            type: "bar",
+            barWidth: 10,
             data: currentData.actMonth,
             itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                { offset: 0, color: "rgba(30, 100, 220, 0.8)" },
-                { offset: 0.5, color: "rgba(70, 150, 255, 1)" },
-                { offset: 1, color: "rgba(30, 100, 220, 0.8)" },
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: "rgba(70, 150, 255, 1)" },
+                { offset: 1, color: "rgba(30, 80, 200, 0.6)" },
               ]),
+              borderRadius: [2, 2, 0, 0],
             },
-          },
-          {
-            name: "实际月销量",
-            type: "pictorialBar",
-            symbol: "circle",
-            symbolSize: [10, 6],
-            symbolOffset: [5.5, -3],
-            symbolPosition: "end",
-            z: 12,
-            barGap: "-100%",
-            data: currentData.actMonth,
-            itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                { offset: 0, color: "rgba(50, 120, 255, 0.9)" },
-                { offset: 0.5, color: "rgba(120, 180, 255, 1)" },
-                { offset: 1, color: "rgba(50, 120, 255, 0.9)" },
-              ]),
-            },
-            tooltip: { show: false },
           },
 
           // 累销线 (Plan)

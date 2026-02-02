@@ -28,6 +28,9 @@
       <div class="center-col">
         <!-- 3D可视化 -->
         <center-visual class="center-visual" />
+
+        <!-- 油气产量对比图 -->
+        <oil-gas-production-monthly-card class="chart-card chart-bottom" />
       </div>
 
       <!-- Right Column -->
@@ -60,6 +63,7 @@ import CenterVisual from "./widgets/CenterVisual.vue";
 import DrillingDynamicsCard from "./widgets/DrillingDynamicsCard.vue";
 import SalesComparisonCard from "./widgets/SalesComparisonCard.vue";
 import MonthlyOutputValueCard from "./widgets/MonthlyOutputValueCard.vue";
+import OilGasProductionMonthlyCard from "./widgets/OilGasProductionMonthlyCard.vue";
 
 export default {
   name: "Dashboard",
@@ -78,6 +82,7 @@ export default {
     DrillingDynamicsCard,
     SalesComparisonCard,
     MonthlyOutputValueCard,
+    OilGasProductionMonthlyCard,
   },
   mounted() {
     this.$nextTick(() => {
