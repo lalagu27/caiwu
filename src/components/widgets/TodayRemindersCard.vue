@@ -47,22 +47,13 @@ export default {
       // Separating time and event for better styling control
       reminders: [
         {
-          time: "10:00",
-          event: "部门周会",
+          time: "8:30",
+          event: "有限海南分公司总办会 办公楼1912会议室",
           type: "urgent",
-          fullText: "上午10:00 部门周会",
         },
         {
           time: "14:00",
-          event: "项目评审",
-          type: "normal",
-          fullText: "下午2:00 项目评审",
-        },
-        {
-          time: "16:30",
-          event: "客户沟通",
-          type: "normal",
-          fullText: "下午4:30 客户沟通",
+          event: "先进表彰大会303室",
         },
       ],
     };
