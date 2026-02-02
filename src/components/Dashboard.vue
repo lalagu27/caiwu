@@ -20,53 +20,8 @@
         <sales-comparison-card class="chart-card production-card" />
 
         <!-- 完成率统计 - 多色环形图（延伸到底部）-->
-        <el-card
-          class="chart-card chart-tall"
-          :body-style="{
-            padding: '0px',
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-          }"
-        >
-          <div slot="header" class="chart-header">
-            <h3>
-              油气产量分月对比
-              <span
-                style="
-                  font-size: 12px;
-                  color: var(--text-secondary);
-                  margin-left: 8px;
-                "
-                >[2025/11]</span
-              >
-            </h3>
-            <div class="chart-tabs">
-              <button
-                class="tab"
-                :class="{ active: periodChart2 === '日' }"
-                @click="periodChart2 = '日'"
-              >
-                日
-              </button>
-              <button
-                class="tab"
-                :class="{ active: periodChart2 === '月' }"
-                @click="periodChart2 = '月'"
-              >
-                月
-              </button>
-              <button
-                class="tab"
-                :class="{ active: periodChart2 === '年' }"
-                @click="periodChart2 = '年'"
-              >
-                年
-              </button>
-            </div>
-          </div>
-          <div class="chart-body" ref="chart2"></div>
-        </el-card>
+        <!-- 月度产值 - 替换油气产量分月对比 -->
+        <monthly-output-value-card class="chart-card chart-tall" />
       </div>
 
       <!-- Center Column - 3D Visual + Bottom Chart -->
@@ -130,6 +85,7 @@ import ProjectProgressCard from "./widgets/ProjectProgressCard.vue";
 import CenterVisual from "./widgets/CenterVisual.vue";
 import DrillingDynamicsCard from "./widgets/DrillingDynamicsCard.vue";
 import SalesComparisonCard from "./widgets/SalesComparisonCard.vue";
+import MonthlyOutputValueCard from "./widgets/MonthlyOutputValueCard.vue";
 
 export default {
   name: "Dashboard",
@@ -147,6 +103,7 @@ export default {
     CenterVisual,
     DrillingDynamicsCard,
     SalesComparisonCard,
+    MonthlyOutputValueCard,
   },
   mounted() {
     this.$nextTick(() => {
@@ -165,7 +122,6 @@ export default {
   data() {
     return {
       charts: {},
-      periodChart2: "月",
       currentDate: "",
     };
   },
@@ -203,302 +159,9 @@ export default {
         },
       };
 
-      this.initChart2(
-        textColor,
-        lineColor,
-        themeBlue,
-        techBlue,
-        isDark,
-        tooltipConfig
-      );
-      this.initChart3(textColor, lineColor, themeBlue, techBlue);
-      this.initChart4(textColor, lineColor, themeBlue, techBlue);
-      this.initChart5(textColor, lineColor, themeBlue, techBlue);
-      this.initChart6(
-        textColor,
-        lineColor,
-        themeBlue,
-        techBlue,
-        isDark,
-        tooltipConfig
-      );
+      // 盈利能力目前使用 inline 或静态展示，移除过时的 init 调用
     },
 
-    initChart2(
-      textColor,
-      lineColor,
-      themeBlue,
-      techBlue,
-      isDark,
-      tooltipConfig
-    ) {
-      if (!this.$refs.chart2) return;
-      const chart = echarts.init(this.$refs.chart2);
-
-      const months = Array.from({ length: 12 }, (_, i) => i + 1);
-
-      // 模拟数据
-      const planOil = [53, 48, 54, 45, 57, 52, 59, 61, 62, 61, 58, 59];
-      const planGas = [39, 35, 36, 36, 31, 38, 37, 37, 36, 40, 42, 41];
-      const actOil = [56, 49, 56, 59, 62, 55, 56, 53, 49, 62, 60, null]; // 12月无数据
-      const actGas = [42, 36, 40, 38, 37, 32, 40, 40, 36, 38, 39, null];
-
-      // 计算年累
-      let planTotal = 0;
-      const planAcc = [];
-      for (let i = 0; i < 12; i++) {
-        planTotal += planOil[i] + planGas[i];
-        planAcc.push(planTotal);
-      }
-
-      let actTotal = 0;
-      const actAcc = [];
-      for (let i = 0; i < 11; i++) {
-        // 只有前11个月
-        actTotal += actOil[i] + actGas[i];
-        actAcc.push(actTotal);
-      }
-
-      chart.setOption({
-        tooltip: {
-          trigger: "axis",
-          axisPointer: { type: "shadow" },
-          confine: true,
-          ...tooltipConfig,
-        },
-        legend: {
-          data: [
-            "计划月产油",
-            "计划月产气",
-            "实际月产油",
-            "实际月产气",
-            "计划年产油气",
-            "实际年产油气",
-          ],
-          type: "scroll",
-          top: "auto",
-          bottom: 0,
-          left: "center",
-          width: "90%",
-          itemWidth: 10,
-          itemHeight: 10,
-          textStyle: { fontSize: 10, color: textColor },
-          itemGap: 15, // Fixed legend gap
-        },
-        grid: { top: 45, right: 50, bottom: 40, left: 35 },
-        xAxis: {
-          type: "category",
-          data: months,
-          axisLine: { lineStyle: { color: lineColor } },
-          axisLabel: { color: textColor, fontSize: 11 },
-          axisTick: { show: false },
-        },
-        yAxis: [
-          {
-            type: "value",
-            name: "月产(万方)",
-            min: 0,
-            max: 120,
-            interval: 20,
-            axisLabel: { color: textColor },
-            nameTextStyle: {
-              align: "left",
-              padding: [0, 0, 0, -30],
-              color: textColor,
-            },
-            splitLine: {
-              show: true,
-              lineStyle: { type: "dashed", color: lineColor },
-            },
-          },
-          {
-            type: "value",
-            name: "年累(万方)",
-            min: 0,
-            max: 1200,
-            interval: 200,
-            axisLabel: { color: textColor },
-            splitLine: { show: false },
-          },
-        ],
-        series: [
-          // 计划堆叠柱
-          {
-            name: "计划月产油",
-            type: "bar",
-            stack: "plan",
-            data: planOil,
-            itemStyle: { color: "#A3AED0" }, // Plan = Mid Grey
-            barWidth: "30%",
-          },
-          {
-            name: "计划月产气",
-            type: "bar",
-            stack: "plan",
-            data: planGas,
-            itemStyle: { color: "#D3D9E6" }, // Plan = Light Grey
-            barWidth: "30%",
-          },
-          // 实际堆叠柱
-          {
-            name: "实际月产油",
-            type: "bar",
-            stack: "act",
-            data: actOil,
-            data: actOil,
-            itemStyle: { color: "#2B3674" }, // Act = Theme Blue
-            barWidth: "30%",
-          },
-          {
-            name: "实际月产气",
-            type: "bar",
-            stack: "act",
-            data: actGas,
-            data: actGas,
-            itemStyle: { color: "#4A7BF7" }, // Act = Tech Blue
-            barWidth: "30%",
-          },
-          // 折线图
-          {
-            name: "计划年产油气",
-            type: "line",
-            yAxisIndex: 1,
-            data: planAcc,
-            itemStyle: { color: "#A3AED0" }, // Plan Line = Grey
-            lineStyle: { width: 2 },
-          },
-          {
-            name: "实际年产油气",
-            type: "line",
-            yAxisIndex: 1,
-            data: actAcc,
-            itemStyle: { color: "#2B3674" }, // Act Line = Theme Blue
-            lineStyle: { width: 2 },
-            symbol: "circle",
-            symbolSize: 8,
-          },
-        ],
-      });
-
-      this.charts.chart2 = chart;
-    },
-    initChart3() {
-      if (!this.$refs.chart3) return;
-      const chart = echarts.init(this.$refs.chart3);
-
-      chart.setOption({
-        grid: { top: 10, right: 10, bottom: 20, left: 30 },
-        xAxis: {
-          type: "category",
-          data: ["甲部", "乙部", "丙部", "丁部"],
-          axisLine: { lineStyle: { color: "#E1E8ED" } },
-          axisLabel: { color: "#BDC3C7", fontSize: 10 },
-          axisTick: { show: false },
-        },
-        yAxis: {
-          type: "value",
-          splitLine: { lineStyle: { color: "#F0F4F9", type: "dashed" } },
-          axisLabel: { color: "#BDC3C7", fontSize: 10 },
-        },
-        series: [
-          {
-            data: [
-              { value: 120, itemStyle: { color: "#2B3674" } }, // Theme Blue
-              { value: 180, itemStyle: { color: "#4A7BF7" } }, // Tech Blue
-              { value: 150, itemStyle: { color: "#2B3674" } },
-              { value: 80, itemStyle: { color: "#4A7BF7" } },
-            ],
-            type: "bar",
-            barWidth: "40%",
-            itemStyle: {
-              borderRadius: [4, 4, 0, 0],
-            },
-          },
-        ],
-      });
-
-      this.charts.chart3 = chart;
-    },
-    initChart4() {
-      if (!this.$refs.chart4) return;
-      const chart = echarts.init(this.$refs.chart4);
-
-      chart.setOption({
-        grid: { top: 10, right: 10, bottom: 20, left: 30 },
-        xAxis: {
-          type: "category",
-          data: ["01", "02", "03", "04", "05", "06", "07"],
-          axisLine: { lineStyle: { color: "#E1E8ED" } },
-          axisLabel: { color: "#BDC3C7", fontSize: 10 },
-          axisTick: { show: false },
-        },
-        yAxis: {
-          type: "value",
-          splitLine: { lineStyle: { color: "#F0F4F9", type: "dashed" } },
-          axisLabel: { color: "#BDC3C7", fontSize: 10 },
-        },
-        series: [
-          {
-            data: [100, 200, 180, 250, 230, 280, 320],
-            type: "line",
-            smooth: true,
-            symbol: "circle",
-            symbolSize: 4,
-            lineStyle: { color: "#2B3674", width: 2 }, // Theme Blue
-            itemStyle: { color: "#2B3674" },
-            areaStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "rgba(43, 54, 116, 0.15)" },
-                { offset: 1, color: "rgba(43, 54, 116, 0.02)" },
-              ]),
-            },
-          },
-        ],
-      });
-
-      this.charts.chart4 = chart;
-    },
-    initChart5() {
-      if (!this.$refs.chart5) return;
-      const chart = echarts.init(this.$refs.chart5);
-
-      chart.setOption({
-        grid: { top: 10, right: 40, bottom: 10, left: 60 },
-        yAxis: {
-          type: "category",
-          data: ["采购部", "行政部", "财务部", "市场部", "销售部"],
-          axisLine: { show: false },
-          axisTick: { show: false },
-          axisLabel: { color: "#7F8C8D", fontSize: 11 },
-        },
-        xAxis: {
-          type: "value",
-          show: false,
-          max: 100,
-        },
-        series: [
-          {
-            data: [60, 68, 72, 78, 85],
-            type: "bar",
-            barWidth: "50%",
-            itemStyle: {
-              color: "#4A7BF7",
-              borderRadius: [0, 4, 4, 0],
-            },
-            label: {
-              show: true,
-              position: "right",
-              formatter: "{c}%",
-              color: "#2C3E50",
-              fontSize: 11,
-              fontWeight: 600,
-            },
-          },
-        ],
-      });
-
-      this.charts.chart5 = chart;
-    },
     initChart6(
       textColor,
       lineColor,
