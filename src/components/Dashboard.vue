@@ -16,54 +16,8 @@
         <!-- 油气产量完成情况 (New) -->
         <production-completion-card class="chart-card production-card" />
 
-        <!-- 数据分析 - 折线图 -->
-        <el-card
-          class="chart-card"
-          :body-style="{
-            padding: '0px',
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-          }"
-        >
-          <div slot="header" class="chart-header">
-            <h3>
-              油气销售对比
-              <span
-                style="
-                  font-size: 12px;
-                  color: var(--text-secondary);
-                  margin-left: 8px;
-                "
-                >[{{ currentDate }}]</span
-              >
-            </h3>
-            <div class="chart-tabs">
-              <button
-                class="tab"
-                :class="{ active: periodChart1 === '日' }"
-                @click="periodChart1 = '日'"
-              >
-                日
-              </button>
-              <button
-                class="tab"
-                :class="{ active: periodChart1 === '月' }"
-                @click="periodChart1 = '月'"
-              >
-                月
-              </button>
-              <button
-                class="tab"
-                :class="{ active: periodChart1 === '年' }"
-                @click="periodChart1 = '年'"
-              >
-                年
-              </button>
-            </div>
-          </div>
-          <div class="chart-body" ref="chart1"></div>
-        </el-card>
+        <!-- 销量情况运行 (替换油气销售对比) -->
+        <sales-comparison-card class="chart-card production-card" />
 
         <!-- 完成率统计 - 多色环形图（延伸到底部）-->
         <el-card
@@ -175,6 +129,7 @@ import ReservesCompletionCard from "./widgets/ReservesCompletionCard.vue";
 import ProjectProgressCard from "./widgets/ProjectProgressCard.vue";
 import CenterVisual from "./widgets/CenterVisual.vue";
 import DrillingDynamicsCard from "./widgets/DrillingDynamicsCard.vue";
+import SalesComparisonCard from "./widgets/SalesComparisonCard.vue";
 
 export default {
   name: "Dashboard",
@@ -191,6 +146,7 @@ export default {
     ProjectProgressCard,
     CenterVisual,
     DrillingDynamicsCard,
+    SalesComparisonCard,
   },
   mounted() {
     this.$nextTick(() => {
@@ -209,7 +165,6 @@ export default {
   data() {
     return {
       charts: {},
-      periodChart1: "月",
       periodChart2: "月",
       currentDate: "",
     };
@@ -248,14 +203,6 @@ export default {
         },
       };
 
-      this.initChart1(
-        textColor,
-        lineColor,
-        themeBlue,
-        techBlue,
-        isDark,
-        tooltipConfig
-      );
       this.initChart2(
         textColor,
         lineColor,
@@ -275,91 +222,6 @@ export default {
         isDark,
         tooltipConfig
       );
-    },
-    initChart1(
-      textColor,
-      lineColor,
-      themeBlue,
-      techBlue,
-      isDark,
-      tooltipConfig
-    ) {
-      if (!this.$refs.chart1) return;
-      let chart = echarts.getInstanceByDom(this.$refs.chart1);
-      if (!chart) chart = echarts.init(this.$refs.chart1);
-
-      chart.setOption({
-        title: {
-          text: "油当量(万方)",
-          textStyle: {
-            fontSize: 12,
-            color: textColor,
-            fontWeight: "normal",
-          },
-          top: 10,
-          left: 10,
-        },
-        tooltip: {
-          trigger: "axis",
-          ...tooltipConfig,
-        },
-        legend: {
-          data: ["销售油量", "销售气量"],
-          top: 10,
-          right: 10,
-          icon: "rect",
-          itemWidth: 12,
-          itemHeight: 12,
-          itemGap: 20,
-          textStyle: { color: textColor },
-        },
-        grid: { top: 40, right: 20, bottom: 20, left: 15, containLabel: true },
-        xAxis: {
-          type: "category",
-          data: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"],
-          axisLine: { lineStyle: { color: lineColor } },
-          axisLabel: { color: textColor, fontSize: 11 },
-          axisTick: { show: true, alignWithLabel: true },
-        },
-        yAxis: {
-          type: "value",
-          min: 0,
-          max: 700000,
-          interval: 100000,
-          splitLine: { lineStyle: { color: lineColor, type: "dashed" } },
-          axisLabel: { color: textColor, fontSize: 11 },
-        },
-        series: [
-          {
-            name: "销售油量",
-            data: [
-              480000, 500000, 520000, 560000, 550000, 650000, 450000, 650000,
-              520000, 560000, 520000,
-            ],
-            type: "line",
-            smooth: false,
-            symbol: "circle",
-            symbolSize: 4,
-            lineStyle: { color: themeBlue, width: 2 }, // Theme Blue
-            itemStyle: { color: themeBlue },
-          },
-          {
-            name: "销售气量",
-            data: [
-              380000, 320000, 360000, 340000, 330000, 280000, 360000, 360000,
-              340000, 350000, 340000,
-            ],
-            type: "line",
-            smooth: false,
-            symbol: "circle",
-            symbolSize: 4,
-            lineStyle: { color: techBlue, width: 2 }, // Tech Blue
-            itemStyle: { color: techBlue },
-          },
-        ],
-      });
-
-      this.charts.chart1 = chart;
     },
 
     initChart2(

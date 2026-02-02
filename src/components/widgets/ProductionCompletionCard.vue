@@ -179,19 +179,38 @@ export default {
           backgroundColor: "rgba(18, 30, 50, 0.9)",
           borderColor: "#4A7BF7",
           textStyle: { color: "#fff" },
+          formatter: (params) => {
+            let res = `<div style="font-weight:600;margin-bottom:4px;">${params[0].name}</div>`;
+            params.forEach((p) => {
+              if (
+                p.value === null ||
+                typeof p.value === "undefined" ||
+                p.seriesName === ""
+              ) {
+                return;
+              }
+              const marker = `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:${
+                p.color.colorStops ? p.color.colorStops[1].color : p.color
+              };"></span>`;
+              res += `<div style="display:flex;justify-content:space-between;gap:20px;">
+                <span>${marker}${p.seriesName}</span>
+                <span style="font-weight:600;">${p.value}</span>
+              </div>`;
+            });
+            return res;
+          },
         },
         legend: {
           data: ["计划月产量", "实际月产量", "计划累产", "实际累产"],
-          top: 5,
-          left: "center", // Moved to center to avoid cluttering right axis
+          top: 8,
+          left: "center",
           textStyle: { color: textColor, fontSize: 10 },
-          itemWidth: 10,
-          itemHeight: 10,
-          itemGap: 15,
-          icon: "rect",
+          itemWidth: 25, // 增加宽度以展示线段
+          itemHeight: 12,
+          itemGap: 20,
         },
         grid: {
-          top: 85, // Increased from 55 to avoid overlap
+          top: 75, // 避开轴标题，防止重叠
           right: 30,
           bottom: 15,
           left: 10,
@@ -219,7 +238,7 @@ export default {
             axisLabel: { color: textColor, fontSize: 10 },
             nameTextStyle: {
               color: textColor,
-              padding: [0, 0, 0, 5],
+              padding: [0, 0, 8, 0],
               align: "left",
               fontSize: 10,
             },
@@ -235,7 +254,7 @@ export default {
             axisLabel: { color: textColor, fontSize: 10 },
             nameTextStyle: {
               color: textColor,
-              padding: [0, 0, 0, -5],
+              padding: [0, 0, 8, 0],
               align: "right",
               fontSize: 10,
             },
