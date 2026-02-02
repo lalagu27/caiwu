@@ -299,8 +299,8 @@ export default {
             data: currentData.planMonth,
             itemStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "rgba(0, 240, 240, 1)" },
-                { offset: 1, color: "rgba(0, 150, 150, 0.6)" },
+                { offset: 0, color: "rgba(163, 174, 208, 0.5)" },
+                { offset: 1, color: "rgba(163, 174, 208, 0.1)" },
               ]),
               borderRadius: [2, 2, 0, 0],
             },
@@ -313,10 +313,12 @@ export default {
             data: currentData.actMonth,
             itemStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "rgba(70, 150, 255, 1)" },
-                { offset: 1, color: "rgba(30, 80, 200, 0.6)" },
+                { offset: 0, color: "#4A7BF7" },
+                { offset: 1, color: "rgba(74, 123, 247, 0.1)" },
               ]),
               borderRadius: [2, 2, 0, 0],
+              shadowBlur: 10,
+              shadowColor: "rgba(74, 123, 247, 0.3)",
             },
           },
 

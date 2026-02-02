@@ -344,10 +344,12 @@ export default {
             data: currentData.gasMonth,
             itemStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "rgba(0, 240, 240, 1)" },
-                { offset: 1, color: "rgba(0, 150, 150, 0.6)" },
+                { offset: 0, color: "#00F0FF" },
+                { offset: 1, color: "rgba(0, 240, 255, 0.1)" },
               ]),
               borderRadius: [2, 2, 0, 0],
+              shadowBlur: 10,
+              shadowColor: "rgba(0, 240, 255, 0.3)",
             },
           },
           // ========== 凝析油产值 (2D Bar) ==========
@@ -358,10 +360,12 @@ export default {
             data: currentData.oilMonth,
             itemStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "rgba(70, 150, 255, 1)" },
-                { offset: 1, color: "rgba(30, 80, 200, 0.6)" },
+                { offset: 0, color: "#4A7BF7" },
+                { offset: 1, color: "rgba(74, 123, 247, 0.1)" },
               ]),
               borderRadius: [2, 2, 0, 0],
+              shadowBlur: 10,
+              shadowColor: "rgba(74, 123, 247, 0.3)",
             },
           },
 
@@ -379,6 +383,8 @@ export default {
               color: "#FF5722",
               borderColor: "#fff",
               borderWidth: 1,
+              shadowBlur: 8,
+              shadowColor: "rgba(255, 87, 34, 0.5)",
             },
             lineStyle: { color: "#FF5722", width: 3 },
           },
@@ -396,6 +402,8 @@ export default {
               color: "#FFC107",
               borderColor: "#fff",
               borderWidth: 1,
+              shadowBlur: 8,
+              shadowColor: "rgba(255, 193, 7, 0.5)",
             },
             lineStyle: { color: "#FFC107", width: 3 },
           },
