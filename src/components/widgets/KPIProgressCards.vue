@@ -22,7 +22,7 @@
                 margin-left: 4px;
                 font-weight: normal;
               "
-              >[2016]</span
+              >[2026]</span
             >
           </div>
         </div>
@@ -61,7 +61,7 @@
                 margin-left: 4px;
                 font-weight: normal;
               "
-              >[2016]</span
+              >[2026]</span
             >
           </div>
         </div>
@@ -85,7 +85,7 @@
           <div class="kpi-header">
             <div class="kpi-icon strategic">🚀</div>
             <div class="kpi-title">
-              战新业务 <span class="year-label">[2016]</span>
+              战新业务 <span class="year-label">[2026]</span>
             </div>
           </div>
         </div>
