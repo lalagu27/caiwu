@@ -14,7 +14,7 @@
       <!-- 信息区 -->
       <div class="info-section">
         <h3 class="name">张三</h3>
-        <div class="role">产品经理</div>
+        <div class="role">公司领导</div>
         <div class="dept">互联网事业部 · 创新研发组</div>
       </div>
 

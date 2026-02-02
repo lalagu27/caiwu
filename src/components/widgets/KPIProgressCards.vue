@@ -37,7 +37,7 @@
               <div
                 class="segment-fill"
                 :style="{
-                  width: getSegmentFillWidth(n, 83.33),
+                  width: getSegmentFillWidth(n, 8.33),
                   background: getSegmentColor(n),
                 }"
               ></div>
@@ -107,7 +107,7 @@
               <div
                 class="segment-fill"
                 :style="{
-                  width: getSegmentFillWidth(n, 83.33),
+                  width: getSegmentFillWidth(n, 8.33),
                   background: getSegmentColor(n),
                 }"
               ></div>
@@ -146,7 +146,7 @@
               <div
                 class="segment-fill"
                 :style="{
-                  width: getSegmentFillWidth(n, 83.33),
+                  width: getSegmentFillWidth(n, 8.33),
                   background: getSegmentColor(n),
                 }"
               ></div>
@@ -278,6 +278,8 @@ export default {
             "8月",
             "9月",
             "10月",
+            "11月",
+            "12月",
           ],
           show: true,
           axisLine: { show: true, lineStyle: { color: lineColor } },
@@ -300,7 +302,20 @@ export default {
         },
         series: [
           {
-            data: [8.5, 9.2, 8.8, 9.5, 8.3, 9.1, 8.7, 9.3, 8.9, 9.4],
+            data: [
+              8.5,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+            ],
             type: "bar",
             barWidth: "60%",
             itemStyle: {
@@ -348,6 +363,8 @@ export default {
             "8月",
             "9月",
             "10月",
+            "11月",
+            "12月",
           ],
           show: true,
           axisLine: { show: true, lineStyle: { color: lineColor } },
@@ -373,8 +390,18 @@ export default {
         series: [
           {
             data: [
-              18.95, 19.02, 18.88, 18.75, 18.63, 18.92, 19.05, 19.1, 18.98,
-              19.14,
+              18.95,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
             ],
             type: "line",
             smooth: true,
@@ -453,6 +480,8 @@ export default {
             "8月",
             "9月",
             "10月",
+            "11月",
+            "12月",
           ],
           show: true,
           axisLine: { show: true, lineStyle: { color: lineColor } },
@@ -475,7 +504,20 @@ export default {
         },
         series: [
           {
-            data: [1.8, 2.1, 2.5, 2.3, 2.7, 2.4, 2.6, 2.8, 2.2, 2.6],
+            data: [
+              1.8,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+            ],
             type: "bar",
             barWidth: "60%",
             itemStyle: {
@@ -522,6 +564,8 @@ export default {
             "8月",
             "9月",
             "10月",
+            "11月",
+            "12月",
           ],
           show: true,
           axisLine: { show: true, lineStyle: { color: lineColor } },
@@ -544,7 +588,20 @@ export default {
         },
         series: [
           {
-            data: [5.2, 5.8, 6.1, 5.9, 6.3, 6.0, 6.2, 6.5, 5.7, 6.1],
+            data: [
+              5.2,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+            ],
             type: "bar",
             barWidth: "60%",
             itemStyle: {

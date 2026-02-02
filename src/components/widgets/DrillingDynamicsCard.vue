@@ -10,7 +10,7 @@
   >
     <div slot="header" class="chart-header">
       <h3>
-        <span>钻井动态</span>
+        <span>作业动态</span>
         <span class="header-date" style="margin-left: 8px">[2026/1/28]</span>
       </h3>
     </div>

@@ -70,7 +70,7 @@ export default {
     },
     position: {
       type: String,
-      default: "产品经理",
+      default: "公司领导",
     },
     avatar: {
       type: String,

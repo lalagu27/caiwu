@@ -2,7 +2,7 @@
   <div class="dashboard">
     <!-- Top Stats Cards Row - 5 cards -->
     <div class="stats-row">
-      <user-info-card name="张明" position="产品经理" />
+      <user-info-card name="张明" position="公司领导" />
       <today-reminders-card />
       <pending-approvals-card />
       <weekly-schedule-card />
@@ -28,32 +28,6 @@
       <div class="center-col">
         <!-- 3D可视化 -->
         <center-visual class="center-visual" />
-
-        <!-- 底部图表 - 盈利能力 -->
-        <el-card
-          class="chart-card chart-bottom"
-          :body-style="{
-            padding: '8px',
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-          }"
-        >
-          <div slot="header" class="chart-header">
-            <h3>
-              盈利能力
-              <span
-                style="
-                  font-size: 12px;
-                  color: var(--text-secondary);
-                  margin-left: 8px;
-                "
-                >[2025]</span
-              >
-            </h3>
-          </div>
-          <div class="chart-body" ref="chart6"></div>
-        </el-card>
       </div>
 
       <!-- Right Column -->
@@ -162,122 +136,7 @@ export default {
       // 盈利能力目前使用 inline 或静态展示，移除过时的 init 调用
     },
 
-    initChart6(
-      textColor,
-      lineColor,
-      themeBlue,
-      techBlue,
-      isDark,
-      tooltipConfig
-    ) {
-      if (!this.$refs.chart6) return;
-      const chart = echarts.init(this.$refs.chart6);
-
-      chart.setOption({
-        tooltip: {
-          trigger: "axis",
-          axisPointer: { type: "shadow" },
-          ...tooltipConfig,
-        },
-        legend: {
-          data: ["本年", "上年"],
-          top: 0,
-          icon: "rect",
-          itemWidth: 12,
-          itemHeight: 12,
-          textStyle: { color: textColor },
-        },
-        grid: {
-          top: 30,
-          right: 30,
-          bottom: 10,
-          left: 30,
-          containLabel: true,
-        },
-        xAxis: {
-          type: "category",
-          data: [
-            "现金流",
-            "盈亏平衡价",
-            "现金流平衡价",
-            "桶油五项成本",
-            "桶油综合成本",
-          ],
-          axisLine: { lineStyle: { color: lineColor } },
-          axisLabel: { color: textColor, fontSize: 10, interval: 0 },
-          axisTick: { show: false },
-        },
-        yAxis: [
-          {
-            type: "value",
-            name: "(百万元)",
-            min: 0,
-            max: 35,
-            interval: 5,
-            axisLabel: { color: textColor },
-            splitLine: {
-              show: true,
-              lineStyle: { type: "dashed", color: lineColor },
-            },
-            nameTextStyle: {
-              color: textColor,
-              align: "left",
-              padding: [0, 0, 0, -30],
-            },
-          },
-          {
-            type: "value",
-            name: "(美元/桶)",
-            min: 0,
-            max: 60,
-            interval: 10,
-            axisLabel: { color: textColor },
-            splitLine: { show: false },
-            nameTextStyle: { color: textColor },
-          },
-        ],
-        series: [
-          // 本年 - 现金流 (左轴)
-          {
-            name: "本年",
-            type: "bar",
-            data: [33, null, null, null, null],
-            barWidth: 15,
-            itemStyle: { color: "#2B3674" }, // Theme Blue
-            yAxisIndex: 0,
-          },
-          // 本年 - 其他 (右轴)
-          {
-            name: "本年",
-            type: "bar",
-            data: [null, 17, 29, 15, 17],
-            barWidth: 15,
-            itemStyle: { color: "#2B3674" },
-            yAxisIndex: 1,
-          },
-          // 上年 - 现金流 (左轴)
-          {
-            name: "上年",
-            type: "bar",
-            data: [32.5, null, null, null, null],
-            barWidth: 15,
-            itemStyle: { color: "#A3AED0" }, // Grey
-            yAxisIndex: 0,
-          },
-          // 上年 - 其他 (右轴)
-          {
-            name: "上年",
-            type: "bar",
-            data: [null, 20, 16, 18, 20],
-            barWidth: 15,
-            itemStyle: { color: "#A3AED0" }, // Grey
-            yAxisIndex: 1,
-          },
-        ],
-      });
-
-      this.charts.chart6 = chart;
-    },
+    // initChart6 已移除
   },
 };
 </script>
