@@ -913,10 +913,11 @@ export default {
 }
 
 .tab.active {
-  background: var(--primary-color); /* Navy Blue */
-  color: var(--text-primary);
+  background: var(--primary-color);
+  color: var(--primary-dark); /* 使用深色文字提升对比度 */
   border-color: var(--primary-color);
-  box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+  font-weight: 600;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
 }
 
 .chart-body {

@@ -249,9 +249,10 @@ export default {
 }
 
 .tab.active {
-  background: var(--primary-color); /* Navy Blue */
-  color: white;
+  background: var(--primary-color);
+  color: var(--primary-dark); /* 改为深色文字，提升对比度 */
   border-color: var(--primary-color);
-  box-shadow: 0 0 8px rgba(0, 240, 255, 0.2); /* Glow for active tab */
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
 }
 </style>
