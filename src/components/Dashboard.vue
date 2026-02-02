@@ -187,21 +187,17 @@ export default {
 }
 
 .left-col > .chart-card:nth-child(2),
-.right-col > .chart-card:nth-child(1) {
-  flex: 1;
-}
-
-.left-col .production-card {
-  flex: 0 0 280px;
-}
-
-.left-col > .chart-card:nth-child(3),
-.right-col > .chart-card:nth-child(2) {
-  flex: 1;
+.left-col > .chart-card:nth-child(3) {
+  flex: 0 0 32%;
 }
 
 .left-col .chart-tall {
-  flex: 1.5;
+  flex: 0 0 36%;
+}
+
+.right-col > .chart-card:nth-child(1),
+.right-col > .chart-card:nth-child(2) {
+  flex: 1;
 }
 
 .center-col {

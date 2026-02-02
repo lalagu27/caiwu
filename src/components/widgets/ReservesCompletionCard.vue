@@ -62,9 +62,7 @@ export default {
   },
   created() {
     const today = new Date();
-    this.currentDate = `${today.getFullYear()}/${(today.getMonth() + 1)
-      .toString()
-      .padStart(2, "0")}`;
+    this.currentDate = `${today.getFullYear()}`;
   },
   mounted() {
     this.$nextTick(() => {

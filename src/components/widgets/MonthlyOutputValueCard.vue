@@ -12,6 +12,15 @@
       <h3>
         <div class="header-icon"></div>
         月度产值
+        <span
+          style="
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-left: 8px;
+            font-weight: normal;
+          "
+          >[2016]</span
+        >
       </h3>
       <div class="header-actions">
         <div class="custom-toggle">
@@ -49,6 +58,7 @@ export default {
     return {
       chart: null,
       viewType: "management", // management | asset
+      resizeObserver: null,
     };
   },
   watch: {
@@ -61,11 +71,21 @@ export default {
       this.initChart();
       window.addEventListener("resize", this.handleResize);
       window.addEventListener("theme-change", this.handleThemeChange);
+      if (this.$refs.chart) {
+        this.resizeObserver = new ResizeObserver(() => {
+          this.handleResize();
+        });
+        this.resizeObserver.observe(this.$refs.chart.parentNode);
+      }
     });
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.handleResize);
     window.removeEventListener("theme-change", this.handleThemeChange);
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = null;
+    }
     if (this.chart) {
       this.chart.dispose();
     }
@@ -259,7 +279,7 @@ export default {
           itemGap: 15,
         },
         grid: {
-          top: 80,
+          top: 100,
           left: 10,
           right: 10,
           bottom: 10,
@@ -321,7 +341,7 @@ export default {
             name: "天然气产值",
             type: "pictorialBar",
             symbol: "circle",
-            symbolSize: [14, 6],
+            symbolSize: [10, 6],
             symbolOffset: [-5.5, 3],
             z: 11,
             barGap: "-100%",
@@ -333,7 +353,7 @@ export default {
             name: "天然气产值",
             type: "pictorialBar",
             symbol: "rect",
-            symbolSize: [14, "100%"],
+            symbolSize: [10, "100%"],
             symbolOffset: [-5.5, 0],
             z: 10,
             barGap: "-100%",
@@ -350,7 +370,7 @@ export default {
             name: "天然气产值",
             type: "pictorialBar",
             symbol: "circle",
-            symbolSize: [14, 6],
+            symbolSize: [10, 6],
             symbolOffset: [-5.5, -3],
             symbolPosition: "end",
             z: 12,
@@ -371,7 +391,7 @@ export default {
             name: "凝析油产值",
             type: "pictorialBar",
             symbol: "circle",
-            symbolSize: [14, 6],
+            symbolSize: [10, 6],
             symbolOffset: [5.5, 3],
             z: 11,
             barGap: "-100%",
@@ -383,7 +403,7 @@ export default {
             name: "凝析油产值",
             type: "pictorialBar",
             symbol: "rect",
-            symbolSize: [14, "100%"],
+            symbolSize: [10, "100%"],
             symbolOffset: [5.5, 0],
             z: 10,
             barGap: "-100%",
@@ -400,7 +420,7 @@ export default {
             name: "凝析油产值",
             type: "pictorialBar",
             symbol: "circle",
-            symbolSize: [14, 6],
+            symbolSize: [10, 6],
             symbolOffset: [5.5, -3],
             symbolPosition: "end",
             z: 12,

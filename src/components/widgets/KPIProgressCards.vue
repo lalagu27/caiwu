@@ -22,7 +22,7 @@
                 margin-left: 4px;
                 font-weight: normal;
               "
-              >[{{ currentYear }}年]</span
+              >[2016]</span
             >
           </div>
         </div>
@@ -61,7 +61,7 @@
                 margin-left: 4px;
                 font-weight: normal;
               "
-              >[{{ currentYear }}年]</span
+              >[2016]</span
             >
           </div>
         </div>
@@ -79,82 +79,82 @@
         <div class="kpi-chart" ref="chart2"></div>
       </div>
 
-      <!-- 战新投资 -->
-      <div class="kpi-card">
-        <div class="kpi-header">
-          <div class="kpi-icon investment">📊</div>
-          <div class="kpi-title">
-            战新投资
-            <span
-              style="
-                font-size: 12px;
-                color: #999;
-                margin-left: 4px;
-                font-weight: normal;
-              "
-              >[{{ currentYear }}年]</span
-            >
-          </div>
-        </div>
-        <div class="kpi-value">
-          <span class="current">22.5</span>
-          <span class="unit">亿元</span>
-        </div>
-        <div class="kpi-target">年目标: 30亿元</div>
-        <div class="kpi-progress">
-          <div class="progress-bar segmented">
-            <div v-for="n in 12" :key="n" class="segment-wrapper">
-              <div
-                class="segment-fill"
-                :style="{
-                  width: getSegmentFillWidth(n, 8.33),
-                  background: getSegmentColor(n),
-                }"
-              ></div>
+      <!-- 战新业务 (合并后的卡片) -->
+      <div class="kpi-card merged-card">
+        <div class="merged-header">
+          <div class="kpi-header">
+            <div class="kpi-icon strategic">🚀</div>
+            <div class="kpi-title">
+              战新业务 <span class="year-label">[2016]</span>
             </div>
           </div>
-          <span class="progress-text">75%</span>
         </div>
-        <div class="kpi-chart" ref="chart3"></div>
-      </div>
 
-      <!-- 战新收入 -->
-      <div class="kpi-card">
-        <div class="kpi-header">
-          <div class="kpi-icon revenue">💵</div>
-          <div class="kpi-title">
-            战新收入
-            <span
-              style="
-                font-size: 12px;
-                color: #999;
-                margin-left: 4px;
-                font-weight: normal;
-              "
-              >[{{ currentYear }}年]</span
-            >
-          </div>
-        </div>
-        <div class="kpi-value">
-          <span class="current">58.8</span>
-          <span class="unit">亿元</span>
-        </div>
-        <div class="kpi-target">年目标: 75亿元</div>
-        <div class="kpi-progress">
-          <div class="progress-bar segmented">
-            <div v-for="n in 12" :key="n" class="segment-wrapper">
-              <div
-                class="segment-fill"
-                :style="{
-                  width: getSegmentFillWidth(n, 8.33),
-                  background: getSegmentColor(n),
-                }"
-              ></div>
+        <div class="merged-body">
+          <div class="metrics-side">
+            <!-- 投资子项 -->
+            <div class="sub-metric">
+              <div class="sub-label">战新投资</div>
+              <div class="kpi-value">
+                <span class="current">22.5</span>
+                <span class="unit">亿元</span>
+              </div>
+              <div class="kpi-target">年目标: 30亿元</div>
+              <div class="kpi-progress">
+                <div class="progress-bar segmented">
+                  <div
+                    v-for="n in 12"
+                    :key="'inv-' + n"
+                    class="segment-wrapper"
+                  >
+                    <div
+                      class="segment-fill"
+                      :style="{
+                        width: getSegmentFillWidth(n, 8.33),
+                        background: '#00F0FF',
+                      }"
+                    ></div>
+                  </div>
+                </div>
+                <span class="progress-text" style="color: #00f0ff">75%</span>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- 收入子项 -->
+            <div class="sub-metric">
+              <div class="sub-label">战新收入</div>
+              <div class="kpi-value">
+                <span class="current">58.8</span>
+                <span class="unit">亿元</span>
+              </div>
+              <div class="kpi-target">年目标: 75亿元</div>
+              <div class="kpi-progress">
+                <div class="progress-bar segmented">
+                  <div
+                    v-for="n in 12"
+                    :key="'rev-' + n"
+                    class="segment-wrapper"
+                  >
+                    <div
+                      class="segment-fill"
+                      :style="{
+                        width: getSegmentFillWidth(n, 8.33),
+                        background: '#4A7BF7',
+                      }"
+                    ></div>
+                  </div>
+                </div>
+                <span class="progress-text" style="color: #4a7bf7">78.4%</span>
+              </div>
             </div>
           </div>
-          <span class="progress-text">78.4%</span>
+
+          <div class="chart-side">
+            <div class="kpi-chart" ref="chart3"></div>
+          </div>
         </div>
-        <div class="kpi-chart" ref="chart4"></div>
       </div>
     </div>
   </el-card>
@@ -216,8 +216,7 @@ export default {
 
       this.initChart1(textColor, lineColor, themeBlue, tooltipConfig);
       this.initChart2(textColor, lineColor, themeBlue, tooltipConfig);
-      this.initChart3(textColor, lineColor, themeBlue, tooltipConfig);
-      this.initChart4(textColor, lineColor, themeBlue, tooltipConfig);
+      this.initChartCombined(textColor, lineColor, tooltipConfig);
     },
     getActiveSegments(percentage) {
       return Math.round((percentage / 100) * 12);
@@ -445,28 +444,26 @@ export default {
 
       this.charts.chart2 = chart;
     },
-    initChart3(textColor, lineColor, themeBlue, tooltipConfig) {
+    initChartCombined(textColor, lineColor, tooltipConfig) {
       if (!this.$refs.chart3) return;
       let chart = echarts.getInstanceByDom(this.$refs.chart3);
       if (!chart) chart = echarts.init(this.$refs.chart3);
 
       chart.setOption({
-        title: {
-          text: "亿元",
-          textStyle: {
-            color: textColor,
-            fontSize: 10,
-            fontWeight: "normal",
-          },
-          top: 0,
-          left: 30,
-        },
         tooltip: {
           trigger: "axis",
-          formatter: "{b}: {c}亿元",
+          axisPointer: { type: "shadow" },
           ...tooltipConfig,
         },
-        grid: { top: 10, right: 10, bottom: 35, left: 35 },
+        legend: {
+          data: ["战新投资", "战新收入"],
+          top: 0,
+          right: 30,
+          itemWidth: 10,
+          itemHeight: 10,
+          textStyle: { color: textColor, fontSize: 10 },
+        },
+        grid: { top: 25, right: 10, bottom: 30, left: 35 },
         xAxis: {
           type: "category",
           data: [
@@ -483,27 +480,19 @@ export default {
             "11月",
             "12月",
           ],
-          show: true,
-          axisLine: { show: true, lineStyle: { color: lineColor } },
-          axisTick: { show: false },
-          axisLabel: {
-            color: textColor,
-            fontSize: 10,
-            interval: 0,
-            rotate: 45,
-          },
+          axisLine: { lineStyle: { color: lineColor } },
+          axisLabel: { color: textColor, fontSize: 10, rotate: 45 },
         },
         yAxis: {
           type: "value",
-          show: true,
-          splitLine: {
-            show: true,
-            lineStyle: { type: "dashed", color: lineColor },
-          },
+          name: "亿元",
+          nameTextStyle: { color: textColor, fontSize: 10, align: "right" },
+          splitLine: { lineStyle: { type: "dashed", color: lineColor } },
           axisLabel: { color: textColor, fontSize: 10 },
         },
         series: [
           {
+            name: "战新投资",
             data: [
               1.8,
               null,
@@ -519,75 +508,11 @@ export default {
               null,
             ],
             type: "bar",
-            barWidth: "60%",
-            itemStyle: {
-              color: themeBlue, // Theme Blue
-              borderRadius: [2, 2, 0, 0],
-            },
+            barWidth: "25%",
+            itemStyle: { color: "#00F0FF", borderRadius: [2, 2, 0, 0] },
           },
-        ],
-      });
-      this.charts.chart3 = chart;
-    },
-    initChart4(textColor, lineColor, themeBlue, tooltipConfig) {
-      if (!this.$refs.chart4) return;
-      let chart = echarts.getInstanceByDom(this.$refs.chart4);
-      if (!chart) chart = echarts.init(this.$refs.chart4);
-
-      chart.setOption({
-        title: {
-          text: "亿元",
-          textStyle: {
-            color: textColor,
-            fontSize: 10,
-            fontWeight: "normal",
-          },
-          top: 0,
-          left: 30,
-        },
-        tooltip: {
-          trigger: "axis",
-          formatter: "{b}: {c}亿元",
-          ...tooltipConfig,
-        },
-        grid: { top: 10, right: 10, bottom: 35, left: 35 },
-        xAxis: {
-          type: "category",
-          data: [
-            "1月",
-            "2月",
-            "3月",
-            "4月",
-            "5月",
-            "6月",
-            "7月",
-            "8月",
-            "9月",
-            "10月",
-            "11月",
-            "12月",
-          ],
-          show: true,
-          axisLine: { show: true, lineStyle: { color: lineColor } },
-          axisTick: { show: false },
-          axisLabel: {
-            color: textColor,
-            fontSize: 10,
-            interval: 0,
-            rotate: 45,
-          },
-        },
-        yAxis: {
-          type: "value",
-          show: true,
-          splitLine: {
-            show: true,
-            lineStyle: { type: "dashed", color: lineColor },
-          },
-          axisLabel: { color: textColor, fontSize: 10 },
-        },
-        series: [
           {
+            name: "战新收入",
             data: [
               5.2,
               null,
@@ -603,15 +528,12 @@ export default {
               null,
             ],
             type: "bar",
-            barWidth: "60%",
-            itemStyle: {
-              color: themeBlue, // Theme Blue
-              borderRadius: [2, 2, 0, 0],
-            },
+            barWidth: "25%",
+            itemStyle: { color: "#4A7BF7", borderRadius: [2, 2, 0, 0] },
           },
         ],
       });
-      this.charts.chart4 = chart;
+      this.charts.chart3 = chart;
     },
   },
 };
@@ -715,6 +637,72 @@ export default {
   font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
+}
+
+.year-label {
+  font-size: 12px;
+  color: #999;
+  margin-left: 4px;
+  font-weight: normal;
+}
+
+.merged-card {
+  grid-column: span 2;
+  min-height: 220px !important;
+}
+
+.merged-header {
+  margin-bottom: 8px;
+}
+
+.merged-body {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  min-height: 0;
+}
+
+.metrics-side {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-right: 15px;
+}
+
+.chart-side {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+}
+
+.sub-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sub-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 8px 0;
+  opacity: 0.5;
+}
+
+.kpi-icon.strategic {
+  background: rgba(0, 240, 255, 0.1);
+  color: #00f0ff;
+}
+
+.merged-card .kpi-chart {
+  height: 170px;
+  margin-top: 0;
 }
 
 .kpi-value {

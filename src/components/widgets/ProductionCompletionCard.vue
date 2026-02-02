@@ -6,7 +6,6 @@
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
-      height: '100%',
       overflow: 'hidden',
     }"
   >
@@ -14,6 +13,15 @@
       <h3>
         <span class="header-icon"></span>
         产量完成情况
+        <span
+          style="
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-left: 8px;
+            font-weight: normal;
+          "
+          >[2016]</span
+        >
       </h3>
       <div class="header-actions">
         <!-- Styled Radio Group-like buttons -->
@@ -49,16 +57,30 @@ export default {
     return {
       chart: null,
       type: "gas", // 'gas' or 'oil'
+      resizeObserver: null,
     };
   },
   mounted() {
     this.$nextTick(() => {
       this.initChart();
       window.addEventListener("resize", this.handleResize);
+
+      // Upgrade: Use ResizeObserver for container size changes
+      if (this.$refs.chart) {
+        this.resizeObserver = new ResizeObserver(() => {
+          this.handleResize();
+        });
+        // We observe the wrapper or chart div
+        this.resizeObserver.observe(this.$refs.chart.parentNode);
+      }
     });
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.handleResize);
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = null;
+    }
     if (this.chart) this.chart.dispose();
   },
   watch: {
@@ -210,7 +232,7 @@ export default {
           itemGap: 20,
         },
         grid: {
-          top: 80,
+          top: 100,
           left: 10,
           right: 10,
           bottom: 10,
@@ -280,7 +302,7 @@ export default {
             name: "计划月产量",
             type: "pictorialBar",
             symbol: "rect",
-            symbolSize: [14, "100%"],
+            symbolSize: [10, "100%"],
             symbolOffset: [-5.5, 0], // X偏移-5.5
             z: 10,
             barGap: "-100%",
@@ -298,7 +320,7 @@ export default {
             name: "计划月产量",
             type: "pictorialBar",
             symbol: "circle",
-            symbolSize: [14, 6],
+            symbolSize: [10, 6],
             symbolOffset: [-5.5, -3], // X偏移-5.5
             symbolPosition: "end",
             z: 12,
@@ -320,7 +342,7 @@ export default {
             name: "实际月产量",
             type: "pictorialBar",
             symbol: "circle",
-            symbolSize: [14, 6],
+            symbolSize: [10, 6],
             symbolOffset: [5.5, 3], // X偏移+5.5
             z: 11,
             barGap: "-100%",
@@ -333,7 +355,7 @@ export default {
             name: "实际月产量",
             type: "pictorialBar",
             symbol: "rect",
-            symbolSize: [14, "100%"],
+            symbolSize: [10, "100%"],
             symbolOffset: [5.5, 0], // X偏移+5.5
             z: 10,
             barGap: "-100%",
@@ -351,7 +373,7 @@ export default {
             name: "实际月产量",
             type: "pictorialBar",
             symbol: "circle",
-            symbolSize: [14, 6],
+            symbolSize: [10, 6],
             symbolOffset: [5.5, -3], // X偏移+5.5
             symbolPosition: "end",
             z: 12,
