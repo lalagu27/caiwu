@@ -320,8 +320,12 @@ export default {
             data: currentData.planCum,
             smooth: true,
             showSymbol: false,
-            lineStyle: { color: "#FFC107", width: 3 },
-            itemStyle: { color: "#FFC107" },
+            lineStyle: { color: "#F59E0B", width: 3 },
+            itemStyle: {
+              color: "#F59E0B",
+              shadowBlur: 5,
+              shadowColor: "rgba(245, 158, 11, 0.5)",
+            },
           },
           // 累产线 (Actual)
           {
@@ -335,11 +339,13 @@ export default {
             symbol: "circle",
             symbolSize: 8,
             itemStyle: {
-              color: "#FF5722",
+              color: "#4A7BF7",
               borderColor: "#fff",
-              borderWidth: 1,
+              borderWidth: 2,
+              shadowBlur: 10,
+              shadowColor: "rgba(74, 123, 247, 0.5)",
             },
-            lineStyle: { color: "#FF5722", width: 3 },
+            lineStyle: { color: "#4A7BF7", width: 3 },
           },
         ],
       };

@@ -139,7 +139,7 @@ export default {
             data: [100, 100, 100, 120, 120, 120],
             barWidth: 12,
             itemStyle: {
-              color: isDark ? "#334155" : "#e0e0e0", // Dark grey for target in dark mode
+              color: isDark ? "rgba(163, 174, 208, 0.4)" : "#e0e0e0",
               borderRadius: [4, 4, 0, 0],
             },
             barGap: "20%",
@@ -151,10 +151,12 @@ export default {
             barWidth: 12,
             itemStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "#2B3674" },
-                { offset: 1, color: "#4A7BF7" },
+                { offset: 0, color: "#4A7BF7" },
+                { offset: 1, color: "rgba(74, 123, 247, 0.1)" },
               ]),
               borderRadius: [4, 4, 0, 0],
+              shadowBlur: 10,
+              shadowColor: "rgba(74, 123, 247, 0.3)",
             },
           },
         ],

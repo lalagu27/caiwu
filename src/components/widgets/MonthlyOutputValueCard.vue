@@ -380,13 +380,13 @@ export default {
             symbol: "circle",
             symbolSize: 8,
             itemStyle: {
-              color: "#FF5722",
+              color: "#F59E0B",
               borderColor: "#fff",
               borderWidth: 1,
-              shadowBlur: 8,
-              shadowColor: "rgba(255, 87, 34, 0.5)",
+              shadowBlur: 10,
+              shadowColor: "rgba(245, 158, 11, 0.5)",
             },
-            lineStyle: { color: "#FF5722", width: 3 },
+            lineStyle: { color: "#F59E0B", width: 3 },
           },
           // 凝析油累计产值 (Line)
           {
@@ -399,13 +399,13 @@ export default {
             symbol: "circle",
             symbolSize: 8,
             itemStyle: {
-              color: "#FFC107",
+              color: "#38BDF8",
               borderColor: "#fff",
               borderWidth: 1,
-              shadowBlur: 8,
-              shadowColor: "rgba(255, 193, 7, 0.5)",
+              shadowBlur: 10,
+              shadowColor: "rgba(56, 189, 248, 0.5)",
             },
-            lineStyle: { color: "#FFC107", width: 3 },
+            lineStyle: { color: "#38BDF8", width: 3 },
           },
         ],
       };
