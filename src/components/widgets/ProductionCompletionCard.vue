@@ -202,7 +202,7 @@ export default {
         },
         legend: {
           data: ["计划月产量", "实际月产量", "计划累产", "实际累产"],
-          top: 8,
+          top: 10,
           left: "center",
           textStyle: { color: textColor, fontSize: 10 },
           itemWidth: 25, // 增加宽度以展示线段
@@ -210,10 +210,10 @@ export default {
           itemGap: 20,
         },
         grid: {
-          top: 75, // 避开轴标题，防止重叠
-          right: 30,
-          bottom: 15,
+          top: 80,
           left: 10,
+          right: 10,
+          bottom: 10,
           containLabel: true,
         },
         xAxis: {
