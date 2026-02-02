@@ -72,7 +72,7 @@ export default {
 
       const colors = [
         "#1E3A8A",
-        "#F59E0B",
+        "#FFD700",
         "#10B981",
         "#3B82F6",
         "#8B5CF6",

@@ -320,11 +320,11 @@ export default {
             data: currentData.planCum,
             smooth: true,
             showSymbol: false,
-            lineStyle: { color: "#F59E0B", width: 3 },
+            lineStyle: { color: "#FFD700", width: 3 },
             itemStyle: {
-              color: "#F59E0B",
+              color: "#FFD700",
               shadowBlur: 5,
-              shadowColor: "rgba(245, 158, 11, 0.5)",
+              shadowColor: "rgba(255, 215, 0, 0.5)",
             },
           },
           // 累产线 (Actual)
