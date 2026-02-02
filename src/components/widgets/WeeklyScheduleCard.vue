@@ -96,10 +96,11 @@ export default {
       currentDate: new Date(),
       schedules: [
         {
-          title: "部门例会",
-          time: "周一 10:00",
+          title: "有限海南分公司总办会",
+          time: "周一 08:30",
+          location: "办公楼1912会议室",
           type: "meeting",
-          date: "2026-01-26",
+          date: "2026-02-02",
         },
         {
           title: "广州出差",
@@ -108,10 +109,11 @@ export default {
           date: "2026-01-28",
         },
         {
-          title: "季度总结会",
+          title: "先进表彰大会",
           time: "周五 14:00",
+          location: "303室",
           type: "meeting",
-          date: "2026-01-30",
+          date: "2026-02-06",
         },
       ],
     };
@@ -131,9 +133,9 @@ export default {
     },
     viewDetail(item) {
       this.$alert(
-        `<strong>${item.title}</strong><br>时间：${item.time}<br>类型：${
-          item.type === "meeting" ? "会议" : "差旅"
-        }`,
+        `<strong>${item.title}</strong><br>时间：${item.time}${
+          item.location ? "<br>地点：" + item.location : ""
+        }<br>类型：${item.type === "meeting" ? "会议" : "差旅"}`,
         "日程详情",
         {
           dangerouslyUseHTMLString: true,
