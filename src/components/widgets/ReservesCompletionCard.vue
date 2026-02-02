@@ -103,13 +103,14 @@ export default {
         legend: {
           data: ["目标", "已完成"],
           top: 10,
-          right: 10,
-          itemWidth: 10,
-          itemHeight: 10,
+          left: "center",
+          itemWidth: 25,
+          itemHeight: 12,
+          itemGap: 20,
           textStyle: { fontSize: 11, color: textColor },
         },
         grid: {
-          top: 40,
+          top: 100,
           right: 20,
           bottom: 20,
           left: 20,

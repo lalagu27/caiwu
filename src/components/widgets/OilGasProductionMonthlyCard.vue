@@ -103,7 +103,7 @@ export default {
       const lineColor = isDark ? "rgba(255, 255, 255, 0.05)" : "#eee";
 
       // 模拟数据 (万方)
-      const months = Array.from({ length: 12 }, (_, i) => `${i + 1}`);
+      const months = Array.from({ length: 12 }, (_, i) => `${i + 1}月`);
       const data = {
         planOil: [55, 50, 56, 48, 58, 62, 60, 62, 65, 62, 60, 61],
         planGas: [38, 35, 36, 35, 32, 30, 38, 38, 35, 40, 42, 41],
@@ -166,10 +166,11 @@ export default {
           axisPointer: { type: "shadow" },
         },
         legend: {
-          bottom: 5,
+          top: 10,
           left: "center",
-          itemWidth: 12,
+          itemWidth: 25,
           itemHeight: 12,
+          itemGap: 20,
           textStyle: { color: textColor, fontSize: 10 },
           data: [
             "计划月产油",
@@ -181,10 +182,10 @@ export default {
           ],
         },
         grid: {
-          top: 60,
+          top: 100,
           left: 10,
           right: 10,
-          bottom: 45,
+          bottom: 10,
           containLabel: true,
         },
         xAxis: {

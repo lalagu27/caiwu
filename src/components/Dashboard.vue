@@ -2,7 +2,7 @@
   <div class="dashboard">
     <!-- Top Stats Cards Row - 5 cards -->
     <div class="stats-row">
-      <user-info-card name="张明" position="公司领导" />
+      <user-info-card name="XXX" position="公司领导" />
       <today-reminders-card />
       <pending-approvals-card />
       <weekly-schedule-card />

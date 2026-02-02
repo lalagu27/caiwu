@@ -66,7 +66,7 @@ export default {
   props: {
     name: {
       type: String,
-      default: "张明",
+      default: "XXX",
     },
     position: {
       type: String,

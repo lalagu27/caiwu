@@ -405,7 +405,7 @@ export default {
               shadowBlur: 10,
               shadowColor: "rgba(56, 189, 248, 0.5)",
             },
-            lineStyle: { color: "#38BDF8", width: 3 },
+            lineStyle: { color: "#4A7BF7", width: 3 },
           },
         ],
       };
