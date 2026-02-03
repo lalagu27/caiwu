@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="kpi-value">
-          <span class="current">85.2</span>
+          <span class="current">10.6</span>
           <span class="unit">亿元</span>
         </div>
         <div class="kpi-target">年目标: 112.5亿元</div>
@@ -37,13 +37,13 @@
               <div
                 class="segment-fill"
                 :style="{
-                  width: getSegmentFillWidth(n, 8.33),
+                  width: getSegmentFillWidth(n, 9.42),
                   background: getSegmentColor(n),
                 }"
               ></div>
             </div>
           </div>
-          <span class="progress-text">75.7%</span>
+          <span class="progress-text">9.42%</span>
         </div>
         <div class="kpi-chart" ref="chart1"></div>
       </div>
@@ -96,7 +96,7 @@
             <div class="sub-metric">
               <div class="sub-label">战新投资</div>
               <div class="kpi-value">
-                <span class="current">22.5</span>
+                <span class="current">2.82</span>
                 <span class="unit">亿元</span>
               </div>
               <div class="kpi-target">年目标: 30亿元</div>
@@ -110,13 +110,13 @@
                     <div
                       class="segment-fill"
                       :style="{
-                        width: getSegmentFillWidth(n, 8.33),
+                        width: getSegmentFillWidth(n, 9.4),
                         background: '#00F0FF',
                       }"
                     ></div>
                   </div>
                 </div>
-                <span class="progress-text" style="color: #00f0ff">75%</span>
+                <span class="progress-text" style="color: #00f0ff">9.4%</span>
               </div>
             </div>
 
@@ -126,7 +126,7 @@
             <div class="sub-metric">
               <div class="sub-label">战新收入</div>
               <div class="kpi-value">
-                <span class="current">58.8</span>
+                <span class="current">7.15</span>
                 <span class="unit">亿元</span>
               </div>
               <div class="kpi-target">年目标: 75亿元</div>
@@ -140,13 +140,13 @@
                     <div
                       class="segment-fill"
                       :style="{
-                        width: getSegmentFillWidth(n, 8.33),
+                        width: getSegmentFillWidth(n, 9.53),
                         background: '#4A7BF7',
                       }"
                     ></div>
                   </div>
                 </div>
-                <span class="progress-text" style="color: #4a7bf7">78.4%</span>
+                <span class="progress-text" style="color: #4a7bf7">9.53%</span>
               </div>
             </div>
           </div>
@@ -494,7 +494,7 @@ export default {
           {
             name: "战新投资",
             data: [
-              1.8,
+              2.82,
               null,
               null,
               null,
@@ -514,7 +514,7 @@ export default {
           {
             name: "战新收入",
             data: [
-              5.2,
+              7.15,
               null,
               null,
               null,

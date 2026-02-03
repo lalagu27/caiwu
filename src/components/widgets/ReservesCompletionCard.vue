@@ -118,9 +118,22 @@ export default {
         },
         xAxis: {
           type: "category",
-          data: ["1月", "2月", "3月", "4月", "5月", "6月"],
+          data: [
+            "1月",
+            "2月",
+            "3月",
+            "4月",
+            "5月",
+            "6月",
+            "7月",
+            "8月",
+            "9月",
+            "10月",
+            "11月",
+            "12月",
+          ],
           axisLine: { lineStyle: { color: axisLineColor } },
-          axisLabel: { color: textColor, fontSize: 11 },
+          axisLabel: { color: textColor, fontSize: 11, rotate: 45 },
           axisTick: { show: false },
         },
         yAxis: {
@@ -137,8 +150,8 @@ export default {
           {
             name: "目标",
             type: "bar",
-            data: [100, 100, 100, 120, 120, 120],
-            barWidth: 12,
+            data: [100, 100, 100, 120, 120, 120, 120, 110, 110, 110, 100, 100],
+            barWidth: 8,
             itemStyle: {
               color: isDark ? "rgba(163, 174, 208, 0.4)" : "#e0e0e0",
               borderRadius: [4, 4, 0, 0],
@@ -148,8 +161,21 @@ export default {
           {
             name: "已完成",
             type: "bar",
-            data: [85, 92, 105, 110, 125, 118],
-            barWidth: 12,
+            data: [
+              105.2,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+            ],
+            barWidth: 8,
             itemStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                 { offset: 0, color: "#4A7BF7" },
