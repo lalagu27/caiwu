@@ -12,7 +12,7 @@
       <h3>
         <div class="header-icon"></div>
         油气产量分月对比
-        <span class="year-label">[2026/01]</span>
+        <span class="year-label">[2026]</span>
       </h3>
       <div class="header-actions">
         <div class="custom-toggle">
