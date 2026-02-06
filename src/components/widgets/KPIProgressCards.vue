@@ -570,6 +570,7 @@ export default {
             barGap: "-100%",
             data: bgData,
             itemStyle: { opacity: 0.6 },
+            label: { show: false }, // Remove label from body
           },
           // 2. Background Cylinder Top
           {
@@ -580,6 +581,17 @@ export default {
             symbolOffset: [0, -5],
             symbolPosition: "end",
             data: bgTopData,
+            label: {
+              show: true,
+              position: "left",
+              distance: 10,
+              color: "#fff", // Target value in white/grey
+              fontSize: 10,
+              formatter: (params) => {
+                const item = this.reserveIndicators[params.dataIndex];
+                return `目标 ${item.target}`;
+              },
+            },
           },
           // 3. Background Cylinder Bottom
           {
@@ -599,13 +611,14 @@ export default {
             data: contentData,
             label: {
               show: true,
-              position: "top",
-              distance: 10,
+              position: "top", // Floating on top of liquid
+              distance: 2,
               color: "#fff",
               fontSize: 12,
               fontWeight: "bold",
               formatter: (params) => {
-                return completedValues[params.dataIndex];
+                // Show percentage
+                return rates[params.dataIndex] + "%";
               },
             },
           },
@@ -618,6 +631,17 @@ export default {
             symbolOffset: [0, -5],
             symbolPosition: "end",
             data: topSymbolData,
+            label: {
+              show: true,
+              position: "left", // Completed value at liquid surface left
+              distance: 10,
+              color: "#00F0FF", // Highlight completed value
+              fontSize: 10,
+              formatter: (params) => {
+                const item = this.reserveIndicators[params.dataIndex];
+                return `完成 ${item.completed}`;
+              },
+            },
           },
           // 6. Liquid Content Bottom
           {
