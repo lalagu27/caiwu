@@ -52,34 +52,17 @@
       </div>
 
       <!-- 科技创新 -->
-      <div class="kpi-card">
+      <div class="kpi-card gauge-card tech-innovation-chart">
         <div class="kpi-header">
-          <div class="kpi-icon innovation">�</div>
+          <div class="kpi-icon innovation">🔬</div>
           <div class="kpi-title">
             科技创新
             <span class="year-label">[2026]</span>
           </div>
         </div>
-        <div class="kpi-value">
-          <span class="current">2.82</span>
-          <span class="unit">亿元</span>
+        <div class="chart-container-full">
+          <div class="kpi-chart" ref="techChart"></div>
         </div>
-        <div class="kpi-target">年目标: 30亿元</div>
-        <div class="kpi-progress">
-          <div class="progress-bar segmented">
-            <div v-for="n in 12" :key="'inv-' + n" class="segment-wrapper">
-              <div
-                class="segment-fill"
-                :style="{
-                  width: getSegmentFillWidth(n, 9.4),
-                  background: '#00F0FF',
-                }"
-              ></div>
-            </div>
-          </div>
-          <span class="progress-text" style="color: #00f0ff">9.4%</span>
-        </div>
-        <div class="kpi-chart" ref="techChart"></div>
       </div>
 
       <!-- 战新产业 -->
@@ -172,6 +155,15 @@ export default {
           target: 75,
           completed: 7.15,
           rate: 9.53,
+        },
+      ],
+      techInnovationIndicators: [
+        {
+          name: "研发经费投入",
+          unit: "亿元",
+          target: 8.03,
+          completed: 3.25,
+          rate: 40.47,
         },
       ],
       currentYear: new Date().getFullYear(),
@@ -1070,65 +1062,216 @@ export default {
     },
     initTechChart(textColor, lineColor, tooltipConfig) {
       if (!this.$refs.techChart) return;
-      let chart = echarts.getInstanceByDom(this.$refs.techChart);
-      if (!chart) chart = echarts.init(this.$refs.techChart);
+
+      // Dispose old if exists
+      if (this.charts.techChart) {
+        this.charts.techChart.dispose();
+      }
+
+      let chart = echarts.init(this.$refs.techChart);
+
+      // 准备数据
+      const categories = this.techInnovationIndicators.map((i) => i.name);
+      const rates = this.techInnovationIndicators.map((i) => i.rate);
+      const completedValues = this.techInnovationIndicators.map(
+        (i) => i.completed
+      );
+
+      // 定义颜色
+      const colors = [
+        {
+          top: "#00F0FF",
+          bottom: "#008B8B",
+          bg: "rgba(0, 240, 255, 0.2)",
+          bgTop: "#0C6A72",
+        }, // 青色 - 研发经费
+      ];
+
+      const barWidth = 40;
+
+      // 生成系列数据
+      const bgData = rates.map((rate, index) => {
+        return {
+          value: 100,
+          itemStyle: { color: colors[index].bg },
+        };
+      });
+
+      const contentData = rates.map((rate, index) => {
+        return {
+          value: rate,
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: colors[index].top },
+              { offset: 1, color: colors[index].bottom },
+            ]),
+          },
+        };
+      });
+
+      const topSymbolData = rates.map((rate, index) => {
+        return {
+          value: rate,
+          itemStyle: { color: colors[index].top },
+          symbolPosition: "end",
+        };
+      });
+
+      const bottomSymbolData = rates.map((rate, index) => {
+        return {
+          value: rate,
+          itemStyle: { color: colors[index].bottom },
+        };
+      });
+
+      const bgTopData = rates.map((rate, index) => {
+        return {
+          value: 100,
+          itemStyle: { color: colors[index].bgTop, opacity: 1 },
+        };
+      });
+
+      const bgBottomData = rates.map((rate, index) => {
+        return {
+          value: 100,
+          itemStyle: { color: colors[index].bottom, opacity: 1 },
+        };
+      });
 
       chart.setOption({
         tooltip: {
           trigger: "axis",
-          axisPointer: { type: "shadow" },
-          ...tooltipConfig,
+          formatter: (params) => {
+            const index = params[0].dataIndex;
+            const item = this.techInnovationIndicators[index];
+            return `${item.name}<br/>
+                    2026年目标: ${item.target} ${item.unit}<br/>
+                    完成数: ${item.completed} ${item.unit}<br/>
+                    完成率: ${item.rate}%`;
+          },
+          backgroundColor: "rgba(15, 22, 41, 0.95)",
+          borderColor: "#334155",
+          textStyle: { color: "#fff" },
         },
-        grid: { top: 15, right: 10, bottom: 30, left: 35 },
+        grid: {
+          top: 30,
+          bottom: 20,
+          left: 40,
+          right: 40,
+          containLabel: true,
+        },
         xAxis: {
-          type: "category",
-          data: [
-            "1月",
-            "2月",
-            "3月",
-            "4月",
-            "5月",
-            "6月",
-            "7月",
-            "8月",
-            "9月",
-            "10月",
-            "11月",
-            "12月",
-          ],
-          axisLine: { lineStyle: { color: lineColor } },
-          axisLabel: { color: textColor, fontSize: 10, rotate: 0 },
+          data: categories,
+          axisLabel: {
+            interval: 0,
+            color: textColor,
+            fontSize: 11,
+            width: 100,
+            overflow: "break",
+          },
+          axisTick: { show: false },
+          axisLine: { show: false },
         },
         yAxis: {
-          type: "value",
-          name: "亿元",
-          nameTextStyle: { color: textColor, fontSize: 10, align: "right" },
-          splitLine: { lineStyle: { type: "dashed", color: lineColor } },
-          axisLabel: { color: textColor, fontSize: 10 },
+          show: false,
+          max: 100,
         },
         series: [
+          // 1. 背景柱体
           {
-            name: "科技创新",
-            data: [
-              2.82,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-            ],
+            z: 1,
             type: "bar",
-            barWidth: "35%",
-            itemStyle: { color: "#00F0FF", borderRadius: [2, 2, 0, 0] },
+            barWidth: barWidth,
+            barGap: "-100%",
+            data: bgData,
+            itemStyle: { opacity: 0.6 },
+            label: { show: false },
+          },
+          // 2. 背景柱顶部
+          {
+            z: 2,
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, 10],
+            symbolOffset: [0, -5],
+            symbolPosition: "end",
+            data: bgTopData,
+            label: {
+              show: true,
+              position: "inside",
+              align: "right",
+              offset: [-30, -95],
+              color: "#fff",
+              fontSize: 10,
+              formatter: (params) => {
+                const item = this.techInnovationIndicators[params.dataIndex];
+                return `目标 ${item.target}`;
+              },
+            },
+          },
+          // 3. 背景柱底部
+          {
+            z: 2,
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, 10],
+            symbolOffset: [0, 5],
+            symbolPosition: "start",
+            data: bgBottomData,
+          },
+          // 4. 液体内容柱体
+          {
+            z: 3,
+            type: "bar",
+            barWidth: barWidth,
+            data: contentData,
+            label: {
+              show: true,
+              position: "top",
+              distance: 2,
+              color: "#fff",
+              fontSize: 12,
+              fontWeight: "bold",
+              formatter: (params) => {
+                return rates[params.dataIndex] + "%";
+              },
+            },
+          },
+          // 5. 液体内容顶部
+          {
+            z: 4,
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, 10],
+            symbolOffset: [0, -5],
+            symbolPosition: "end",
+            data: topSymbolData,
+            label: {
+              show: true,
+              position: "inside",
+              align: "right",
+              offset: [-30, 0],
+              color: "#00F0FF",
+              fontSize: 10,
+              formatter: (params) => {
+                const item = this.techInnovationIndicators[params.dataIndex];
+                return `完成 ${item.completed}`;
+              },
+            },
+          },
+          // 6. 液体内容底部
+          {
+            z: 4,
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, 10],
+            symbolOffset: [0, 5],
+            symbolPosition: "start",
+            data: bottomSymbolData,
           },
         ],
       });
+
       this.charts.techChart = chart;
     },
     initIndustryChart(textColor, lineColor, tooltipConfig) {
