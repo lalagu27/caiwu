@@ -101,7 +101,7 @@ export default {
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #dcdfe6;
+  border-bottom: none;
   background: transparent;
 }
 
@@ -257,8 +257,13 @@ export default {
 
 /* 暗黑模式适配 */
 .dark-theme .reminder-item {
-  background: var(--bg-hover);
-  border-color: var(--border-color);
+  background: linear-gradient(
+    90deg,
+    rgba(29, 162, 225, 0.2) 0%,
+    rgba(29, 162, 225, 0.05) 100%
+  );
+  border: 1px solid rgba(29, 162, 225, 0.3);
+  box-shadow: 0 0 10px rgba(29, 162, 225, 0.1) inset;
 }
 
 .dark-theme .reminder-time-badge {

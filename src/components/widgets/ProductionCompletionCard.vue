@@ -397,13 +397,7 @@ export default {
 }
 
 .header-icon {
-  width: 4px;
-  height: 14px;
-  background: var(--primary-color);
-  box-shadow: 0 0 8px var(--primary-color);
-  margin-right: 8px;
-  border-radius: 2px;
-  flex-shrink: 0;
+  display: none;
 }
 
 /* Header Actions */
@@ -448,11 +442,8 @@ export default {
   min-height: 0;
   position: relative;
   width: 100%;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(74, 123, 247, 0.02) 100%
-  ); /* Subtle bottom glow */
+  background: transparent;
+  border: none;
 }
 
 .chart-body {

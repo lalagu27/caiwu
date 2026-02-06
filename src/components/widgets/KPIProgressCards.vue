@@ -704,6 +704,8 @@ export default {
 .merged-card .kpi-chart {
   height: 170px;
   margin-top: 0;
+  background: transparent;
+  border: none;
 }
 
 .kpi-value {
@@ -807,5 +809,7 @@ export default {
   height: 120px;
   margin-top: 8px;
   width: 100%;
+  background: transparent;
+  border: none;
 }
 </style>

@@ -87,8 +87,8 @@
   /* 深蓝色细边框 */
 
   /* 4. Backgrounds - 深蓝科技背景 */
-  --bg-main: #0B1A2F;
-  /* 深蓝色主背景 */
+  --bg-main: radial-gradient(circle at 50% 0%, #1c3a63 0%, #0b1526 100%);
+  /* 科技深蓝径向渐变 */
   --bg-card: #082147;
   /* 深蓝卡片背景（用户指定） */
   --bg-hover: #0a2958;
@@ -126,9 +126,11 @@ body {
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg-main);
   background-color: var(--bg-main);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
 
 /* Generalized De-noised Card Style */
@@ -136,7 +138,7 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   /* Thin border */
-  border-radius: var(--radius-md);
+  border-radius: 0;
   box-shadow: var(--shadow-xs);
   /* Minimal shadow */
   transition: all 0.3s ease;
@@ -328,6 +330,7 @@ body:not(.dark-theme) .header-icon {
 .dark-theme .d-card {
   background: #082147 !important;
   border: 1px solid #1E3A5F !important;
+  border-radius: 0 !important;
   box-shadow: none !important;
   /* 移除外发光，保持干净 */
   overflow: visible !important;
@@ -369,20 +372,17 @@ body:not(.dark-theme) .header-icon {
 /* 3. 内容区域重构 */
 .dark-theme .chart-card .el-card__body,
 .dark-theme .d-card .el-card__body {
-  /* 内缩并添加细边框 */
-  /* 内缩并添加细边框 */
-  margin: 0 10px 10px 10px !important;
-  /* 顶部无需margin，紧贴header */
-  padding: 10px !important;
-  border: 1px solid rgba(143, 155, 186, 0.15) !important;
+  /* 无 margin，紧贴卡片边缘 */
+  margin: 0 !important;
+  padding: 8px !important;
+  border: 0px !important;
   /* 非常淡的内边框 */
-  background: rgba(0, 0, 0, 0.1) !important;
+  background: transparent !important;
   /* 深一度的内容背景 */
-  /* 圆角 */
-  border-radius: 4px;
+  border-radius: 0;
   /* 确保占满剩余高度 */
-  height: calc(100% - 70px) !important;
-  /* 减去header和margin */
+  height: calc(100% - 60px) !important;
+  /* 减去header高度 */
 }
 
 /* 4. 标题文字增强 - 统一覆盖 */
@@ -403,8 +403,9 @@ body:not(.dark-theme) .header-icon {
 
 
 /* 5. 标题左侧竖条增强 - 平行四边形 */
-.dark-theme .chart-header h3::before,
-.dark-theme .header-icon {
+.dark-theme .chart-header h3::before {
+  content: "";
+  display: inline-block;
   background: #00F0FF !important;
   box-shadow: 0 0 10px #00F0FF, 0 0 20px #00F0FF !important;
   /* 强发光 */
@@ -505,4 +506,27 @@ body:not(.dark-theme) .header-icon {
   color: #ffffff !important;
   opacity: 0.9 !important;
   font-weight: 500 !important;
+}
+
+/* =========================================
+   用户反馈修正：底部列表项科技感渐变
+   ========================================= */
+.dark-theme .reminder-item,
+.dark-theme .approval-item,
+.dark-theme .schedule-card-inner,
+.dark-theme .module-item {
+  background: linear-gradient(90deg, rgba(29, 162, 225, 0.2) 0%, rgba(29, 162, 225, 0.05) 100%) !important;
+  border: 1px solid rgba(29, 162, 225, 0.3) !important;
+  box-shadow: 0 0 10px rgba(29, 162, 225, 0.1) inset !important;
+  transition: all 0.3s ease;
+}
+
+.dark-theme .reminder-item:hover,
+.dark-theme .approval-item:hover,
+.dark-theme .schedule-card-inner:hover,
+.dark-theme .module-item:hover {
+  background: linear-gradient(90deg, rgba(29, 162, 225, 0.3) 0%, rgba(29, 162, 225, 0.1) 100%) !important;
+  border-color: rgba(29, 162, 225, 0.6) !important;
+  box-shadow: 0 0 15px rgba(29, 162, 225, 0.2) inset !important;
+  transform: translateX(2px);
 }
