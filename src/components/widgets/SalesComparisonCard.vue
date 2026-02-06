@@ -202,18 +202,18 @@ export default {
       const symbolOffsetRight = ["55%", 0];
 
       // Colors
-      // Plan: Gold/Yellow (Reference Image Style)
+      // Plan: Cyan (Vibrant/Eye-catching)
       const planColorStr = {
-        top: "#FFE58F",
-        bodyStart: "rgba(250, 204, 20, 1)",
-        bodyEnd: "rgba(212, 172, 6, 0.8)",
+        top: "#00F0FF",
+        bodyStart: "rgba(0, 240, 255, 1)",
+        bodyEnd: "rgba(0, 173, 192, 0.8)",
       };
 
-      // Actual: Pink/Rose (Reference Image Style)
+      // Actual: Bright Blue
       const actColorStr = {
-        top: "#FFADD2",
-        bodyStart: "rgba(235, 47, 150, 1)",
-        bodyEnd: "rgba(196, 29, 127, 0.8)",
+        top: "#3B82F6",
+        bodyStart: "rgba(59, 130, 246, 1)",
+        bodyEnd: "rgba(30, 64, 175, 0.8)",
       };
 
       const option = {
@@ -315,7 +315,7 @@ export default {
           },
         ],
         series: [
-          // ========== 计划月销量 (3D Cylinder - Gold) ==========
+          // ========== 计划月销量 (3D Cylinder - Cyan) ==========
           // Body
           {
             name: "计划月销量",
@@ -345,7 +345,7 @@ export default {
             tooltip: { show: false },
           },
 
-          // ========== 实际月销量 (3D Cylinder - Pink) ==========
+          // ========== 实际月销量 (3D Cylinder - Blue) ==========
           // Body
           {
             name: "实际月销量",
@@ -375,7 +375,7 @@ export default {
             tooltip: { show: false },
           },
 
-          // 累销线 (Plan - Gold)
+          // 累销线 (Plan)
           {
             name: "计划销量",
             type: "line",
@@ -384,14 +384,14 @@ export default {
             data: currentData.planCum,
             smooth: true,
             showSymbol: false,
-            lineStyle: { color: "#FACC14", width: 3 },
+            lineStyle: { color: "#FFD700", width: 3 },
             itemStyle: {
-              color: "#FACC14",
+              color: "#FFD700",
               shadowBlur: 5,
-              shadowColor: "rgba(250, 204, 20, 0.5)",
+              shadowColor: "rgba(255, 215, 0, 0.5)",
             },
           },
-          // 累销线 (Actual - Pink)
+          // 累销线 (Actual)
           {
             name: "实际销量",
             type: "line",
@@ -403,13 +403,13 @@ export default {
             symbol: "circle",
             symbolSize: 8,
             itemStyle: {
-              color: "#EB2F96",
+              color: "#4A7BF7",
               borderColor: "#fff",
               borderWidth: 2,
               shadowBlur: 10,
-              shadowColor: "rgba(235, 47, 150, 0.5)",
+              shadowColor: "rgba(74, 123, 247, 0.5)",
             },
-            lineStyle: { color: "#EB2F96", width: 3 },
+            lineStyle: { color: "#4A7BF7", width: 3 },
           },
         ],
       };
