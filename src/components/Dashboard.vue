@@ -149,13 +149,12 @@ export default {
 <style scoped>
 .dashboard {
   width: 100%;
-  min-height: 100vh;
-  height: auto;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 6px;
-  overflow-y: auto;
+  gap: 4px;
+  padding: 4px;
+  overflow: hidden;
   box-sizing: border-box;
 }
 
@@ -163,7 +162,7 @@ export default {
 .stats-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1.8fr 1fr 1fr;
-  gap: 6px;
+  gap: 4px;
   height: 270px;
   flex-shrink: 0;
 }
@@ -172,7 +171,7 @@ export default {
 .main-grid {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  gap: 6px;
+  gap: 4px;
   flex: 1;
   min-height: 0;
 }
@@ -181,7 +180,7 @@ export default {
 .right-col {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   min-height: 0;
   height: 100%;
 }
@@ -199,7 +198,7 @@ export default {
 .center-col {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   min-height: 0;
   height: auto;
 }
