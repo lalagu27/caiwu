@@ -9,12 +9,12 @@
     }"
   >
     <div slot="header" class="chart-header">
-      <h3>生产设施</h3>
+      <h3>人才队伍</h3>
     </div>
     <div class="image-gallery">
       <div class="image-item" v-for="(item, index) in items" :key="index">
         <div class="image-wrapper">
-          <img src="@/assets/dizuo1.png" alt="储量示意图" />
+          <img src="@/assets/dizuo2.png" alt="指标数" />
           <span class="image-number">
             {{ item.value
             }}<span v-if="item.unit" class="image-unit">{{ item.unit }}</span>
@@ -33,13 +33,13 @@ export default {
     return {
       currentDate: "",
       items: [
-        { value: "2", unit: "个", label: "作业公司" },
-        { value: "9", unit: "个", label: "在生产气田" },
-        { value: "1", unit: "个", label: "在生产油田" },
-        { value: "19", unit: "座", label: "生产平台" },
-        { value: "177", unit: "口", label: "在生产井" },
-        { value: "3", unit: "个", label: "陆岸终端" },
-        { value: "2", unit: "条", label: "海底管线" },
+        { value: "2", unit: "个", label: "在岗员工" },
+        { value: "9", unit: "个", label: "平均年龄" },
+        { value: "1", unit: "个", label: "本科及以上" },
+        { value: "19", unit: "座", label: "党员占比" },
+        { value: "177", unit: "口", label: "集团技能人才" },
+        { value: "3", unit: "个", label: "所属单位级技能人才" },
+        { value: "2", unit: "条", label: "高级职称" },
       ],
     };
   },

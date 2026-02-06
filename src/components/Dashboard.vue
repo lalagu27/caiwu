@@ -37,6 +37,7 @@
       <div class="right-col">
         <!-- 新增经济可采储量 - 替换原来的部门数据对比 -->
         <reserves-completion-card />
+        <reserves-completion-card1 />
 
         <!-- 重点项目执行进度 - 替换原来的分类占比 -->
         <project-progress-card />
@@ -58,6 +59,7 @@ import PartyManagementCard from "./widgets/PartyManagementCard.vue";
 import KPIProgressCards from "./widgets/KPIProgressCards.vue";
 import ProductionCompletionCard from "./widgets/ProductionCompletionCard.vue";
 import ReservesCompletionCard from "./widgets/ReservesCompletionCard.vue";
+import ReservesCompletionCard1 from "./widgets/ReservesCompletionCard1.vue";
 import ProjectProgressCard from "./widgets/ProjectProgressCard.vue";
 import CenterVisual from "./widgets/CenterVisual.vue";
 import DrillingDynamicsCard from "./widgets/DrillingDynamicsCard.vue";
@@ -77,6 +79,7 @@ export default {
     KPIProgressCards,
     ProductionCompletionCard,
     ReservesCompletionCard,
+    ReservesCompletionCard1,
     ProjectProgressCard,
     CenterVisual,
     DrillingDynamicsCard,
