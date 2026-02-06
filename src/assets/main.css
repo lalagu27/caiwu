@@ -330,93 +330,125 @@ body:not(.dark-theme) .header-icon {
 .dark-theme .d-card,
 .dark-theme .kpi-card,
 .dark-theme .center-visual {
-  background: #082147 !important;
-  border: 1px solid #1E3A5F !important;
+  background: radial-gradient(circle at 50% 0%, #0d2a5a 0%, #051635 100%) !important;
+  border: 1px solid rgba(0, 240, 255, 0.25) !important;
   border-radius: 0 !important;
-  box-shadow: none !important;
-  /* 移除外发光，保持干净 */
-  overflow: visible !important;
-  /* 允许光晕溢出 */
+  box-shadow: inset 0 0 30px rgba(0, 240, 255, 0.05) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* 扫描线动画 */
+.dark-theme .chart-card::before,
+.dark-theme .d-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.03), transparent);
+  animation: scanning 8s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes scanning {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+/* 增加边角装饰 */
+.dark-theme .chart-card::after,
+.dark-theme .d-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(to right, #00F0FF 2px, transparent 2px) 0 0,
+    linear-gradient(to bottom, #00F0FF 2px, transparent 2px) 0 0,
+    linear-gradient(to left, #00F0FF 2px, transparent 2px) 100% 0,
+    linear-gradient(to bottom, #00F0FF 2px, transparent 2px) 100% 0,
+    linear-gradient(to right, #00F0FF 2px, transparent 2px) 0 100%,
+    linear-gradient(to top, #00F0FF 2px, transparent 2px) 0 100%,
+    linear-gradient(to left, #00F0FF 2px, transparent 2px) 100% 100%,
+    linear-gradient(to top, #00F0FF 2px, transparent 2px) 100% 100%;
+  background-repeat: no-repeat;
+  background-size: 8px 8px;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.5;
+}
+
+.dark-theme .chart-card:hover,
+.dark-theme .d-card:hover {
+  border-color: rgba(0, 240, 255, 0.5) !important;
+  box-shadow: inset 0 0 40px rgba(0, 240, 255, 0.1), 0 0 20px rgba(0, 240, 255, 0.15) !important;
 }
 
 /* 2. 标题栏重构 */
-/* 2. 标题栏重构 - 仿照新设计 */
 .dark-theme .chart-card .el-card__header,
 .dark-theme .d-card .el-card__header {
-  /* 科技感渐变背景：左侧亮蓝 -> 右侧透明 */
-  background: linear-gradient(90deg, rgba(0, 240, 255, 0.15) 0%, rgba(30, 144, 255, 0.05) 60%, transparent 100%) !important;
-  /* 移除默认边框，使用伪元素制作渐变底线 */
-  border-bottom: none !important;
-  padding: 0 16px !important;
-  /* 确保文字垂直居中 */
+  background: linear-gradient(90deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 240, 255, 0.05) 100%) !important;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.2) !important;
+  padding: 0 12px !important;
+  height: 38px !important;
   display: flex !important;
   align-items: center !important;
   position: relative;
-  z-index: 10;
-  overflow: visible !important;
-}
-
-/* 底部发光渐变线条 - 减弱亮度 */
-.dark-theme .chart-card .el-card__header::after,
-.dark-theme .d-card .el-card__header::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  /* 更柔和的线条，移除强发光 */
-  background: linear-gradient(90deg, #1E3A5F 0%, rgba(30, 144, 255, 0.3) 50%, transparent 100%);
-  z-index: 2;
-  box-shadow: none;
+  z-index: 11;
 }
 
 /* 3. 内容区域重构 */
 .dark-theme .chart-card .el-card__body,
 .dark-theme .d-card .el-card__body {
-  /* 无 margin，紧贴卡片边缘 */
   margin: 0 !important;
   padding: 8px !important;
-  border: 0px !important;
-  /* 非常淡的内边框 */
   background: transparent !important;
-  /* 深一度的内容背景 */
-  border-radius: 0;
-  /* 确保占满剩余高度 */
-  height: calc(100% - 60px) !important;
-  /* 减去header高度 */
+  height: calc(100% - 38px) !important;
 }
 
 /* 4. 标题文字增强 - 统一覆盖 */
 .dark-theme .card-title,
 .dark-theme .chart-header h3,
-.dark-theme .chart-card h3 {
+.dark-theme .chart-card h3,
+.dark-theme .center-visual .chart-header h3 {
   color: #ffffff !important;
-  font-size: 16px !important;
-  font-style: italic !important;
-  font-weight: 700 !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
   letter-spacing: 1px;
-  text-shadow: 0 0 8px rgba(0, 240, 255, 0.5) !important;
-  margin-left: 4px;
-  display: flex;
-  align-items: center;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.8) !important;
+  margin: 0;
+  display: flex !important;
+  align-items: center !important;
+  text-transform: uppercase;
+  font-style: normal !important;
 }
 
 
 
 /* 5. 标题左侧竖条增强 - 平行四边形 */
-.dark-theme .chart-header h3::before {
+.dark-theme .chart-header h3::before,
+.dark-theme .center-visual .chart-header h3::before,
+.dark-theme .card-header h3::before {
   content: "";
   display: inline-block;
   background: #00F0FF !important;
-  box-shadow: 0 0 10px #00F0FF, 0 0 20px #00F0FF !important;
-  /* 强发光 */
-  width: 6px !important;
+  box-shadow: 0 0 12px #00F0FF !important;
+  width: 4px !important;
   height: 16px !important;
   margin-right: 12px !important;
-  border-radius: 1px !important;
-  transform: skewX(-20deg) !important;
-  /* 倾斜变形 */
+  transform: skewX(-15deg) !important;
 }
 
 /* 6. 右侧图标框 (如果有) */

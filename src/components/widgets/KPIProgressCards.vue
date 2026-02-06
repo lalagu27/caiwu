@@ -1,6 +1,6 @@
 <template>
   <el-card
-    class="kpi-cards-container"
+    class="kpi-cards-container chart-card"
     :body-style="{
       padding: '8px',
       flex: 1,
@@ -565,23 +565,11 @@ export default {
 
 .card-header h3 {
   margin: 0;
-  font-size: var(--font-base);
-  font-weight: 600;
-  color: var(--text-primary);
   display: flex;
   align-items: center;
-  gap: 6px;
 }
 
-.card-header h3::before {
-  content: "";
-  display: inline-block;
-  width: 4px;
-  height: 14px;
-  background: #4a7bf7;
-  border-radius: 2px;
-  flex-shrink: 0;
-}
+/* ::before handled by global */
 
 .kpi-cards-grid {
   display: grid;
@@ -594,8 +582,6 @@ export default {
 }
 
 .kpi-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
   padding: 8px;
   display: flex;
   flex-direction: column;

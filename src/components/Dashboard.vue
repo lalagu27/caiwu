@@ -215,10 +215,6 @@ export default {
 
 /* Chart Cards */
 .chart-card {
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -227,11 +223,9 @@ export default {
 }
 
 .chart-card ::v-deep .el-card__header {
-  padding: 0 12px;
-  height: 48px;
+  height: 38px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--border-color);
 }
 
 .chart-card ::v-deep .el-card__body {
@@ -250,25 +244,11 @@ export default {
 
 .chart-header h3 {
   margin: 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--primary-color);
-  text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
   display: flex;
   align-items: center;
 }
 
-.chart-header h3::before {
-  content: "";
-  display: inline-block;
-  width: 4px;
-  height: 14px;
-  background: var(--primary-color);
-  box-shadow: 0 0 8px var(--primary-color);
-  margin-right: 8px;
-  border-radius: 2px;
-  flex-shrink: 0;
-}
+/* h3::before handled by global main.css */
 
 .chart-tabs {
   display: flex;

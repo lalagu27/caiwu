@@ -131,6 +131,16 @@ export default {
   border-color: #fcd34d;
 }
 
+.dark-theme .reminder-item.priority-high {
+  background: rgba(252, 211, 77, 0.15);
+  border-color: rgba(252, 211, 77, 0.4);
+  color: #fbbf24;
+}
+
+.dark-theme .reminder-item.priority-high .reminder-title {
+  color: #fbbf24;
+}
+
 .reminder-icon {
   width: 36px;
   height: 36px;

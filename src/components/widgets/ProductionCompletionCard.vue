@@ -186,17 +186,22 @@ export default {
             y2Max: 120,
           };
 
-      const textColor = "#ffffff";
-      const axisLineColor = "#1a8fff";
-      const splitLineColor = "rgba(255, 255, 255, 0.15)";
+      const isDark = document.body.classList.contains("dark-theme");
+      const textColor = isDark ? "#ffffff" : "#666";
+      const headingColor = isDark ? "#ffffff" : "#333";
+      const axisLineColor = isDark ? "#1a8fff" : "#E1E8ED";
+      const splitLineColor = isDark ? "rgba(255, 255, 255, 0.15)" : "#F0F4F9";
 
       const option = {
         tooltip: {
           trigger: "axis",
           axisPointer: { type: "shadow" },
-          backgroundColor: "rgba(18, 30, 50, 0.9)",
-          borderColor: "#4A7BF7",
-          textStyle: { color: "#fff" },
+          backgroundColor: isDark
+            ? "rgba(15, 22, 41, 0.95)"
+            : "rgba(255, 255, 255, 0.95)",
+          borderColor: isDark ? "#334155" : "#ddd",
+          borderWidth: 1,
+          textStyle: { color: isDark ? "#cbd5e1" : "#333" },
           formatter: (params) => {
             let res = `<div style="font-weight:600;margin-bottom:4px;">${params[0].name}</div>`;
             params.forEach((p) => {

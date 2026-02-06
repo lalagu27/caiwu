@@ -46,28 +46,18 @@ export default {
 .center-visual {
   position: relative;
   height: 100%; /* 响应父容器flex高度 */
-  background: var(--bg-card);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
 }
 
 .center-visual ::v-deep .el-card__header {
-  padding: 0 12px;
-  height: 40px;
+  height: 38px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--border-color);
 }
 
 .chart-header h3 {
   margin: 0;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--primary-color);
-  text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
   display: flex;
   align-items: center;
 }
