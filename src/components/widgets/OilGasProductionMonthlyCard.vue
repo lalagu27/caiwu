@@ -129,14 +129,13 @@ export default {
       };
 
       // 3D Cylinder Configuration
-      const barWidth = 14;
-      const barGap = "30%";
+      const barWidth = 12;
+      const barGap = "10%";
       // Calculcated Offset for PictorialBar:
-      // Group width = 14 + 14*0.3 + 14 = 32.2
-      // Center 0. Left Bar Center = -9.1px. Right Bar Center = +9.1px.
-      // 9.1px relative to 14px width is approx 65%
-      const symbolOffsetLeft = ["-65%", 0];
-      const symbolOffsetRight = ["65%", 0];
+      // Gap 10%. Total Width = 2.1 * barWidth. Center = 1.05.
+      // Left Bar Center = 0.5. Distance = 0.55 = 55%.
+      const symbolOffsetLeft = ["-55%", 0];
+      const symbolOffsetRight = ["55%", 0];
 
       // Colors
       const planColorStr = {

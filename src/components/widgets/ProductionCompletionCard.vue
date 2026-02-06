@@ -193,16 +193,13 @@ export default {
       const splitLineColor = isDark ? "rgba(255, 255, 255, 0.15)" : "#F0F4F9";
 
       // --- 3D Cylinder Settings ---
-      const barWidth = 14;
-      const barGap = "30%";
+      const barWidth = 12;
+      const barGap = "10%";
       // Calculcated Offset for PictorialBar:
-      // 3 bars logic? No, 2 bars.
-      // ECharts barGap defaults to '30%'.
-      // If we use standard barGap behavior, offset calculation:
-      // We manually adjust offsets to align caps with bars.
-      // Left Bar (-65%), Right Bar (65%) approximately matches typical gap.
-      const symbolOffsetLeft = ["-65%", 0];
-      const symbolOffsetRight = ["65%", 0];
+      // Gap 10%. Total Width = 2.1 * barWidth. Center = 1.05.
+      // Left Bar Center = 0.5. Distance = 0.55 = 55%.
+      const symbolOffsetLeft = ["-55%", 0];
+      const symbolOffsetRight = ["55%", 0];
 
       // Colors definitions
       // Plan (Cyan)
