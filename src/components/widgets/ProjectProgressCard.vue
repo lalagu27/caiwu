@@ -64,32 +64,49 @@ export default {
 
       const isDark = document.body.classList.contains("dark-theme");
       const textColor = isDark ? "#ffffff" : "#333";
-      const bgBarColor = isDark ? "rgba(255, 255, 255, 0.1)" : "#e8eef5"; // Light transparent for dark mode
 
       const projects = [
         {
           name: "《1500米级水下采油树设计、制造及测试技术》",
-          shortName: "1500米级水下采油树技术",
           value: 45,
         },
         {
           name: "《海上超高温高压钻完井关键技术研究及示范应用》",
-          shortName: "海上超高温高压钻完井技术",
           value: 78,
         },
         {
           name: "《超深水超浅层气田开发关键技术研究及工程示范》",
-          shortName: "超深水超浅层气田开发技术",
           value: 92,
+        },
+        // Add dummy projects if needed to match the visual density,
+        // but for now keeping the real 3 items.
+      ];
+
+      // Alternating Colors
+      const colors = [
+        {
+          // Cyan
+          main: "#00F0FF",
+          track: "rgba(0, 240, 255, 0.2)",
+          shadow: "rgba(0, 240, 255, 0.6)",
+        },
+        {
+          // Blue
+          main: "#4A7BF7",
+          track: "rgba(74, 123, 247, 0.2)",
+          shadow: "rgba(74, 123, 247, 0.6)",
         },
       ];
 
+      // Pulse Icon Path (approximate)
+      const pulsePath = "path://M0,5 L3,5 L5,1 L7,9 L9,5 L12,5";
+
       const option = {
         grid: {
-          top: 25,
-          right: 60,
+          top: 30,
+          right: 50,
           bottom: 10,
-          left: 10,
+          left: 20, // Increase space for icon
           containLabel: false,
         },
         xAxis: {
@@ -100,142 +117,143 @@ export default {
         },
         yAxis: {
           type: "category",
-          data: projects.map((p) => ""),
+          data: projects.map((p) => p.name),
           axisLine: { show: false },
           axisTick: { show: false },
           axisLabel: { show: false },
           splitLine: { show: false },
-          inverse: true,
+          inverse: true, // Top to bottom
         },
         series: [
-          // Background Bar (轨道)
+          // 1. Background Track (Thin Line)
           {
-            name: "Background",
+            name: "Track",
             type: "bar",
             z: 1,
             barGap: "-100%",
-            barCategoryGap: "35%",
-            data: projects.map((p) => 100),
-            barWidth: 16,
-            itemStyle: {
-              color: isDark ? "rgba(57, 90, 139, 0.3)" : "#e8eef5",
-              borderRadius: 8,
-            },
+            barCategoryGap: "60%", // More space between projects
+            data: projects.map((p, i) => ({
+              value: 100,
+              itemStyle: {
+                color: colors[i % 2].track,
+                borderRadius: 2,
+              },
+            })),
+            barWidth: 3, // Thin line
             silent: true,
           },
-          // Progress Bar (主进度条)
+          // 2. Progress Bar (Thin Line with Shadow)
           {
             name: "Progress",
             type: "bar",
             z: 2,
-            barCategoryGap: "35%",
-            data: projects.map((p, index) => ({
+            barCategoryGap: "60%",
+            data: projects.map((p, i) => ({
               value: p.value,
               itemStyle: {
-                color: isDark
-                  ? new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                      { offset: 0, color: "#00E5FF" },
-                      { offset: 0.5, color: "#00D4FF" },
-                      { offset: 1, color: "#00BFFF" },
-                    ])
-                  : new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                      { offset: 0, color: "#4A7BF7" },
-                      { offset: 1, color: "#2B3674" },
-                    ]),
-                borderRadius: 8,
-                shadowColor: isDark
-                  ? "rgba(0, 229, 255, 0.6)"
-                  : "rgba(74, 123, 247, 0.3)",
-                shadowBlur: 15,
-                shadowOffsetX: 0,
-                shadowOffsetY: 0,
+                color: colors[i % 2].main,
+                borderRadius: 2,
+                shadowColor: colors[i % 2].shadow,
+                shadowBlur: 10,
               },
             })),
-            barWidth: 16,
+            barWidth: 3,
             label: { show: false },
           },
-          // 高光条 (顶部光泽效果)
+          // 3. Glowing Knob (Knob at tip)
           {
-            name: "Highlight",
-            type: "bar",
+            name: "Knob",
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: 12, // Glow size
+            symbolOffset: [0, 0],
             z: 3,
-            barGap: "-100%",
-            barCategoryGap: "35%",
-            data: projects.map((p) => ({
+            symbolPosition: "end",
+            data: projects.map((p, i) => ({
               value: p.value,
               itemStyle: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  {
-                    offset: 0,
-                    color: isDark
-                      ? "rgba(255, 255, 255, 0.4)"
-                      : "rgba(255, 255, 255, 0.6)",
-                  },
-                  { offset: 0.3, color: "rgba(255, 255, 255, 0)" },
-                ]),
-                borderRadius: [8, 8, 0, 0],
+                color: "#fff", // White center
+                borderWidth: 3,
+                borderColor: colors[i % 2].main, // Colored border
+                shadowColor: colors[i % 2].shadow,
+                shadowBlur: 10,
               },
             })),
-            barWidth: 16,
-            silent: true,
           },
-          // 项目名称标签
+          // 4. Project Label (Top Left with Pulse Icon)
           {
-            name: "Labels",
+            name: "Label",
             type: "scatter",
+            symbol: pulsePath,
+            symbolSize: [15, 12],
+            symbolOffset: [0, -20], // Centered horizontally
+            clip: false, // Prevent cutting off
             z: 4,
-            symbolSize: 0,
-            data: projects.map((p, index) => [0, index]),
-            label: {
-              show: true,
-              position: "left",
-              formatter: (params) => {
-                const name = projects[params.data[1]].name;
-                return `{icon|●} ${name}`;
+            data: projects.map((p, i) => ({
+              value: [0, i],
+              name: p.name,
+              itemStyle: {
+                color: colors[i % 2].main,
               },
-              rich: {
-                icon: {
-                  color: isDark ? "#00E5FF" : "#4A7BF7",
-                  fontSize: 10,
-                  fontWeight: "bold",
+              label: {
+                show: true,
+                position: "right",
+                formatter: `{p|${p.name}}`,
+                align: "left",
+                verticalAlign: "middle",
+                offset: [5, 0],
+                rich: {
+                  p: {
+                    color: isDark ? "#fff" : "#333",
+                    fontSize: 13,
+                    fontWeight: 500,
+                  },
                 },
               },
-              color: textColor,
-              fontSize: 11,
-              fontWeight: 500,
-              align: "left",
-              verticalAlign: "bottom",
-              offset: [0, -18],
-            },
+            })),
           },
-          // 百分比标签（更醒目）
+          // 5. Value Label (Right Side)
           {
-            name: "Percentage",
-            type: "scatter",
-            z: 4,
+            name: "Value",
+            type: "scatter", // Use scatter to position effectively
             symbolSize: 0,
-            data: projects.map((p, index) => [100, index]),
+            z: 4,
+            data: projects.map((p, i) => [100, i]), // Right edge
             label: {
               show: true,
               position: "right",
               formatter: (params) => {
-                const value = projects[params.data[1]].value;
-                return `{percent|${value}%}`;
+                const val = projects[params.data[1]].value;
+                // Simulate underline with rich text border/decoration if possible,
+                // or just styled bold italic.
+                // ECharts rich text doesn't support text-decoration: underline comfortably without hacks.
+                // We will use a borderBottom.
+                return `{val|${val}}{unit|%}\n{line|}`;
               },
               rich: {
-                percent: {
-                  color: isDark ? "#00E5FF" : "#2B3674",
-                  fontSize: 16,
+                val: {
+                  color: "#fff",
+                  fontSize: 18,
                   fontWeight: "bold",
-                  fontFamily: "Arial, sans-serif",
-                  textShadowColor: isDark
-                    ? "rgba(0, 229, 255, 0.8)"
-                    : "rgba(43, 54, 116, 0.3)",
-                  textShadowBlur: isDark ? 10 : 5,
+                  fontStyle: "italic",
+                  padding: [0, 2, 0, 0],
+                },
+                unit: {
+                  color: colors[0].shadow, // Just use a color
+                  fontSize: 12,
+                  padding: [0, 0, 5, 0],
+                },
+                line: {
+                  height: 2,
+                  width: "100%",
+                  backgroundColor: colors[0].main, // Use first color for lines or dynamic?
+                  // Dynamic color in rich text is hard.
+                  // Let's simplify: Just style the number nicely.
+                  backgroundColor: "transparent",
                 },
               },
-              align: "left",
-              offset: [12, 0],
+              // Dynamic color override
+              color: (params) => colors[params.data[1] % 2].main,
             },
           },
         ],
