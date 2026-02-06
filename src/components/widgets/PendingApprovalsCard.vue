@@ -160,7 +160,7 @@ export default {
 }
 
 .card-title {
-  font-size: 16px; /* Increased from 14px */
+  font-size: 14px; /* Reduced from 16px */
   font-weight: normal;
   color: var(--primary-color);
   text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
@@ -168,7 +168,7 @@ export default {
 }
 
 .card-subtitle {
-  font-size: 13px; /* Increased from 12px */
+  font-size: 12px;
   color: #ffffff;
   margin-top: 0;
   font-weight: normal;
@@ -252,7 +252,7 @@ export default {
 }
 
 .approval-name {
-  font-size: 15px; /* Increased from 13px */
+  font-size: 13px; /* Reduced from 15px */
   color: var(--text-primary);
   font-weight: normal;
 }
@@ -265,7 +265,7 @@ export default {
 .approval-badge {
   background: var(--bg-hover);
   color: var(--text-secondary);
-  font-size: 13px; /* Increased from 12px */
+  font-size: 12px; /* Reduced from 13px */
   padding: 2px 8px;
   border-radius: 12px;
   font-weight: normal;
@@ -318,7 +318,7 @@ export default {
 .detail-row {
   display: flex;
   align-items: center;
-  font-size: 13px; /* Increased from 12px */
+  font-size: 12px; /* Reduced from 13px */
   padding: 6px 0;
   color: var(--text-secondary);
   border-bottom: 1px dashed var(--border-color);

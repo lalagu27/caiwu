@@ -219,14 +219,14 @@ export default {
 }
 
 .card-title {
-  font-size: 16px; /* Increased from 14px */
+  font-size: 14px; /* Reduced from 16px */
   font-weight: normal;
   color: var(--primary-color);
   text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
 }
 
 .schedule-count {
-  font-size: 13px; /* Increased from 12px */
+  font-size: 12px; /* Reduced from 13px */
   color: #ffffff;
   margin-top: 0;
   font-weight: normal;
@@ -386,7 +386,7 @@ export default {
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 13px; /* Increased from 12px */
+  font-size: 12px; /* Reduced from 13px */
   font-weight: normal; /* Make text clearer */
 }
 
@@ -471,19 +471,19 @@ export default {
 }
 
 .schedule-title {
-  font-size: 15px; /* Increased from 13px */
+  font-size: 13px; /* Reduced from 15px */
   font-weight: normal;
   color: var(--text-primary);
 }
 
 .schedule-time {
-  font-size: 13px; /* Increased from 12px */
+  font-size: 12px; /* Reduced from 13px */
   color: var(--text-secondary);
 }
 
 .detail-btn {
   padding: 0 4px;
-  font-size: 14px; /* Increased from 12px */
+  font-size: 12px; /* Reduced from 14px */
   margin-left: auto; /* Push to right */
   color: #409eff; /* Element Blue */
 }

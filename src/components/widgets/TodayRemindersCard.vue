@@ -130,14 +130,14 @@ export default {
 }
 
 .card-title {
-  font-size: 16px; /* Increased from 14px */
+  font-size: 14px; /* Reduced from 16px */
   font-weight: normal; /* Removed Bolder */
   color: var(--primary-color);
   text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
 }
 
 .reminder-count {
-  font-size: 13px; /* Increased from 12px */
+  font-size: 12px; /* Reduced from 13px */
   color: #ffffff;
   margin-top: 0;
   font-weight: normal;
@@ -189,7 +189,7 @@ export default {
 }
 
 .reminder-time-badge {
-  font-size: 13px; /* Increased from 12px */
+  font-size: 12px; /* Reduced from 13px */
   font-weight: normal;
   color: #555;
   background: #f0f2f5;
@@ -210,14 +210,14 @@ export default {
 }
 
 .reminder-text {
-  font-size: 15px; /* Increased from 13px */
+  font-size: 13px; /* Reduced from 15px */
   color: var(--text-primary);
   font-weight: normal; /* Removed Bolder */
 }
 
 .detail-btn {
   padding: 0 4px;
-  font-size: 14px; /* Increased from 12px */
+  font-size: 12px; /* Reduced from 14px */
   margin-left: 8px;
   color: #409eff; /* Element Blue */
   flex-shrink: 0;
