@@ -87,8 +87,8 @@ export default {
       const option = {
         grid: {
           top: 25,
-          right: 50,
-          bottom: 0,
+          right: 60,
+          bottom: 10,
           left: 10,
           containLabel: false,
         },
@@ -108,7 +108,7 @@ export default {
           inverse: true,
         },
         series: [
-          // Background Bar
+          // Background Bar (轨道)
           {
             name: "Background",
             type: "bar",
@@ -116,14 +116,14 @@ export default {
             barGap: "-100%",
             barCategoryGap: "35%",
             data: projects.map((p) => 100),
-            barWidth: 12,
+            barWidth: 16,
             itemStyle: {
-              color: bgBarColor,
-              borderRadius: 6,
+              color: isDark ? "rgba(57, 90, 139, 0.3)" : "#e8eef5",
+              borderRadius: 8,
             },
             silent: true,
           },
-          // Progress Bar
+          // Progress Bar (主进度条)
           {
             name: "Progress",
             type: "bar",
@@ -134,36 +134,56 @@ export default {
               itemStyle: {
                 color: isDark
                   ? new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                      {
-                        offset: 0,
-                        color: "#0EA5E9",
-                      },
-                      {
-                        offset: 1,
-                        color: "#00E5FF",
-                      },
+                      { offset: 0, color: "#00E5FF" },
+                      { offset: 0.5, color: "#00D4FF" },
+                      { offset: 1, color: "#00BFFF" },
                     ])
                   : new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                      {
-                        offset: 0,
-                        color: "#2B3674",
-                      },
-                      {
-                        offset: 1,
-                        color: "#4A7BF7",
-                      },
+                      { offset: 0, color: "#4A7BF7" },
+                      { offset: 1, color: "#2B3674" },
                     ]),
-                borderRadius: 6,
+                borderRadius: 8,
+                shadowColor: isDark
+                  ? "rgba(0, 229, 255, 0.6)"
+                  : "rgba(74, 123, 247, 0.3)",
+                shadowBlur: 15,
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
               },
             })),
-            barWidth: 12,
+            barWidth: 16,
             label: { show: false },
           },
-          // 项目名称标签（使用scatter类型在左侧显示）
+          // 高光条 (顶部光泽效果)
+          {
+            name: "Highlight",
+            type: "bar",
+            z: 3,
+            barGap: "-100%",
+            barCategoryGap: "35%",
+            data: projects.map((p) => ({
+              value: p.value,
+              itemStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: isDark
+                      ? "rgba(255, 255, 255, 0.4)"
+                      : "rgba(255, 255, 255, 0.6)",
+                  },
+                  { offset: 0.3, color: "rgba(255, 255, 255, 0)" },
+                ]),
+                borderRadius: [8, 8, 0, 0],
+              },
+            })),
+            barWidth: 16,
+            silent: true,
+          },
+          // 项目名称标签
           {
             name: "Labels",
             type: "scatter",
-            z: 3,
+            z: 4,
             symbolSize: 0,
             data: projects.map((p, index) => [0, index]),
             label: {
@@ -171,32 +191,51 @@ export default {
               position: "left",
               formatter: (params) => {
                 const name = projects[params.data[1]].name;
-                return name;
+                return `{icon|●} ${name}`;
               },
-              color: textColor, // Dynamic color
-              fontSize: 12,
+              rich: {
+                icon: {
+                  color: isDark ? "#00E5FF" : "#4A7BF7",
+                  fontSize: 10,
+                  fontWeight: "bold",
+                },
+              },
+              color: textColor,
+              fontSize: 11,
               fontWeight: 500,
               align: "left",
               verticalAlign: "bottom",
-              offset: [0, -12],
+              offset: [0, -18],
             },
           },
-          // 百分比标签（右侧）
+          // 百分比标签（更醒目）
           {
             name: "Percentage",
             type: "scatter",
-            z: 3,
+            z: 4,
             symbolSize: 0,
             data: projects.map((p, index) => [100, index]),
             label: {
               show: true,
               position: "right",
-              formatter: (params) => projects[params.data[1]].value + "%",
-              color: textColor, // Dynamic color
-              fontSize: 14,
-              fontWeight: 600,
+              formatter: (params) => {
+                const value = projects[params.data[1]].value;
+                return `{percent|${value}%}`;
+              },
+              rich: {
+                percent: {
+                  color: isDark ? "#00E5FF" : "#2B3674",
+                  fontSize: 16,
+                  fontWeight: "bold",
+                  fontFamily: "Arial, sans-serif",
+                  textShadowColor: isDark
+                    ? "rgba(0, 229, 255, 0.8)"
+                    : "rgba(43, 54, 116, 0.3)",
+                  textShadowBlur: isDark ? 10 : 5,
+                },
+              },
               align: "left",
-              offset: [10, 0],
+              offset: [12, 0],
             },
           },
         ],

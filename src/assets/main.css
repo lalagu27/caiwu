@@ -87,7 +87,7 @@
   /* 深蓝色细边框 */
 
   /* 4. Backgrounds - 深蓝科技背景 */
-  --bg-main: radial-gradient(circle at 50% 0%, #1c3a63 0%, #0b1526 100%);
+  --bg-main: #2a5298;
   /* 科技深蓝径向渐变 */
   --bg-card: #082147;
   /* 深蓝卡片背景（用户指定） */
@@ -332,7 +332,7 @@ body:not(.dark-theme) .header-icon {
 .dark-theme .center-visual {
   background: #082147 !important;
   border: 1px solid #395a8b !important;
-  border-radius: 4px !important;
+  border-radius: 0 !important;
   /* Slight rounding for 3D feel */
   /* Multi-layer 3D Shadows */
   box-shadow:
@@ -399,14 +399,14 @@ body:not(.dark-theme) .header-icon {
 .dark-theme .center-visual .chart-header h3 {
   color: #ffffff !important;
   font-size: 15px !important;
-  font-weight: 800 !important;
+  font-weight: normal !important;
   letter-spacing: 1px;
-  text-shadow: 0 0 10px rgba(0, 240, 255, 0.8) !important;
+  text-shadow: 0 0 2px rgba(0, 240, 255, 0.3) !important;
   margin: 0;
   display: flex !important;
   align-items: center !important;
   text-transform: uppercase;
-  font-style: normal !important;
+  font-style: italic !important;
 }
 
 
@@ -420,8 +420,9 @@ body:not(.dark-theme) .header-icon {
   background: #00F0FF !important;
   box-shadow: 0 0 12px #00F0FF !important;
   width: 4px !important;
-  height: 16px !important;
+  height: 12px !important;
   margin-right: 12px !important;
+  border-radius: 4px !important;
   transform: skewX(-15deg) !important;
 }
 
