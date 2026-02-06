@@ -897,7 +897,7 @@ export default {
         }, // 青色 - 成本
       ];
 
-      const barWidth = 40;
+      const barWidth = 30;
 
       // 生成系列数据
       const bgData = rates.map((rate, index) => {
