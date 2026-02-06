@@ -132,8 +132,15 @@ export default {
 }
 
 .dark-theme .reminder-item.priority-high {
-  background: rgba(252, 211, 77, 0.15);
-  border-color: rgba(252, 211, 77, 0.4);
+  background: linear-gradient(
+    180deg,
+    rgba(234, 179, 8, 0.15) 0%,
+    rgba(234, 179, 8, 0.05) 100%
+  ) !important;
+  border-color: rgba(234, 179, 8, 0.4) !important;
+  border-top: 1px solid rgba(234, 179, 8, 0.6) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
   color: #fbbf24;
 }
 

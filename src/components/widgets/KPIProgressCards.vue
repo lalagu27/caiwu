@@ -8,6 +8,20 @@
       flexDirection: 'column',
     }"
   >
+    <div slot="header" class="card-header">
+      <h3>
+        核心指标
+        <span
+          style="
+            font-size: 12px;
+            color: #8f9bba;
+            margin-left: 8px;
+            font-weight: normal;
+          "
+          >[2026]</span
+        >
+      </h3>
+    </div>
     <div class="kpi-cards-grid">
       <!-- 税前利润 -->
       <div class="kpi-card">
