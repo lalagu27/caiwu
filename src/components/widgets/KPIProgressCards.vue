@@ -556,9 +556,11 @@ export default {
 }
 
 .kpi-cards-container ::v-deep .el-card__body {
-  padding: 8px !important;
+  padding: 0px !important;
   flex: 1;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .card-header h3 {
@@ -584,21 +586,23 @@ export default {
 .kpi-cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  min-height: auto;
+  grid-template-rows: 1fr 1fr;
+  gap: 4px;
+  flex: 1;
   overflow: hidden;
-  padding: 0 8px;
+  padding: 4px;
 }
 
 .kpi-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  padding: 10px;
+  padding: 8px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   transition: all 0.3s ease;
-  min-height: 260px;
+  min-height: 0;
+  height: 100%;
 }
 
 .kpi-card:hover {
@@ -648,7 +652,7 @@ export default {
 
 .merged-card {
   grid-column: span 2;
-  min-height: 220px !important;
+  min-height: 0 !important;
 }
 
 .merged-header {
