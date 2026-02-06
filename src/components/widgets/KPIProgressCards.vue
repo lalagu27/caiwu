@@ -24,42 +24,37 @@
     </div>
     <div class="kpi-cards-grid">
       <!-- 税前利润 -->
-      <div class="kpi-card">
+      <div class="kpi-card gauge-card">
         <div class="kpi-header">
           <div class="kpi-icon profit">💰</div>
           <div class="kpi-title">
             税前利润
-            <span
-              style="
-                font-size: 12px;
-                color: #999;
-                margin-left: 4px;
-                font-weight: normal;
-              "
-              >[2026]</span
-            >
+            <span class="year-label">[2026]</span>
           </div>
         </div>
-        <div class="kpi-value">
-          <span class="current">10.6</span>
-          <span class="unit">亿元</span>
-        </div>
-        <div class="kpi-target">年目标: 112.5亿元</div>
-        <div class="kpi-progress">
-          <div class="progress-bar segmented">
-            <div v-for="n in 12" :key="n" class="segment-wrapper">
-              <div
-                class="segment-fill"
-                :style="{
-                  width: getSegmentFillWidth(n, 9.42),
-                  background: getSegmentColor(n),
-                }"
-              ></div>
+        <div class="gauge-layout">
+          <div class="gauge-chart" ref="chart1"></div>
+          <div class="gauge-data">
+            <div class="data-row">
+              <div class="data-icon-wrapper circle-icon">
+                <i class="el-icon-s-flag"></i>
+              </div>
+              <div class="data-content">
+                <div class="data-label">年度目标 (亿元)</div>
+                <div class="data-value num-font">112.5</div>
+              </div>
+            </div>
+            <div class="data-row">
+              <div class="data-icon-wrapper triangle-icon">
+                <i class="el-icon-caret-top"></i>
+              </div>
+              <div class="data-content">
+                <div class="data-label">实际完成 (亿元)</div>
+                <div class="data-value highlight-green num-font">10.6</div>
+              </div>
             </div>
           </div>
-          <span class="progress-text">9.42%</span>
         </div>
-        <div class="kpi-chart" ref="chart1"></div>
       </div>
 
       <!-- 桶油五项 -->
@@ -256,86 +251,136 @@ export default {
     },
     initChart1(textColor, lineColor, themeBlue, tooltipConfig) {
       if (!this.$refs.chart1) return;
-      // Dispose old instance to apply new clean state or just setOption with merge?
-      // Dispose is safer for complete theme switch if needed, but setOption is faster.
-      // Let's rely on setOption merging, but for colors we might want to be explicit.
       let chart = echarts.getInstanceByDom(this.$refs.chart1);
       if (!chart) chart = echarts.init(this.$refs.chart1);
 
+      const val = 9.42;
+
       chart.setOption({
-        title: {
-          text: "亿元",
-          textStyle: {
-            color: textColor,
-            fontSize: 10,
-            fontWeight: "normal",
-          },
-          top: 0,
-          left: 30,
-        },
-        tooltip: {
-          trigger: "axis",
-          formatter: "{b}: {c}亿元",
-          ...tooltipConfig,
-        },
-        grid: { top: 10, right: 10, bottom: 35, left: 35 },
-        xAxis: {
-          type: "category",
-          data: [
-            "1月",
-            "2月",
-            "3月",
-            "4月",
-            "5月",
-            "6月",
-            "7月",
-            "8月",
-            "9月",
-            "10月",
-            "11月",
-            "12月",
-          ],
-          show: true,
-          axisLine: { show: true, lineStyle: { color: lineColor } },
-          axisTick: { show: false },
-          axisLabel: {
-            color: textColor,
-            fontSize: 10,
-            interval: 0,
-            rotate: 0,
-          },
-        },
-        yAxis: {
-          type: "value",
-          show: true,
-          splitLine: {
-            show: true,
-            lineStyle: { type: "dashed", color: lineColor },
-          },
-          axisLabel: { color: textColor, fontSize: 10 },
-        },
         series: [
+          // 1. Outer Blue Tick Ring
           {
-            data: [
-              8.5,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-            ],
-            type: "bar",
-            barWidth: "60%",
-            itemStyle: {
-              color: themeBlue, // Theme Blue
-              borderRadius: [2, 2, 0, 0],
+            type: "gauge",
+            radius: "90%",
+            startAngle: 210,
+            endAngle: -30,
+            min: 0,
+            max: 100,
+            splitNumber: 10,
+            axisLine: {
+              lineStyle: {
+                width: 2,
+                color: [[1, "rgba(0,0,0,0)"]], // Hidden line
+              },
             },
+            axisTick: {
+              show: true,
+              splitNumber: 5,
+              length: 8,
+              lineStyle: {
+                color: "#0090FF",
+                width: 1,
+              },
+            },
+            splitLine: {
+              show: true,
+              length: 12,
+              lineStyle: {
+                color: "#00F0FF",
+                width: 2,
+              },
+            },
+            axisLabel: { show: false },
+            pointer: { show: false },
+            detail: { show: false },
+          },
+          // 2. Inner Gold Ring Background
+          {
+            type: "gauge",
+            radius: "75%",
+            startAngle: 210,
+            endAngle: -30,
+            min: 0,
+            max: 100,
+            axisLine: {
+              show: true,
+              lineStyle: {
+                width: 20,
+                color: [
+                  [
+                    1,
+                    new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                      { offset: 0, color: "rgba(180, 150, 80, 0.1)" },
+                      { offset: 0.5, color: "rgba(180, 150, 80, 0.4)" },
+                      { offset: 1, color: "rgba(180, 150, 80, 0.1)" },
+                    ]),
+                  ],
+                ],
+              },
+            },
+            axisTick: { show: false },
+            splitLine: { show: false },
+            axisLabel: { show: false },
+            pointer: { show: false },
+            detail: { show: false },
+          },
+          // 3. Main Data Gauge (Inner)
+          {
+            type: "gauge",
+            radius: "65%", // Smaller radius inside
+            startAngle: 210,
+            endAngle: -30,
+            min: 0,
+            max: 100,
+            axisLine: {
+              show: true,
+              lineStyle: {
+                width: 2,
+                color: [[1, "rgba(255, 255, 255, 0.2)"]],
+              },
+            },
+            axisTick: { show: false },
+            splitLine: { show: false },
+            axisLabel: {
+              show: true,
+              distance: 10,
+              color: "#fff",
+              fontSize: 10,
+            },
+            pointer: {
+              show: true,
+              // Custom path: Triangle tip at top, base below, anchored at 0,0 to preserve rotation center
+              // M0,-65 (Tip) L-6,-50 (Left Base) L6,-50 (Right Base) Z (Close) M0,0 Z (Anchor Center)
+              icon: "path://M0,-75 L-6,-60 L6,-60 Z M0,0 Z",
+              width: 12,
+              length: "75%",
+              offsetCenter: [0, 0],
+              itemStyle: {
+                color: "#FF4D4F",
+              },
+            },
+            title: {
+              show: true,
+              offsetCenter: [0, "20%"],
+              color: "#ccc",
+              fontSize: 10,
+            },
+            detail: {
+              valueAnimation: true,
+              offsetCenter: [0, "-10%"],
+              fontSize: 16,
+              fontWeight: "bold",
+              formatter: "{value}%",
+              color: "#fff",
+              textShadowBlur: 5,
+              textShadowColor: "#00F0FF",
+            },
+            data: [
+              {
+                value: val,
+                name: "完成率",
+              },
+            ],
           },
         ],
       });
@@ -812,5 +857,91 @@ export default {
   width: 100%;
   background: transparent;
   border: none;
+}
+
+/* Gauge Card Specific Styles */
+.gauge-card .gauge-layout {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 0;
+  padding-top: 4px;
+}
+
+.gauge-chart {
+  flex: 1;
+  height: 100%;
+  min-width: 0;
+}
+
+.gauge-data {
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  padding-right: 8px;
+}
+
+.data-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05); /* Slight card bg */
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.data-icon-wrapper {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.circle-icon {
+  background: rgba(74, 123, 247, 0.2);
+  color: #4a7bf7;
+  border: 1px solid rgba(74, 123, 247, 0.4);
+  box-shadow: 0 0 10px rgba(74, 123, 247, 0.2);
+}
+
+.triangle-icon {
+  background: rgba(0, 240, 255, 0.2);
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.data-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.data-label {
+  font-size: 11px;
+  color: #999;
+  margin-bottom: 2px;
+}
+
+.data-value {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  font-family: "DIN Alternate", sans-serif;
+}
+
+.highlight-green {
+  color: #00f0ff;
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
+}
+
+.num-font {
+  font-family: "DIN Alternate", "Helvetica Neue", Helvetica, sans-serif; /* Use tech font if available */
 }
 </style>
