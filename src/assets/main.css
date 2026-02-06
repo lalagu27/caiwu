@@ -161,7 +161,7 @@ body {
   background: #0a2958;
   border-color: #2A4A6F;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  transform: translateY(-1px);
+  /* transform: translateY(-1px); Removed per user request */
 }
 
 /* Scrollbar */
@@ -364,7 +364,7 @@ body:not(.dark-theme) .header-icon {
     0 0 0 1px rgba(0, 240, 255, 0.2),
     inset 0 1px 0 rgba(0, 240, 255, 0.4),
     inset 0 0 30px rgba(0, 240, 255, 0.1) !important;
-  transform: translateY(-4px) !important;
+  /* transform: translateY(-4px) !important; Removed per user request */
 }
 
 /* 2. 标题栏重构 */

@@ -131,7 +131,7 @@ export default {
 
 .pending-approvals-card:hover {
   box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
+  /* transform: translateY(-2px); Removed per user request */
 }
 
 .card-header {

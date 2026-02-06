@@ -91,7 +91,7 @@ export default {
 .today-reminders-card:hover {
   box-shadow: var(--shadow-sm);
   border-color: #d0d7e8;
-  transform: translateY(-2px);
+  /* transform: translateY(-2px); Removed per user request */
 }
 
 .today-reminders-card ::v-deep .el-card__header {
@@ -172,7 +172,7 @@ export default {
 }
 
 .reminder-item:hover {
-  transform: translateY(-2px);
+  /* transform: translateY(-2px); */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 

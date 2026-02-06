@@ -181,7 +181,7 @@ export default {
 .user-info-card:hover {
   box-shadow: var(--shadow-sm);
   border-color: #d0d7e8;
-  transform: translateY(-2px);
+  /* transform: translateY(-2px); Removed per user request */
 }
 
 /* 暗黑模式下的用户卡片增强 */
@@ -193,7 +193,7 @@ export default {
 .dark-theme .user-info-card:hover {
   border-color: var(--hover-border);
   box-shadow: var(--shadow-sm);
-  transform: translateY(-3px);
+  /* transform: translateY(-3px); Removed per user request */
 }
 
 .date-badge {

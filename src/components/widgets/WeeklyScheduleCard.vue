@@ -176,7 +176,7 @@ export default {
 .weekly-schedule-card:hover {
   box-shadow: var(--shadow-sm);
   border-color: #d0d7e8;
-  transform: translateY(-2px);
+  /* transform: translateY(-2px); Removed per user request */
 }
 
 .card-header {
@@ -351,12 +351,16 @@ export default {
 .schedule-list::before {
   content: "";
   position: absolute;
-  left: 20px;
-  top: 10px;
-  bottom: 10px;
+  left: 24px; /* Aligned with dot center (45px padding - 32px offset + 12px radius = 25px center for dot. Line at 24px + 1px center = 25px) */
+  top: 12px;
+  bottom: 0px;
   width: 2px;
   background: var(--border-color);
-  border-radius: 1px;
+}
+
+/* Dark mode timeline line enhancement */
+.dark-theme .schedule-list::before {
+  background: rgba(60, 100, 160, 0.4);
 }
 
 .schedule-item {
@@ -367,24 +371,30 @@ export default {
 }
 
 .timeline-dot {
-  width: 24px; /* Reduced from 28px */
-  height: 24px; /* Reduced from 28px */
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   background: #ccc;
-  border: 2px solid var(--bg-card); /* Thinner border */
+  border: 2px solid var(--bg-card);
   position: absolute;
-  left: -32px; /* Adjusted position */
+  left: -32px;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 1;
+  z-index: 2; /* Ensure on top of line */
   box-shadow: 0 0 0 1px var(--border-color);
   transition: all 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 12px; /* Reduced font size */
-  font-weight: normal;
+  font-size: 12px;
+  font-weight: bold; /* Make text clearer */
+}
+
+/* Dark mode dot border to match card bg */
+.dark-theme .timeline-dot {
+  border-color: #082147;
+  box-shadow: 0 0 0 1px #1e3a5f;
 }
 
 /* Soft color variants for different types */
@@ -393,9 +403,19 @@ export default {
   box-shadow: 0 0 0 2px rgba(43, 54, 116, 0.1);
 }
 
+.dark-theme .schedule-item.meeting .timeline-dot {
+  background: #1e90ff;
+  box-shadow: 0 0 5px rgba(30, 144, 255, 0.4);
+}
+
 .schedule-item.trip .timeline-dot {
   background: #a3aed0; /* Grey for trip */
   box-shadow: 0 0 0 2px rgba(163, 174, 208, 0.2);
+}
+
+.dark-theme .schedule-item.trip .timeline-dot {
+  background: #64748b;
+  box-shadow: none;
 }
 
 .schedule-item:hover .timeline-dot {
