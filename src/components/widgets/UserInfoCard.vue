@@ -284,12 +284,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px; /* Reduced from 6px */
+  gap: 4px; /* Reduced again */
   text-align: center;
 }
 
 .user-name {
-  font-size: 16px;
+  font-size: 18px; /* Moderately increased from original 16px */
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 2px;
@@ -298,7 +298,7 @@ export default {
 .user-position {
   font-size: 12px;
   color: var(--text-secondary);
-  font-weight: 500;
+  font-weight: normal;
 }
 
 /* ... existing styles ... */
@@ -308,23 +308,32 @@ export default {
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  padding: 8px 8px 4px 8px; /* Reduced padding */
-  margin-top: 4px; /* Reduced margin */
+  padding: 8px 8px 4px 8px; /* Reduced back */
+  margin-top: 8px; /* Moderate margin */
   border-top: 1px solid var(--border-color);
   gap: 8px;
 }
 
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .stat-value {
-  font-size: 16px;
+  font-size: 18px; /* Moderately increased from 16px */
   font-weight: 700;
-  color: var(--primary-color);
-  line-height: 1;
+  color: #00f0ff; /* Bright Cyan Neon */
+  line-height: 1.2;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+  text-align: center;
 }
 
 .stat-label {
   font-size: 11px;
-  color: var(--text-secondary);
+  color: #ffffff;
   white-space: nowrap;
+  text-align: center;
 }
 
 .stat-divider {
