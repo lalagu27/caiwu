@@ -444,27 +444,32 @@ export default {
       const completedValues = this.reserveIndicators.map((i) => i.completed);
 
       // Define colors
+      // Added bgTop for distinct background top color
       const colors = [
         {
           top: "#E6A23C",
-          bottom: "rgba(230, 162, 60, 0.4)",
-          bg: "rgba(230, 162, 60, 0.1)",
+          bottom: "#CD853F",
+          bg: "rgba(230, 162, 60, 0.2)",
+          bgTop: "#7E5B28",
         }, // Gold
         {
           top: "#00F0FF",
-          bottom: "rgba(0, 240, 255, 0.4)",
-          bg: "rgba(0, 240, 255, 0.1)",
-        }, // Blue
+          bottom: "#008B8B",
+          bg: "rgba(0, 240, 255, 0.2)",
+          bgTop: "#0C6A72",
+        }, // Cyan
         {
           top: "#00F0FF",
-          bottom: "rgba(0, 240, 255, 0.4)",
-          bg: "rgba(0, 240, 255, 0.1)",
-        }, // Blue
+          bottom: "#008B8B",
+          bg: "rgba(0, 240, 255, 0.2)",
+          bgTop: "#0C6A72",
+        }, // Cyan
         {
           top: "#4A7BF7",
-          bottom: "rgba(74, 123, 247, 0.4)",
-          bg: "rgba(74, 123, 247, 0.1)",
-        }, // Darker Blue
+          bottom: "#4169E1",
+          bg: "rgba(74, 123, 247, 0.2)",
+          bgTop: "#2C4A96",
+        }, // Royal Blue
       ];
 
       const barWidth = 30;
@@ -505,17 +510,18 @@ export default {
       });
 
       // Background tops/bottoms
+      // Use explicit bgTop color and remove extra opacity
       const bgTopData = rates.map((rate, index) => {
         return {
           value: 100,
-          itemStyle: { color: colors[index].bg, opacity: 0.5 },
+          itemStyle: { color: colors[index].bgTop, opacity: 1 },
         };
       });
       const bgBottomData = rates.map((rate, index) => {
         return {
           value: 100,
-          itemStyle: { color: colors[index].bg, opacity: 0.5 },
-        };
+          itemStyle: { color: colors[index].bottom, opacity: 1 },
+        }; // Match foreground bottom for consistency
       });
 
       chart.setOption({
