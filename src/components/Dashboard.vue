@@ -197,7 +197,7 @@ export default {
 
 .right-col > .chart-card:nth-child(1),
 .right-col > .chart-card:nth-child(2) {
-  flex: 1;
+  flex: 0.6;
 }
 
 .center-col {

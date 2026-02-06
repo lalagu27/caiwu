@@ -39,7 +39,7 @@ export default {
         { value: "19", unit: "座", label: "生产平台" },
         { value: "177", unit: "口", label: "在生产井" },
         { value: "3", unit: "个", label: "陆岸终端" },
-        { value: "2", unit: "条", label: "海底管线" },
+        { value: "2", unit: "条", label: "海底管线（全长2030.9公里）" },
       ],
     };
   },
@@ -71,20 +71,28 @@ export default {
   border-color: #d0d7e8;
 }
 .chart-card ::v-deep .el-card__header {
-  padding: 0 12px;
-  height: 48px;
+  padding: 8px 12px !important;
+  height: auto !important;
+  min-height: 38px !important;
   display: flex;
   align-items: center;
   border-bottom: none;
+  margin: 0 !important;
+}
+
+.chart-card ::v-deep .el-card__body {
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 .chart-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 12px;
+  padding: 0; /* 移除 padding，el-card__header 已经有了 */
   border-bottom: none;
   width: 100%;
+  margin: 0;
 }
 
 .chart-header h3 {
@@ -113,8 +121,9 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-content: center;
-  padding: 10px 10px;
+  align-content: flex-start; /* Changed from center to remove top gap */
+  padding: 0 10px; /* Removed top padding */
+  margin-top: -8px; /* 强制向上移动以消除空白 */
   gap: 10px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -128,7 +137,7 @@ export default {
 
 .image-item {
   width: 23%;
-  height: 45%;
+  height: auto; /* Changed from 45% to auto to remove vertical gap */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -145,7 +154,7 @@ export default {
 }
 
 .image-wrapper img {
-  width: 90%;
+  width: 60%; /* 进一步缩小图片 */
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.2));
@@ -162,7 +171,7 @@ export default {
   top: -20%; /* Moved higher again per user request */
   left: 50%;
   transform: translateX(-50%);
-  font-size: 26px;
+  font-size: 20px; /* 缩小数字字号 */
   font-weight: bold;
   color: #fff;
   text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
@@ -177,10 +186,11 @@ export default {
 }
 
 .image-label {
-  font-size: 12px; /* Increased size */
+  font-size: 12px; /* 缩小标签字号 */
   color: #fff; /* Changed to white */
   text-align: center;
-  white-space: nowrap;
+  white-space: normal; /* Allow wrapping */
+  line-height: 1.2;
   margin-top: -5px; /* Pull up slightly closer to image */
 }
 </style>
