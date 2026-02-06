@@ -121,9 +121,8 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-content: flex-start; /* Changed from center to remove top gap */
-  padding: 0 10px; /* Removed top padding */
-  margin-top: -8px; /* 强制向上移动以消除空白 */
+  align-content: flex-end; /* 底部对齐 */
+  padding: 0 10px 0 10px; /* 底部留更少空间 */
   gap: 10px;
   overflow-y: auto;
   overflow-x: hidden;
