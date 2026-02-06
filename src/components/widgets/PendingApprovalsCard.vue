@@ -73,7 +73,6 @@ export default {
         { name: "人事审批", count: 5, expanded: false },
         { name: "开发项目实施审批", count: 3, expanded: false },
         { name: "制度审批", count: 2, expanded: false },
-        { name: "资金审批", count: 8, expanded: false },
         { name: "科研项目管理审批", count: 4, expanded: false },
         { name: "勘探作业审批", count: 6, expanded: false },
         { name: "应急采购项目审批", count: 3, expanded: false },

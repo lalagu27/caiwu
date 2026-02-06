@@ -257,62 +257,39 @@ export default {
       const val = 9.42;
 
       chart.setOption({
-        series: [
-          // 1. Outer Blue Tick Ring
-          {
-            type: "gauge",
-            radius: "90%",
-            startAngle: 210,
-            endAngle: -30,
-            min: 0,
-            max: 100,
-            splitNumber: 10,
-            axisLine: {
-              lineStyle: {
-                width: 2,
-                color: [[1, "rgba(0,0,0,0)"]], // Hidden line
-              },
-            },
-            axisTick: {
-              show: true,
-              splitNumber: 5,
-              length: 8,
-              lineStyle: {
-                color: "#0090FF",
-                width: 1,
-              },
-            },
-            splitLine: {
-              show: true,
-              length: 12,
-              lineStyle: {
-                color: "#00F0FF",
-                width: 2,
-              },
-            },
-            axisLabel: { show: false },
-            pointer: { show: false },
-            detail: { show: false },
+        legend: {
+          show: true,
+          data: ["计划", "实际"],
+          top: 5,
+          left: "center",
+          itemGap: 20,
+          itemWidth: 12,
+          itemHeight: 12,
+          icon: "circle",
+          textStyle: {
+            color: "#fff",
+            fontSize: 11,
           },
-          // 2. Inner Gold Ring Background
+        },
+        series: [
+          // 0. Outermost Blue Arc Wrapper
           {
             type: "gauge",
-            radius: "75%",
+            radius: "82%", // 调整半径使其贴合刻度值外侧
             startAngle: 210,
             endAngle: -30,
             min: 0,
             max: 100,
             axisLine: {
-              show: true,
               lineStyle: {
-                width: 20,
+                width: 6, // 加宽蓝色包裹圈
                 color: [
                   [
                     1,
                     new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                      { offset: 0, color: "rgba(180, 150, 80, 0.1)" },
-                      { offset: 0.5, color: "rgba(180, 150, 80, 0.4)" },
-                      { offset: 1, color: "rgba(180, 150, 80, 0.1)" },
+                      { offset: 0, color: "rgba(30, 144, 255, 0.4)" },
+                      { offset: 0.5, color: "rgba(0, 212, 255, 0.8)" },
+                      { offset: 1, color: "rgba(30, 144, 255, 0.4)" },
                     ]),
                   ],
                 ],
@@ -324,10 +301,50 @@ export default {
             pointer: { show: false },
             detail: { show: false },
           },
-          // 3. Main Data Gauge (Inner)
+          // 1. Outer Blue Tick Ring
           {
             type: "gauge",
-            radius: "65%", // Smaller radius inside
+            radius: "88%",
+            startAngle: 210,
+            endAngle: -30,
+            min: 0,
+            max: 100,
+            splitNumber: 10,
+            axisLine: {
+              lineStyle: {
+                width: 3,
+                color: [[1, "rgba(0,0,0,0)"]], // Hidden line
+              },
+            },
+            axisTick: {
+              show: true,
+              splitNumber: 5,
+              length: 8, // 减小长度，避免覆盖金色环
+              lineStyle: {
+                color: "#1E90FF", // Brighter Blue
+                width: 2,
+                shadowColor: "rgba(30, 144, 255, 0.8)",
+                shadowBlur: 5,
+              },
+            },
+            splitLine: {
+              show: true,
+              length: 12, // 减小长度，避免覆盖金色环
+              lineStyle: {
+                color: "#00D4FF", // Brighter Cyan
+                width: 3,
+                shadowColor: "rgba(0, 212, 255, 0.8)",
+                shadowBlur: 8,
+              },
+            },
+            axisLabel: { show: false },
+            pointer: { show: false },
+            detail: { show: false },
+          },
+          // 2. Inner Gold Ring Background with Labels
+          {
+            type: "gauge",
+            radius: "72%",
             startAngle: 210,
             endAngle: -30,
             min: 0,
@@ -335,45 +352,72 @@ export default {
             axisLine: {
               show: true,
               lineStyle: {
-                width: 2,
-                color: [[1, "rgba(255, 255, 255, 0.2)"]],
+                width: 25,
+                color: [
+                  [
+                    1,
+                    new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                      { offset: 0, color: "rgba(218, 165, 32, 0.3)" }, // Goldenrod - Brighter
+                      { offset: 0.5, color: "rgba(218, 165, 32, 0.6)" }, // More saturated
+                      { offset: 1, color: "rgba(218, 165, 32, 0.3)" },
+                    ]),
+                  ],
+                ],
               },
             },
             axisTick: { show: false },
             splitLine: { show: false },
             axisLabel: {
               show: true,
-              distance: 10,
+              distance: -12, // 负值使数字向内，覆盖在金色环上
               color: "#fff",
-              fontSize: 10,
+              fontSize: 11,
+              fontWeight: "bold",
             },
+            pointer: { show: false },
+            detail: { show: false },
+          },
+          // 3. Main Data Gauge (Inner)
+          {
+            type: "gauge",
+            radius: "60%",
+            startAngle: 210,
+            endAngle: -30,
+            min: 0,
+            max: 100,
+            axisLine: {
+              show: false, // 隐藏内层轮廓线，避免在金色环内显示多余的环
+            },
+            axisTick: { show: false },
+            splitLine: { show: false },
+            axisLabel: { show: false },
             pointer: {
               show: true,
-              // Custom path: Triangle tip at top, base below, anchored at 0,0 to preserve rotation center
-              // M0,-65 (Tip) L-6,-50 (Left Base) L6,-50 (Right Base) Z (Close) M0,0 Z (Anchor Center)
               icon: "path://M0,-75 L-6,-60 L6,-60 Z M0,0 Z",
-              width: 12,
+              width: 14,
               length: "75%",
               offsetCenter: [0, 0],
               itemStyle: {
-                color: "#FF4D4F",
+                color: "#FF3333", // Brighter Red
+                shadowColor: "rgba(255, 51, 51, 0.8)",
+                shadowBlur: 8,
               },
             },
             title: {
               show: true,
-              offsetCenter: [0, "20%"],
-              color: "#ccc",
-              fontSize: 10,
+              offsetCenter: [0, "25%"],
+              color: "#aaa",
+              fontSize: 11,
             },
             detail: {
               valueAnimation: true,
-              offsetCenter: [0, "-10%"],
-              fontSize: 16,
+              offsetCenter: [0, "-5%"],
+              fontSize: 18,
               fontWeight: "bold",
               formatter: "{value}%",
               color: "#fff",
-              textShadowBlur: 5,
-              textShadowColor: "#00F0FF",
+              textShadowBlur: 8,
+              textShadowColor: "#00E5FF", // Brighter Cyan glow
             },
             data: [
               {
