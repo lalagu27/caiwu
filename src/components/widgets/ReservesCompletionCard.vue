@@ -90,34 +90,67 @@ export default {
       this.chart = chart;
 
       const isDark = document.body.classList.contains("dark-theme");
-      const textColor = isDark ? "#ffffff" : "#666";
-      const headingColor = isDark ? "#ffffff" : "#999";
-      const axisLineColor = isDark ? "#1a8fff" : "#E1E8ED";
-      const splitLineColor = isDark ? "rgba(255, 255, 255, 0.15)" : "#F0F4F9";
+      const textColor = isDark ? "#ffffff" : "#333";
+      const axisLineColor = isDark ? "rgba(255, 255, 255, 0.1)" : "#E1E8ED";
+      const splitLineColor = isDark ? "rgba(255, 255, 255, 0.05)" : "#F0F4F9";
+
+      // Target has full 12 months data, Actual has only Jan/Feb
+      const displayDataTarget = [
+        100, 100, 100, 120, 120, 120, 120, 110, 110, 110, 100, 100,
+      ];
+      const displayDataActual = [
+        105,
+        108,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+      ];
 
       const option = {
         tooltip: {
           trigger: "axis",
-          axisPointer: { type: "shadow" },
+          backgroundColor: isDark
+            ? "rgba(10, 20, 40, 0.95)"
+            : "rgba(255, 255, 255, 0.9)",
+          borderColor: isDark ? "#4A7BF7" : "#ccc",
+          textStyle: { color: textColor },
+          formatter: (params) => {
+            let res = `<div style="font-weight:bold;margin-bottom:5px;">${params[0].name}</div>`;
+            params.forEach((item) => {
+              res += `<div style="display:flex;justify-content:space-between;gap:15px;margin-bottom:3px;">
+                          <span>${item.marker} ${item.seriesName}</span>
+                          <span style="font-weight:bold;">${item.value}</span>
+                        </div>`;
+            });
+            return res;
+          },
         },
         legend: {
           data: ["目标", "已完成"],
-          top: 10,
-          left: "center",
-          itemWidth: 25,
-          itemHeight: 12,
-          itemGap: 20,
-          textStyle: { fontSize: 11, color: textColor },
+          top: 0,
+          right: 10,
+          itemWidth: 10,
+          itemHeight: 10,
+          icon: "circle",
+          textStyle: { fontSize: 12, color: textColor },
         },
         grid: {
-          top: 100,
+          top: 40,
           right: 20,
           bottom: 20,
-          left: 20,
+          left: 15,
           containLabel: true,
         },
         xAxis: {
           type: "category",
+          boundaryGap: false, // Line chart usually starts from axis
           data: [
             "1月",
             "2月",
@@ -133,57 +166,81 @@ export default {
             "12月",
           ],
           axisLine: { lineStyle: { color: axisLineColor } },
-          axisLabel: { color: textColor, fontSize: 11, rotate: 0 },
+          axisLabel: { color: textColor, fontSize: 12, interval: 0 },
           axisTick: { show: false },
         },
         yAxis: {
           type: "value",
           name: "万吨",
           nameTextStyle: {
-            padding: [0, 0, 0, -20],
-            color: headingColor,
+            align: "right",
+            padding: [0, 8, 0, 0],
+            color: textColor,
           },
-          splitLine: { lineStyle: { color: splitLineColor, type: "dashed" } },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: splitLineColor,
+              type: "dashed",
+            },
+          },
           axisLabel: { color: textColor, fontSize: 11 },
         },
         series: [
+          // Series 1: Purple/Blue (Target) - Matching "Blacklist/Redlist" vibe from image
           {
             name: "目标",
-            type: "bar",
-            data: [100, 100, 100, 120, 120, 120, 120, 110, 110, 110, 100, 100],
-            barWidth: 8,
+            type: "line",
+            smooth: true,
+            symbol: "circle",
+            symbolSize: 8,
+            showSymbol: false, // Show on hover usually, or always? Image shows always.
+            data: displayDataTarget,
             itemStyle: {
-              color: isDark ? "rgba(163, 174, 208, 0.4)" : "#e0e0e0",
-              borderRadius: [4, 4, 0, 0],
+              color: "#7B4DFF", // Purple
+              borderColor: "#fff",
+              borderWidth: 1,
             },
-            barGap: "20%",
+            lineStyle: {
+              width: 3,
+              color: "#7B4DFF",
+            },
+            areaStyle: {
+              opacity: 0.3,
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: "rgba(123, 77, 255, 0.6)" },
+                { offset: 1, color: "rgba(123, 77, 255, 0.0)" },
+              ]),
+            },
           },
+          // Series 2: Cyan/Green (Actual) - Matching "Focus List" vibe from image
           {
             name: "已完成",
-            type: "bar",
-            data: [
-              105.2,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-            ],
-            barWidth: 8,
+            type: "line",
+            smooth: true,
+            symbol: "circle",
+            symbolSize: 8,
+            showSymbol: true, // Let's show symbols for Actual to make it pop
+            data: displayDataActual,
             itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "#4A7BF7" },
-                { offset: 1, color: "rgba(74, 123, 247, 0.1)" },
-              ]),
-              borderRadius: [4, 4, 0, 0],
+              color: "#00F0FF", // Cyan
+              borderColor: "#fff",
+              borderWidth: 2,
+              shadowColor: "#00F0FF",
+              shadowBlur: 5,
+            },
+            lineStyle: {
+              width: 3,
+              color: "#00F0FF",
+              shadowColor: "rgba(0, 240, 255, 0.5)",
               shadowBlur: 10,
-              shadowColor: "rgba(74, 123, 247, 0.3)",
+            },
+            areaStyle: {
+              opacity: 0.4,
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: "rgba(0, 240, 255, 0.5)" },
+                { offset: 1, color: "rgba(0, 240, 255, 0.0)" },
+              ]),
             },
           },
         ],
