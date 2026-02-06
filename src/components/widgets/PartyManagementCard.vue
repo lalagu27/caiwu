@@ -131,7 +131,8 @@ export default {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  height: 41px; /* Increased from 38px to fill space */
+  height: auto; /* Increased from 38px to fill space */
+  min-height: 41px;
   box-sizing: border-box;
 }
 

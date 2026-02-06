@@ -135,7 +135,7 @@ export default {
 }
 
 .image-item {
-  width: 23%;
+  width: calc((100% - 30px) / 4);
   height: auto; /* Changed from 45% to auto to remove vertical gap */
   display: flex;
   flex-direction: column;
@@ -188,7 +188,7 @@ export default {
   font-size: 12px; /* 缩小标签字号 */
   color: #fff; /* Changed to white */
   text-align: center;
-  white-space: nowrap;
+  white-space: normal; /* Allow wrapping */
   margin-top: -5px; /* Pull up slightly closer to image */
 }
 </style>

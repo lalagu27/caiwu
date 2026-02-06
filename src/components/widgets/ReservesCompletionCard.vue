@@ -135,7 +135,7 @@ export default {
 }
 
 .image-item {
-  width: 23%;
+  width: calc((100% - 30px) / 4);
   height: auto; /* Changed from 45% to auto to remove vertical gap */
   display: flex;
   flex-direction: column;
