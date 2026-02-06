@@ -618,13 +618,11 @@ export default {
 }
 
 .kpi-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
+  width: auto;
+  height: auto;
+  background: transparent;
+  font-size: 18px;
+  margin-right: 4px;
 }
 
 /* Unified Icon Backgrounds - De-noised */
@@ -633,7 +631,7 @@ export default {
 .kpi-icon.cost,
 .kpi-icon.investment,
 .kpi-icon.revenue {
-  background: var(--primary-light); /* Light Grey/Blue Background */
+  background: transparent;
   color: var(--primary-color); /* Deep Navy Blue Icon */
 }
 

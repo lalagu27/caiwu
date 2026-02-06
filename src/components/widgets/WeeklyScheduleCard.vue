@@ -196,18 +196,15 @@ export default {
 }
 
 .header-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
+  width: auto;
+  height: auto;
+  background: transparent;
+  font-size: 18px;
   flex-shrink: 0;
-  color: var(--primary-color); /* Uniform Navy */
+  color: var(--primary-color);
   cursor: pointer;
   transition: all 0.2s;
+  margin-right: 4px;
 }
 
 .header-icon:hover {

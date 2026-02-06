@@ -81,15 +81,12 @@ export default {
 }
 
 .header-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: var(--primary-color); /* Uniform Navy */
+  width: auto;
+  height: auto;
+  background: transparent;
+  font-size: 18px;
+  color: var(--primary-color);
+  margin-right: 4px;
 }
 
 .header-text {
@@ -163,24 +160,24 @@ export default {
 /* ... existing animation ... */
 
 .icon-wrapper {
-  width: 32px; /* Reduced from 40px */
-  height: 32px; /* Reduced from 40px */
-  border-radius: 8px;
+  width: auto;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px; /* Reduced from 20px */
   transition: all 0.3s ease;
+  margin-right: 4px;
 }
 
 /* Strict De-noising: Unified Icons */
 .module-item .icon-wrapper {
-  background: var(--primary-light); /* Light Grey/Blue */
+  background: transparent;
   color: var(--primary-color); /* Navy Blue */
 }
 
 .module-item:hover .icon-wrapper {
-  background: #2b3674;
+  background: transparent;
   color: #fff;
   transform: scale(1.05); /* Subtle scale */
 }

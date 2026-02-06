@@ -118,15 +118,12 @@ export default {
 }
 
 .header-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: var(--primary-color); /* Uniform Navy Icon */
+  width: auto;
+  height: auto;
+  background: transparent;
+  font-size: 18px;
+  color: var(--primary-color);
+  margin-right: 4px;
 }
 
 .header-text {
