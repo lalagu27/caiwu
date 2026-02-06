@@ -99,7 +99,7 @@ export default {
 
       const months = Array.from({ length: 12 }, (_, i) => `${i + 1}月`);
 
-      // 动态数据映射
+      // Data Config
       const isGas = this.type === "gas";
       const currentData = isGas
         ? {
@@ -109,11 +109,11 @@ export default {
             ],
             actMonth: [
               10.3,
-              null,
-              null,
-              null,
-              null,
-              null,
+              10.5,
+              10.2,
+              9.8,
+              10.0,
+              11.2,
               null,
               null,
               null,
@@ -127,11 +127,11 @@ export default {
             ],
             actCum: [
               10.3,
-              null,
-              null,
-              null,
-              null,
-              null,
+              20.8,
+              31.0,
+              40.8,
+              50.8,
+              62.0,
               null,
               null,
               null,
@@ -150,11 +150,11 @@ export default {
             ],
             actMonth: [
               8.6,
-              null,
-              null,
-              null,
-              null,
-              null,
+              8.8,
+              8.5,
+              8.2,
+              9.0,
+              9.6,
               null,
               null,
               null,
@@ -168,11 +168,11 @@ export default {
             ],
             actCum: [
               8.6,
-              null,
-              null,
-              null,
-              null,
-              null,
+              17.4,
+              25.9,
+              34.1,
+              43.1,
+              52.7,
               null,
               null,
               null,
@@ -192,6 +192,34 @@ export default {
       const axisLineColor = isDark ? "#1a8fff" : "#E1E8ED";
       const splitLineColor = isDark ? "rgba(255, 255, 255, 0.15)" : "#F0F4F9";
 
+      // --- 3D Cylinder Settings ---
+      const barWidth = 14;
+      const barGap = "30%";
+      // Calculcated Offset for PictorialBar:
+      // 3 bars logic? No, 2 bars.
+      // ECharts barGap defaults to '30%'.
+      // If we use standard barGap behavior, offset calculation:
+      // We manually adjust offsets to align caps with bars.
+      // Left Bar (-65%), Right Bar (65%) approximately matches typical gap.
+      const symbolOffsetLeft = ["-65%", 0];
+      const symbolOffsetRight = ["65%", 0];
+
+      // Colors definitions
+      // Plan (Cyan)
+      const planColorStr = {
+        top: "#00F0FF",
+        bottom: "#00ADC0",
+        bodyStart: "rgba(0, 240, 255, 1)",
+        bodyEnd: "rgba(0, 140, 160, 0.8)",
+      };
+      // Actual (Blue)
+      const actColorStr = {
+        top: "#3B82F6",
+        bottom: "#1E40AF",
+        bodyStart: "rgba(59, 130, 246, 1)",
+        bodyEnd: "rgba(30, 64, 175, 0.8)",
+      };
+
       const option = {
         tooltip: {
           trigger: "axis",
@@ -206,14 +234,18 @@ export default {
             let res = `<div style="font-weight:600;margin-bottom:4px;">${params[0].name}</div>`;
             params.forEach((p) => {
               if (
+                !p.seriesName ||
+                p.seriesName.includes("Cap") ||
+                p.seriesName.includes("Bottom") ||
                 p.value === null ||
-                typeof p.value === "undefined" ||
-                p.seriesName === ""
+                typeof p.value === "undefined"
               ) {
                 return;
               }
               const marker = `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:${
-                p.color.colorStops ? p.color.colorStops[1].color : p.color
+                p.color && p.color.colorStops
+                  ? p.color.colorStops[0].color
+                  : p.color || "#fff"
               };"></span>`;
               res += `<div style="display:flex;justify-content:space-between;gap:20px;">
                 <span>${marker}${p.seriesName}</span>
@@ -228,12 +260,12 @@ export default {
           top: 10,
           left: "center",
           textStyle: { color: textColor, fontSize: 10 },
-          itemWidth: 25, // 增加宽度以展示线段
-          itemHeight: 12,
-          itemGap: 20,
+          itemWidth: 14,
+          itemHeight: 14,
+          itemGap: 15,
         },
         grid: {
-          top: 100,
+          top: 80,
           left: 10,
           right: 10,
           bottom: 10,
@@ -243,7 +275,7 @@ export default {
           type: "category",
           data: months,
           axisLine: { lineStyle: { color: axisLineColor } },
-          axisLabel: { color: textColor, fontSize: 10 },
+          axisLabel: { color: textColor, fontSize: 10, interval: 0 },
           axisTick: { show: false },
         },
         yAxis: [
@@ -261,7 +293,7 @@ export default {
             axisLabel: { color: textColor, fontSize: 10 },
             nameTextStyle: {
               color: textColor,
-              padding: [0, 0, 8, 0],
+              padding: [0, 0, 5, -30],
               align: "left",
               fontSize: 10,
             },
@@ -277,43 +309,71 @@ export default {
             axisLabel: { color: textColor, fontSize: 10 },
             nameTextStyle: {
               color: textColor,
-              padding: [0, 0, 8, 0],
+              padding: [0, -30, 5, 0],
               align: "right",
               fontSize: 10,
             },
           },
         ],
         series: [
-          // ========== 计划月产量 (2D Bar) ==========
+          // ========== 计划月产量 (3D Cylinder - Cyan) ==========
+          // Body
           {
             name: "计划月产量",
             type: "bar",
-            barWidth: 10,
-            barGap: "20%",
+            barWidth: barWidth,
+            barGap: barGap,
             data: currentData.planMonth,
             itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "rgba(163, 174, 208, 0.5)" },
-                { offset: 1, color: "rgba(163, 174, 208, 0.1)" },
+              color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                { offset: 0, color: "rgba(0, 173, 192, 0.8)" },
+                { offset: 0.5, color: "rgba(0, 240, 255, 1)" },
+                { offset: 1, color: "rgba(0, 173, 192, 0.8)" },
               ]),
-              borderRadius: [2, 2, 0, 0],
             },
           },
-          // ========== 实际月产量 (2D Bar) ==========
+          // Top Cap
+          {
+            name: "计划月产量", // Same name for legend handling
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, barWidth * 0.45],
+            symbolOffset: symbolOffsetLeft,
+            symbolPosition: "end",
+            z: 12,
+            itemStyle: { color: "#00F0FF" },
+            data: currentData.planMonth,
+            tooltip: { show: false },
+          },
+
+          // ========== 实际月产量 (3D Cylinder - Blue) ==========
+          // Body
           {
             name: "实际月产量",
             type: "bar",
-            barWidth: 10,
+            barWidth: barWidth,
+            barGap: barGap,
             data: currentData.actMonth,
             itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "#00F0FF" },
-                { offset: 1, color: "rgba(0, 240, 255, 0.1)" },
+              color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                { offset: 0, color: "rgba(30, 64, 175, 0.8)" },
+                { offset: 0.5, color: "rgba(59, 130, 246, 1)" },
+                { offset: 1, color: "rgba(30, 64, 175, 0.8)" },
               ]),
-              borderRadius: [2, 2, 0, 0],
-              shadowBlur: 10,
-              shadowColor: "rgba(0, 240, 255, 0.3)",
             },
+          },
+          // Top Cap
+          {
+            name: "实际月产量",
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, barWidth * 0.45],
+            symbolOffset: symbolOffsetRight,
+            symbolPosition: "end",
+            z: 12,
+            itemStyle: { color: "#3B82F6" },
+            data: currentData.actMonth,
+            tooltip: { show: false },
           },
 
           // 累产线 (Plan)
@@ -321,7 +381,7 @@ export default {
             name: "计划累产",
             type: "line",
             yAxisIndex: 1,
-            z: 20, // 提升层级，防止被圆柱遮挡
+            z: 20,
             data: currentData.planCum,
             smooth: true,
             showSymbol: false,
@@ -337,20 +397,20 @@ export default {
             name: "实际累产",
             type: "line",
             yAxisIndex: 1,
-            z: 20, // 提升层级
+            z: 20,
             data: currentData.actCum,
             connectNulls: true,
             smooth: true,
             symbol: "circle",
             symbolSize: 8,
             itemStyle: {
-              color: "#4A7BF7",
+              color: "#FF8C00", // Orange
               borderColor: "#fff",
               borderWidth: 2,
               shadowBlur: 10,
-              shadowColor: "rgba(74, 123, 247, 0.5)",
+              shadowColor: "rgba(255, 140, 0, 0.5)",
             },
-            lineStyle: { color: "#4A7BF7", width: 3 },
+            lineStyle: { color: "#FF8C00", width: 3 },
           },
         ],
       };

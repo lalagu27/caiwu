@@ -107,45 +107,19 @@ export default {
       const data = {
         planOil: [55, 50, 56, 48, 58, 62, 60, 62, 65, 62, 60, 61],
         planGas: [38, 35, 36, 35, 32, 30, 38, 38, 35, 40, 42, 41],
-        actOil: [
-          58,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-        ],
-        actGas: [
-          42,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-        ],
+        actOil: [58, 60, 58, 50, 60, 65, 62, 0, 0, 0, 0, 0], // Mock some actual data
+        actGas: [42, 38, 40, 36, 35, 32, 40, 0, 0, 0, 0, 0],
         planCum: [
           100, 200, 310, 420, 550, 680, 810, 950, 1080, 1220, 1350, 1480,
         ],
         actCum: [
           110,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
+          215,
+          320,
+          430,
+          560,
+          690,
+          820,
           null,
           null,
           null,
@@ -154,35 +128,65 @@ export default {
         ],
       };
 
+      // 3D Cylinder Configuration
+      const barWidth = 14;
+      const barGap = "30%";
+      // Calculcated Offset for PictorialBar:
+      // Group width = 14 + 14*0.3 + 14 = 32.2
+      // Center 0. Left Bar Center = -9.1px. Right Bar Center = +9.1px.
+      // 9.1px relative to 14px width is approx 65%
+      const symbolOffsetLeft = ["-65%", 0];
+      const symbolOffsetRight = ["65%", 0];
+
+      // Colors
+      const planColorStr = {
+        top: "#00F0FF",
+        bottom: "#00ADC0",
+        bodyStart: "rgba(0, 240, 255, 1)",
+        bodyEnd: "rgba(0, 140, 160, 0.8)",
+      };
+
+      const actColorStr = {
+        top: "#3B82F6",
+        bottom: "#1E40AF",
+        bodyStart: "rgba(59, 130, 246, 1)",
+        bodyEnd: "rgba(30, 64, 175, 0.8)",
+      };
+
       const option = {
         tooltip: {
           trigger: "axis",
-          backgroundColor: isDark
-            ? "rgba(15, 22, 41, 0.9)"
-            : "rgba(255, 255, 255, 0.9)",
-          borderColor: isDark ? "#334155" : "#ddd",
+          backgroundColor: "rgba(10, 25, 50, 0.9)",
+          borderColor: "#00F0FF",
           borderWidth: 1,
-          textStyle: { color: isDark ? "#CBD5E1" : "#333", fontSize: 12 },
+          textStyle: { color: "#fff", fontSize: 12 },
           axisPointer: { type: "shadow" },
+          formatter: function (params) {
+            let res = params[0].name + "<br/>";
+            params.forEach((item) => {
+              if (
+                item.seriesName &&
+                (item.seriesName.includes("产量") ||
+                  item.seriesName.includes("累产"))
+              ) {
+                res +=
+                  item.marker + item.seriesName + ": " + item.value + "<br/>";
+              }
+            });
+            return res;
+          },
         },
         legend: {
           top: 10,
           left: "center",
-          itemWidth: 25,
-          itemHeight: 12,
-          itemGap: 20,
+          itemWidth: 14,
+          itemHeight: 14,
+          itemGap: 15,
           textStyle: { color: textColor, fontSize: 10 },
-          data: [
-            "计划月产油",
-            "计划月产气",
-            "实际月产油",
-            "实际月产气",
-            "计划年产油气",
-            "实际年产油气",
-          ],
+          data: ["计划月产量", "实际月产量", "计划累产", "实际累产"],
         },
         grid: {
-          top: 100,
+          top: 80,
           left: 10,
           right: 10,
           bottom: 10,
@@ -193,104 +197,106 @@ export default {
           data: months,
           axisTick: { show: false },
           axisLine: { lineStyle: { color: lineColor } },
-          axisLabel: { color: textColor, fontSize: 10 },
+          axisLabel: { color: textColor, fontSize: 10, interval: 0 },
         },
         yAxis: [
           {
             type: "value",
-            name: "月产(万方)",
+            name: "月产气 亿方",
             nameTextStyle: {
               color: textColor,
-              fontSize: 10,
               align: "left",
-              padding: [0, 0, 8, 0],
+              padding: [0, 0, 5, -30],
+              fontSize: 10,
             },
-            splitLine: { lineStyle: { color: lineColor, type: "dashed" } },
+            splitLine: {
+              lineStyle: { color: lineColor, type: "dashed", opacity: 0.3 },
+            },
             axisLabel: { color: textColor, fontSize: 10 },
           },
           {
             type: "value",
-            name: "年累(万方)",
+            name: "年产气 亿方",
             nameTextStyle: {
               color: textColor,
-              fontSize: 10,
               align: "right",
-              padding: [0, 0, 8, 0],
+              padding: [0, -30, 5, 0],
+              fontSize: 10,
             },
             splitLine: { show: false },
             axisLabel: { color: textColor, fontSize: 10 },
           },
         ],
         series: [
-          // 计划
+          // ========== 计划月产量 (3D Cylinder - Cyan) ==========
+          // Body
           {
-            name: "计划月产油",
+            name: "计划月产量",
             type: "bar",
-            stack: "计划",
-            barWidth: 10,
+            barWidth: barWidth,
+            barGap: barGap,
             itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "rgba(163, 174, 208, 0.4)" },
-                { offset: 1, color: "rgba(163, 174, 208, 0.1)" },
+              color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                { offset: 0, color: "rgba(0, 173, 192, 0.8)" },
+                { offset: 0.5, color: "rgba(0, 240, 255, 1)" },
+                { offset: 1, color: "rgba(0, 173, 192, 0.8)" },
               ]),
-            },
-            data: data.planOil,
-          },
-          {
-            name: "计划月产气",
-            type: "bar",
-            stack: "计划",
-            barWidth: 10,
-            itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "rgba(163, 174, 208, 0.2)" },
-                { offset: 1, color: "rgba(163, 174, 208, 0.05)" },
-              ]),
-              borderRadius: [2, 2, 0, 0],
             },
             data: data.planGas,
           },
-          // 实际
+          // Top Cap
           {
-            name: "实际月产油",
-            type: "bar",
-            stack: "实际",
-            barWidth: 10,
-            itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "#4A7BF7" },
-                { offset: 1, color: "rgba(74, 123, 247, 0.1)" },
-              ]),
-            },
-            data: data.actOil,
+            name: "计划月产量",
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, barWidth * 0.45],
+            symbolOffset: symbolOffsetLeft,
+            symbolPosition: "end",
+            z: 12,
+            itemStyle: { color: "#00F0FF" },
+            data: data.planGas,
           },
+
+          // ========== 实际月产量 (3D Cylinder - Blue) ==========
+          // Body
           {
-            name: "实际月产气",
+            name: "实际月产量",
             type: "bar",
-            stack: "实际",
-            barWidth: 10,
+            barWidth: barWidth,
+            barGap: barGap,
             itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "#00F0FF" },
-                { offset: 1, color: "rgba(0, 240, 255, 0.1)" },
+              color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                { offset: 0, color: "rgba(30, 64, 175, 0.8)" },
+                { offset: 0.5, color: "rgba(59, 130, 246, 1)" },
+                { offset: 1, color: "rgba(30, 64, 175, 0.8)" },
               ]),
-              borderRadius: [2, 2, 0, 0],
-              shadowBlur: 8,
-              shadowColor: "rgba(0, 240, 255, 0.3)",
             },
             data: data.actGas,
           },
-          // 累计线
+          // Top Cap
           {
-            name: "计划年产油气",
+            name: "实际月产量",
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, barWidth * 0.45],
+            symbolOffset: symbolOffsetRight,
+            symbolPosition: "end",
+            z: 12,
+            itemStyle: { color: "#3B82F6" },
+            data: data.actGas,
+          },
+
+          // --- Lines ---
+          {
+            name: "计划累产",
             type: "line",
             yAxisIndex: 1,
             symbol: "circle",
-            symbolSize: 6,
+            symbolSize: 8,
             smooth: true,
             lineStyle: { color: "#FFD700", width: 2 },
             itemStyle: {
-              color: "#FFD700",
+              color: "#FFD700", // Yellow-ish
               borderColor: "#fff",
               borderWidth: 1,
               shadowBlur: 5,
@@ -299,19 +305,19 @@ export default {
             data: data.planCum,
           },
           {
-            name: "实际年产油气",
+            name: "实际累产",
             type: "line",
             yAxisIndex: 1,
             symbol: "circle",
             symbolSize: 8,
             smooth: true,
-            lineStyle: { color: "#4A7BF7", width: 3 },
+            lineStyle: { color: "#FF8C00", width: 2 },
             itemStyle: {
-              color: "#4A7BF7",
+              color: "#FF8C00", // Orange
               borderColor: "#fff",
-              borderWidth: 2,
-              shadowBlur: 10,
-              shadowColor: "rgba(74, 123, 247, 0.5)",
+              borderWidth: 1,
+              shadowBlur: 5,
+              shadowColor: "rgba(255, 140, 0, 0.5)",
             },
             data: data.actCum,
           },
