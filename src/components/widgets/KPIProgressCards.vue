@@ -23,37 +23,17 @@
       </h3>
     </div>
     <div class="kpi-cards-grid">
-      <!-- 税前利润 -->
-      <div class="kpi-card gauge-card">
+      <!-- 增储上产 (3D Cylinders) -->
+      <div class="kpi-card gauge-card active-well-chart">
         <div class="kpi-header">
-          <div class="kpi-icon profit">💰</div>
+          <div class="kpi-icon profit">🛢️</div>
           <div class="kpi-title">
-            税前利润
+            增储上产
             <span class="year-label">[2026]</span>
           </div>
         </div>
-        <div class="gauge-layout">
-          <div class="gauge-chart" ref="chart1"></div>
-          <div class="gauge-data">
-            <div class="data-row">
-              <div class="data-icon-wrapper circle-icon">
-                <i class="el-icon-s-flag"></i>
-              </div>
-              <div class="data-content">
-                <div class="data-label">年度目标 (亿元)</div>
-                <div class="data-value num-font">112.5</div>
-              </div>
-            </div>
-            <div class="data-row">
-              <div class="data-icon-wrapper triangle-icon">
-                <i class="el-icon-caret-top"></i>
-              </div>
-              <div class="data-content">
-                <div class="data-label">实际完成 (亿元)</div>
-                <div class="data-value highlight-green num-font">10.6</div>
-              </div>
-            </div>
-          </div>
+        <div class="chart-container-full">
+          <div class="kpi-chart" ref="cylinderChart"></div>
         </div>
       </div>
 
@@ -178,6 +158,40 @@ export default {
   data() {
     return {
       charts: {},
+      reserveIndicators: [
+        {
+          name: "新增份额经济可采储量",
+          unit: "百万桶",
+          target: 112,
+          completed: 10.6,
+          rate: 9.46,
+          icon: "🛢️",
+        },
+        {
+          name: "原油总产量",
+          unit: "万吨",
+          target: 76,
+          completed: 6.5,
+          rate: 8.55,
+          icon: "⛽",
+        },
+        {
+          name: "天然气总产量",
+          unit: "亿方",
+          target: 114.8,
+          completed: 9.8,
+          rate: 8.54,
+          icon: "🔥",
+        },
+        {
+          name: "基本设计项目设计产能",
+          unit: "万吨油当量",
+          target: 300,
+          completed: 35,
+          rate: 11.67,
+          icon: "🏗️",
+        },
+      ],
       currentYear: new Date().getFullYear(),
     };
   },
@@ -197,7 +211,9 @@ export default {
   },
   methods: {
     handleResize() {
-      Object.values(this.charts).forEach((chart) => {
+      // Resize all charts
+      Object.keys(this.charts).forEach((key) => {
+        const chart = this.charts[key];
         if (chart) chart.resize();
       });
     },
@@ -207,11 +223,10 @@ export default {
     },
     initCharts() {
       const isDark = document.body.classList.contains("dark-theme");
-      const textColor = isDark ? "#ffffff" : "#999"; // Force white text in dark mode
+      const textColor = isDark ? "#ffffff" : "#999";
       const lineColor = isDark ? "#2B3674" : "#E1E8ED";
       const themeBlue = isDark ? "#00F0FF" : "#2B3674";
 
-      // 通用tooltip配置
       const tooltipConfig = {
         backgroundColor: isDark
           ? "rgba(15, 22, 41, 0.95)"
@@ -219,14 +234,399 @@ export default {
         borderColor: isDark ? "#334155" : "#ddd",
         borderWidth: 1,
         textStyle: {
-          color: isDark ? "#ffffff" : "#333", // Tooltip text white
+          color: isDark ? "#ffffff" : "#333",
           fontStyle: "normal",
         },
       };
 
-      this.initChart1(textColor, lineColor, themeBlue, tooltipConfig);
+      // Init 3D Cylinder Chart
+      this.initCylinderChart(textColor, lineColor);
+
       this.initChart2(textColor, lineColor, themeBlue, tooltipConfig);
       this.initChartCombined(textColor, lineColor, tooltipConfig);
+    },
+    // New function to initialize the 4 gauge charts
+    initGaugeCharts(textColor, lineColor, themeBlue) {
+      this.reserveIndicators.forEach((item, index) => {
+        this.$nextTick(() => {
+          const refName = `gaugeChart_${index}`;
+          // Handle v-for ref array
+          const el = this.$refs[refName] && this.$refs[refName][0];
+          if (el) {
+            this.initSingleGauge(el, item, `gauge_${index}`);
+          }
+        });
+      });
+    },
+    initSingleGauge(dom, item, chartKey) {
+      if (this.charts[chartKey]) {
+        this.charts[chartKey].dispose();
+      }
+      let chart = echarts.init(dom);
+
+      chart.setOption({
+        series: [
+          // 0. Outermost Blue Arc Wrapper
+          {
+            type: "gauge",
+            radius: "82%",
+            startAngle: 210,
+            endAngle: -30,
+            min: 0,
+            max: 100,
+            axisLine: {
+              lineStyle: {
+                width: 6,
+                color: [
+                  [
+                    1,
+                    new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                      { offset: 0, color: "rgba(30, 144, 255, 0.4)" },
+                      { offset: 0.5, color: "rgba(0, 212, 255, 0.8)" },
+                      { offset: 1, color: "rgba(30, 144, 255, 0.4)" },
+                    ]),
+                  ],
+                ],
+              },
+            },
+            axisTick: { show: false },
+            splitLine: { show: false },
+            axisLabel: { show: false },
+            pointer: { show: false },
+            detail: { show: false },
+          },
+          // 1. Outer Blue Tick Ring
+          {
+            type: "gauge",
+            radius: "88%",
+            startAngle: 210,
+            endAngle: -30,
+            min: 0,
+            max: 100,
+            splitNumber: 10,
+            axisLine: {
+              lineStyle: {
+                width: 3,
+                color: [[1, "rgba(0,0,0,0)"]], // Hidden line
+              },
+            },
+            axisTick: {
+              show: true,
+              splitNumber: 5,
+              length: 8,
+              lineStyle: {
+                color: "#1E90FF",
+                width: 2,
+                shadowColor: "rgba(30, 144, 255, 0.8)",
+                shadowBlur: 5,
+              },
+            },
+            splitLine: {
+              show: true,
+              length: 12,
+              lineStyle: {
+                color: "#00D4FF",
+                width: 3,
+                shadowColor: "rgba(0, 212, 255, 0.8)",
+                shadowBlur: 8,
+              },
+            },
+            axisLabel: { show: false },
+            pointer: { show: false },
+            detail: { show: false },
+          },
+          // 2. Inner Gold Ring Background
+          {
+            type: "gauge",
+            radius: "72%",
+            startAngle: 210,
+            endAngle: -30,
+            min: 0,
+            max: 100,
+            axisLine: {
+              show: true,
+              lineStyle: {
+                width: 25,
+                color: [
+                  [
+                    1,
+                    new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                      { offset: 0, color: "rgba(218, 165, 32, 0.3)" },
+                      { offset: 0.5, color: "rgba(218, 165, 32, 0.6)" },
+                      { offset: 1, color: "rgba(218, 165, 32, 0.3)" },
+                    ]),
+                  ],
+                ],
+              },
+            },
+            axisTick: { show: false },
+            splitLine: { show: false },
+            axisLabel: {
+              show: true,
+              distance: -12,
+              color: "#fff",
+              fontSize: 10, // Small font
+              fontWeight: "bold",
+            },
+            pointer: { show: false },
+            detail: { show: false },
+          },
+          // 3. Main Data Gauge (Inner)
+          {
+            type: "gauge",
+            radius: "60%",
+            startAngle: 210,
+            endAngle: -30,
+            min: 0,
+            max: 100,
+            axisLine: {
+              show: false,
+            },
+            axisTick: { show: false },
+            splitLine: { show: false },
+            axisLabel: { show: false },
+            pointer: {
+              show: true,
+              icon: "path://M0,-75 L-6,-60 L6,-60 Z M0,0 Z",
+              width: 14,
+              length: "75%",
+              offsetCenter: [0, 0],
+              itemStyle: {
+                color: "#FF3333",
+                shadowColor: "rgba(255, 51, 51, 0.8)",
+                shadowBlur: 8,
+              },
+            },
+            title: {
+              show: true,
+              offsetCenter: [0, "25%"],
+              color: "#aaa",
+              fontSize: 11,
+            },
+            detail: {
+              valueAnimation: true,
+              offsetCenter: [0, "-5%"],
+              fontSize: 18,
+              fontWeight: "bold",
+              formatter: "{value}%",
+              color: "#fff",
+              textShadowBlur: 8,
+              textShadowColor: "#00E5FF",
+            },
+            data: [
+              {
+                value: item.rate,
+                name: "完成率",
+              },
+            ],
+          },
+        ],
+      });
+      this.charts[chartKey] = chart;
+    },
+    initCylinderChart(textColor, lineColor) {
+      if (!this.$refs.cylinderChart) return;
+
+      // Dispose old if exists
+      if (this.charts.cylinderChart) {
+        this.charts.cylinderChart.dispose();
+      }
+
+      let chart = echarts.init(this.$refs.cylinderChart);
+
+      // Prepare data
+      // Use rates for height (max 100 for background), but clamping visual height
+      // Colors: 1st is Gold, others Blue
+      const categories = this.reserveIndicators.map((i) =>
+        i.name.length > 5 ? i.name.substring(0, 4) + ".." : i.name
+      );
+      const rates = this.reserveIndicators.map((i) => i.rate);
+      const completedValues = this.reserveIndicators.map((i) => i.completed);
+
+      // Define colors
+      const colors = [
+        {
+          top: "#E6A23C",
+          bottom: "rgba(230, 162, 60, 0.4)",
+          bg: "rgba(230, 162, 60, 0.1)",
+        }, // Gold
+        {
+          top: "#00F0FF",
+          bottom: "rgba(0, 240, 255, 0.4)",
+          bg: "rgba(0, 240, 255, 0.1)",
+        }, // Blue
+        {
+          top: "#00F0FF",
+          bottom: "rgba(0, 240, 255, 0.4)",
+          bg: "rgba(0, 240, 255, 0.1)",
+        }, // Blue
+        {
+          top: "#4A7BF7",
+          bottom: "rgba(74, 123, 247, 0.4)",
+          bg: "rgba(74, 123, 247, 0.1)",
+        }, // Darker Blue
+      ];
+
+      const barWidth = 30;
+
+      // Generate series data with specific styles per bar
+      const bgData = rates.map((rate, index) => {
+        return {
+          value: 100, // Full height background
+          itemStyle: { color: colors[index].bg },
+        };
+      });
+
+      const contentData = rates.map((rate, index) => {
+        return {
+          value: rate,
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: colors[index].top },
+              { offset: 1, color: colors[index].bottom },
+            ]),
+          },
+        };
+      });
+
+      const topSymbolData = rates.map((rate, index) => {
+        return {
+          value: rate,
+          itemStyle: { color: colors[index].top },
+          symbolPosition: "end",
+        };
+      });
+
+      const bottomSymbolData = rates.map((rate, index) => {
+        return {
+          value: rate, // Just for x-axis placement, y is 0
+          itemStyle: { color: colors[index].bottom },
+        };
+      });
+
+      // Background tops/bottoms
+      const bgTopData = rates.map((rate, index) => {
+        return {
+          value: 100,
+          itemStyle: { color: colors[index].bg, opacity: 0.5 },
+        };
+      });
+      const bgBottomData = rates.map((rate, index) => {
+        return {
+          value: 100,
+          itemStyle: { color: colors[index].bg, opacity: 0.5 },
+        };
+      });
+
+      chart.setOption({
+        tooltip: {
+          trigger: "axis",
+          formatter: (params) => {
+            const index = params[0].dataIndex;
+            const item = this.reserveIndicators[index];
+            return `${item.name}<br/>
+                    目标: ${item.target} ${item.unit}<br/>
+                    完成: ${item.completed} ${item.unit} (${item.rate}%)`;
+          },
+          backgroundColor: "rgba(15, 22, 41, 0.95)",
+          borderColor: "#334155",
+          textStyle: { color: "#fff" },
+        },
+        grid: {
+          top: 30,
+          bottom: 20,
+          left: 10,
+          right: 10,
+          containLabel: true,
+        },
+        xAxis: {
+          data: categories,
+          axisLabel: {
+            interval: 0,
+            color: textColor,
+            fontSize: 10,
+            width: 60,
+            overflow: "break",
+          },
+          axisTick: { show: false },
+          axisLine: { show: false },
+        },
+        yAxis: {
+          show: false,
+          max: 100,
+        },
+        series: [
+          // 1. Background Cylinder Body
+          {
+            z: 1,
+            type: "bar",
+            barWidth: barWidth,
+            barGap: "-100%",
+            data: bgData,
+            itemStyle: { opacity: 0.6 },
+          },
+          // 2. Background Cylinder Top
+          {
+            z: 2,
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, 10],
+            symbolOffset: [0, -5],
+            symbolPosition: "end",
+            data: bgTopData,
+          },
+          // 3. Background Cylinder Bottom
+          {
+            z: 2,
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, 10],
+            symbolOffset: [0, 5],
+            symbolPosition: "start",
+            data: bgBottomData,
+          },
+          // 4. Liquid Content Body
+          {
+            z: 3,
+            type: "bar",
+            barWidth: barWidth,
+            data: contentData,
+            label: {
+              show: true,
+              position: "top",
+              distance: 10,
+              color: "#fff",
+              fontSize: 12,
+              fontWeight: "bold",
+              formatter: (params) => {
+                return completedValues[params.dataIndex];
+              },
+            },
+          },
+          // 5. Liquid Content Top
+          {
+            z: 4,
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, 10],
+            symbolOffset: [0, -5],
+            symbolPosition: "end",
+            data: topSymbolData,
+          },
+          // 6. Liquid Content Bottom
+          {
+            z: 4,
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, 10],
+            symbolOffset: [0, 5], // Align with bottom of bar
+            symbolPosition: "start",
+            data: bottomSymbolData,
+          },
+        ],
+      });
+
+      this.charts.cylinderChart = chart;
     },
     getActiveSegments(percentage) {
       return Math.round((percentage / 100) * 12);
@@ -676,7 +1076,7 @@ export default {
 
 .kpi-cards-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 3fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 4px;
   flex: 1;
@@ -692,6 +1092,32 @@ export default {
   transition: all 0.3s ease;
   min-height: 0;
   height: 100%;
+}
+
+.carousel-card {
+  padding: 0 !important; /* Remove padding for carousel */
+}
+
+/* Force carousel to take full space */
+.carousel-card ::v-deep .el-carousel,
+.carousel-card ::v-deep .el-carousel__container {
+  height: 100% !important;
+}
+
+.kpi-slide-content {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 8px; /* Restore padding inside slide */
+  box-sizing: border-box;
+}
+
+.chart-container-full {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  display: flex;
 }
 
 .kpi-card:hover {

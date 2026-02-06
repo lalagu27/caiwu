@@ -56,15 +56,12 @@ export default {
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-xs);
   flex: 1;
-  /* ... existing styles ... */
   display: flex;
   flex-direction: column;
   min-height: 0;
   overflow: hidden;
   transition: all 0.3s ease;
 }
-
-/* ... existing styles ... */
 
 .chart-card:hover {
   box-shadow: var(--shadow-sm);
@@ -121,8 +118,8 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-content: center; /* 改为居中对齐，防止顶部内容在高度不足时被顶出可视区 */
-  padding: 15px 10px; /* 增加上下内边距，为绝对定位的数字留出空间 */
+  align-content: center;
+  padding: 30px 10px 10px 10px; /* 修复后的 padding */
   gap: 10px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -130,13 +127,9 @@ export default {
   height: 100%;
 }
 
-.image-gallery {
-  justify-content: center;
-}
-
 .image-item {
   width: calc((100% - 30px) / 4);
-  height: auto; /* Changed from 45% to auto to remove vertical gap */
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -167,10 +160,10 @@ export default {
 
 .image-number {
   position: absolute;
-  top: -20%; /* Moved higher again per user request */
+  top: 15%; /* 修复后的 top */
   left: 50%;
   transform: translateX(-50%);
-  font-size: 20px; /* 缩小数字字号 */
+  font-size: 18px; /* 修复后的字号 */
   font-weight: bold;
   color: #fff;
   text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
