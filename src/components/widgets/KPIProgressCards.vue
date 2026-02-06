@@ -585,7 +585,7 @@ export default {
               show: true,
               position: "inside", // Relative to center
               align: "right", // Align text to the right (towards the cylinder)
-              offset: [-25, 0], // Shift left by 25px (15px radius + 10px gap)
+              offset: [-25, -78], // Shift left by 25px (15px radius + 10px gap)
               color: "#fff",
               fontSize: 10,
               formatter: (params) => {
@@ -636,7 +636,7 @@ export default {
               show: true,
               position: "inside",
               align: "right",
-              offset: [-25, 0],
+              offset: [-25, 0], // Consistent left spacing
               color: "#00F0FF",
               fontSize: 10,
               formatter: (params) => {
@@ -1108,7 +1108,7 @@ export default {
 
 .kpi-cards-grid {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 2fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 4px;
   flex: 1;
