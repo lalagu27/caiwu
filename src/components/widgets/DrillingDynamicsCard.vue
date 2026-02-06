@@ -205,6 +205,9 @@ export default {
   align-items: center;
   margin-left: 20px; /* Space for decoration */
   gap: 8px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .arrow-left,
@@ -223,6 +226,11 @@ export default {
   align-items: baseline;
   gap: 16px;
   margin: 0 8px;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+}
+.tabs-list::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
 }
 
 .tab-item {
@@ -233,6 +241,7 @@ export default {
   transition: all 0.3s;
   font-weight: 500;
   position: relative;
+  white-space: nowrap;
 }
 
 .tab-item:hover {
@@ -251,6 +260,8 @@ export default {
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .header-date {
