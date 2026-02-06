@@ -1,5 +1,5 @@
 <template>
-  <div class="card widget-reminders">
+  <div class="card widget-reminders chart-card">
     <div class="card-header">
       <div class="header-left">
         <div class="header-icon">🔔</div>
@@ -49,7 +49,6 @@ export default {
 <style scoped>
 .card {
   background: var(--bg-card);
-  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   height: 100%;
   display: flex;

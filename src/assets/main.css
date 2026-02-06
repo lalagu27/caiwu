@@ -327,7 +327,9 @@ body:not(.dark-theme) .header-icon {
 
 /* 1. 卡片主体 */
 .dark-theme .chart-card,
-.dark-theme .d-card {
+.dark-theme .d-card,
+.dark-theme .kpi-card,
+.dark-theme .center-visual {
   background: #082147 !important;
   border: 1px solid #1E3A5F !important;
   border-radius: 0 !important;

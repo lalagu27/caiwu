@@ -1,6 +1,6 @@
 <template>
   <el-card
-    class="center-visual"
+    class="center-visual chart-card"
     :body-style="{
       padding: '12px',
       flex: 1,
@@ -33,7 +33,6 @@ export default {
   position: relative;
   height: 100%; /* 响应父容器flex高度 */
   background: var(--bg-card);
-  border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-color);

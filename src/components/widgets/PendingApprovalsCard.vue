@@ -1,6 +1,6 @@
 <template>
   <el-card
-    class="pending-approvals-card"
+    class="pending-approvals-card chart-card"
     :body-style="{ padding: '12px', display: 'flex', flexDirection: 'column' }"
   >
     <div slot="header" class="card-header">
@@ -103,7 +103,6 @@ export default {
 .pending-approvals-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
   position: relative;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

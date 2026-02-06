@@ -420,7 +420,6 @@ export default {
 .chart-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   height: 100%;

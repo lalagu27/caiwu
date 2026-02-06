@@ -361,7 +361,6 @@ export default {
 .chart-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;

@@ -1,6 +1,6 @@
 <template>
   <el-card
-    class="weekly-schedule-card"
+    class="weekly-schedule-card chart-card"
     :body-style="{
       padding: '10px',
       height: 'calc(100% - 60px)',
@@ -151,7 +151,6 @@ export default {
 .weekly-schedule-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
   box-shadow: var(--shadow-xs);
   display: flex;
   flex-direction: column;

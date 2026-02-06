@@ -1,6 +1,6 @@
 <template>
   <el-card
-    class="drilling-dynamics-card"
+    class="drilling-dynamics-card chart-card"
     :body-style="{
       padding: '0px',
       flex: 1,
@@ -99,7 +99,6 @@ export default {
 .drilling-dynamics-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
   box-shadow: var(--shadow-xs);
   flex: 1;
   display: flex;

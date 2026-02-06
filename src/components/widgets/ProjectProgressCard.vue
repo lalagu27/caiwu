@@ -212,7 +212,6 @@ export default {
 .chart-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
   box-shadow: var(--shadow-xs);
   flex: 1;
   display: flex;

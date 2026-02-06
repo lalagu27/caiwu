@@ -21,7 +21,7 @@
 
         <!-- 完成率统计 - 多色环形图（延伸到底部）-->
         <!-- 月度产值 - 替换油气产量分月对比 -->
-        <monthly-output-value-card class="chart-card chart-tall" />
+        <!-- <monthly-output-value-card class="chart-card chart-tall" /> -->
       </div>
 
       <!-- Center Column - 3D Visual + Bottom Chart -->
@@ -30,7 +30,7 @@
         <center-visual class="center-visual" />
 
         <!-- 油气产量对比图 -->
-        <oil-gas-production-monthly-card class="chart-card chart-bottom" />
+        <!-- <oil-gas-production-monthly-card class="chart-card chart-bottom" /> -->
       </div>
 
       <!-- Right Column -->
@@ -42,7 +42,7 @@
         <project-progress-card />
 
         <!-- 钻井动态 - 替换原来的部门排名 -->
-        <drilling-dynamics-card class="chart-tall" />
+        <!-- <drilling-dynamics-card class="chart-tall" /> -->
       </div>
     </div>
   </div>
@@ -187,17 +187,8 @@ export default {
 }
 
 /* 左右列的高度分配 */
-.left-col .stat-values {
-  flex: 0 0 80px;
-}
-
-.left-col > .chart-card:nth-child(2),
-.left-col > .chart-card:nth-child(3) {
-  flex: 0 0 32%;
-}
-
-.left-col .chart-tall {
-  flex: 0 0 36%;
+.left-col > .chart-card {
+  flex: 1;
 }
 
 .right-col > .chart-card:nth-child(1),

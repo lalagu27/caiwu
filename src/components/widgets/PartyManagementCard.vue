@@ -1,6 +1,6 @@
 <template>
   <el-card
-    class="party-management-card"
+    class="party-management-card chart-card"
     :body-style="{ padding: '10px', height: 'calc(100% - 60px)' }"
   >
     <div slot="header" class="card-header">
@@ -47,7 +47,6 @@ export default {
 .party-management-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
   box-shadow: var(--shadow-xs);
   display: flex;
   flex-direction: column;
