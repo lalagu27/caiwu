@@ -170,9 +170,10 @@ export default {
 
 .card-subtitle {
   font-size: 12px;
-  color: var(--primary-color); /* Navy */
+  color: #ffffff;
   margin-top: 0;
   font-weight: normal;
+  opacity: 0.8;
 }
 
 .approvals-list {

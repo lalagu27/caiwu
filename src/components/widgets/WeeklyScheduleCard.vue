@@ -228,9 +228,10 @@ export default {
 
 .schedule-count {
   font-size: 12px;
-  color: var(--primary-color);
+  color: #ffffff;
   margin-top: 0;
   font-weight: normal;
+  opacity: 0.8;
 }
 
 .schedule-list {

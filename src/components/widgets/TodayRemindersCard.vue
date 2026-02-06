@@ -142,9 +142,10 @@ export default {
 
 .reminder-count {
   font-size: 12px;
-  color: var(--text-secondary); /* Navy */
+  color: #ffffff;
   margin-top: 0;
   font-weight: normal;
+  opacity: 0.8;
 }
 
 .reminders-list {
