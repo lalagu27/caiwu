@@ -131,7 +131,7 @@ export default {
 
 .card-title {
   font-size: 16px; /* Increased from 14px */
-  font-weight: 600; /* Bolder */
+  font-weight: normal; /* Removed Bolder */
   color: var(--primary-color);
   text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
 }
@@ -140,7 +140,7 @@ export default {
   font-size: 13px; /* Increased from 12px */
   color: #ffffff;
   margin-top: 0;
-  font-weight: 500;
+  font-weight: normal;
   opacity: 0.9; /* Improved opacity */
 }
 
@@ -190,7 +190,7 @@ export default {
 
 .reminder-time-badge {
   font-size: 13px; /* Increased from 12px */
-  font-weight: 600;
+  font-weight: normal;
   color: #555;
   background: #f0f2f5;
   padding: 2px 6px;
@@ -212,7 +212,7 @@ export default {
 .reminder-text {
   font-size: 15px; /* Increased from 13px */
   color: var(--text-primary);
-  font-weight: 500; /* Bolder */
+  font-weight: normal; /* Removed Bolder */
 }
 
 .detail-btn {

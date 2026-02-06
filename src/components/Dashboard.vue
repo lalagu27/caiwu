@@ -13,8 +13,8 @@
     <div class="main-grid">
       <!-- Left Column -->
       <div class="left-col">
-        <!-- 油气产量完成情况 (New) -->
-        <production-completion-card class="chart-card production-card" />
+        <!-- 作业动态 - 替换产量完成情况 -->
+        <drilling-dynamics-card class="chart-card production-card" />
 
         <!-- 销量情况运行 (替换油气销售对比) -->
         <sales-comparison-card class="chart-card production-card" />
@@ -43,9 +43,6 @@
 
         <!-- 重点项目执行进度 - 替换原来的分类占比 -->
         <!-- <project-progress-card /> -->
-
-        <!-- 钻井动态 - 替换原来的部门排名 -->
-        <!-- <drilling-dynamics-card class="chart-tall" /> -->
       </div>
     </div>
   </div>
@@ -172,7 +169,7 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr 1.8fr 1fr 1fr;
   gap: 4px;
-  height: 150px; /* 进一步减小以适应一屏 */
+  height: 195px; /* 增加60px */
   flex-shrink: 0;
 }
 

@@ -220,7 +220,7 @@ export default {
 
 .card-title {
   font-size: 16px; /* Increased from 14px */
-  font-weight: 600;
+  font-weight: normal;
   color: var(--primary-color);
   text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
 }
@@ -229,7 +229,7 @@ export default {
   font-size: 13px; /* Increased from 12px */
   color: #ffffff;
   margin-top: 0;
-  font-weight: 500;
+  font-weight: normal;
   opacity: 0.9;
 }
 
@@ -387,7 +387,7 @@ export default {
   justify-content: center;
   color: #fff;
   font-size: 13px; /* Increased from 12px */
-  font-weight: bold; /* Make text clearer */
+  font-weight: normal; /* Make text clearer */
 }
 
 /* Dark mode dot border to match card bg */
@@ -472,7 +472,7 @@ export default {
 
 .schedule-title {
   font-size: 15px; /* Increased from 13px */
-  font-weight: 500;
+  font-weight: normal;
   color: var(--text-primary);
 }
 

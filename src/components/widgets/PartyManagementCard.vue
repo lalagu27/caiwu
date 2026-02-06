@@ -98,7 +98,7 @@ export default {
 
 .card-title {
   font-size: 16px; /* Increased from 14px */
-  font-weight: 600;
+  font-weight: normal;
   color: var(--primary-color);
   text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
   line-height: 1.2;
@@ -108,7 +108,7 @@ export default {
   font-size: 12px;
   color: #9ca3af;
   margin-top: 0;
-  font-weight: 500;
+  font-weight: normal;
 }
 
 .modules-grid {
@@ -188,7 +188,7 @@ export default {
 
 .module-name {
   font-size: 15px; /* Increased from 13px */
-  font-weight: 500;
+  font-weight: normal;
   color: var(--text-primary);
   transition: color 0.3s;
 }

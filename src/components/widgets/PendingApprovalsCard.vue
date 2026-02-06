@@ -161,7 +161,7 @@ export default {
 
 .card-title {
   font-size: 16px; /* Increased from 14px */
-  font-weight: 600;
+  font-weight: normal;
   color: var(--primary-color);
   text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
   line-height: 1.2;
@@ -171,7 +171,7 @@ export default {
   font-size: 13px; /* Increased from 12px */
   color: #ffffff;
   margin-top: 0;
-  font-weight: 500;
+  font-weight: normal;
   opacity: 0.9;
 }
 
@@ -254,7 +254,7 @@ export default {
 .approval-name {
   font-size: 15px; /* Increased from 13px */
   color: var(--text-primary);
-  font-weight: 500;
+  font-weight: normal;
 }
 
 .approval-subtips {
@@ -268,7 +268,7 @@ export default {
   font-size: 13px; /* Increased from 12px */
   padding: 2px 8px;
   border-radius: 12px;
-  font-weight: 600;
+  font-weight: normal;
   min-width: 20px;
   text-align: center;
   border: 1px solid var(--border-color);
@@ -346,7 +346,7 @@ export default {
 
 .detail-action {
   color: #3b82f6;
-  font-weight: 500;
+  font-weight: normal;
 }
 
 .detail-more {
