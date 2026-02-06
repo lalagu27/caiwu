@@ -8,12 +8,37 @@
       flexDirection: 'column',
     }"
   >
-    <div slot="header" class="chart-header">
-      <h3>
-        <span>作业动态</span>
-        <span class="header-date" style="margin-left: 8px">[2026/2/3]</span>
-      </h3>
+    <div slot="header" class="wrapper-header">
+      <!-- 蓝色装饰条 -->
+      <div class="blue-decoration"></div>
+
+      <!-- Tab 区域 -->
+      <div class="tabs-container">
+        <div class="arrow-left">&lt;&lt;&lt;</div>
+        <div class="tabs-list">
+          <div
+            v-for="(tab, index) in tabs"
+            :key="index"
+            class="tab-item"
+            :class="{ active: currentTab === tab.value }"
+            @click="currentTab = tab.value"
+          >
+            {{ tab.label }}
+          </div>
+        </div>
+        <div class="arrow-right">&gt;&gt;&gt;</div>
+      </div>
+
+      <!-- 右侧信息 -->
+      <div class="header-right">
+        <span class="header-date">{{ currentDate }}</span>
+        <i class="el-icon-full-screen fullscreen-icon"></i>
+      </div>
+
+      <!-- 底部发光线 -->
+      <div class="bottom-glow-line"></div>
     </div>
+
     <div class="table-container">
       <table class="custom-table">
         <thead>
@@ -26,6 +51,7 @@
           </tr>
         </thead>
         <tbody>
+          <!-- 模拟不同Tab的数据可能是相同的，除非有真实数据源。这里保持使用 tableData -->
           <tr v-for="(item, index) in tableData" :key="index">
             <td class="well-name">{{ item.name }}</td>
             <td>{{ item.designDepth }}</td>
@@ -46,6 +72,13 @@ export default {
   name: "DrillingDynamicsCard",
   data() {
     return {
+      currentTab: "exploration",
+      tabs: [
+        { label: "勘探", value: "exploration" },
+        { label: "开发生产", value: "development" },
+        { label: "工程", value: "engineering" },
+      ],
+      currentDate: "",
       tableData: [
         {
           name: "WC9-2-A1H",
@@ -92,6 +125,12 @@ export default {
       ],
     };
   },
+  created() {
+    const today = new Date();
+    this.currentDate = `${today.getFullYear()}-${(today.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-${today.getDate().toString().padStart(2, "0")}`;
+  },
 };
 </script>
 
@@ -115,16 +154,15 @@ export default {
 }
 
 .drilling-dynamics-card ::v-deep .el-card__header {
-  padding: 0 12px !important;
+  padding: 0 !important;
   height: 48px !important;
   min-height: 48px !important;
   max-height: 48px !important;
-  display: flex !important;
-  align-items: center !important;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: none; /* Removed default border, using custom glow line */
   box-sizing: border-box;
   background-color: transparent;
   flex-shrink: 0 !important;
+  position: relative;
 }
 
 .drilling-dynamics-card ::v-deep .el-card__body {
@@ -135,40 +173,123 @@ export default {
   overflow: hidden !important;
 }
 
-/* Inner header container */
-.chart-header {
+/* Wrapper Header */
+.wrapper-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 100%;
   width: 100%;
+  position: relative;
+  /* background: linear-gradient(90deg, rgba(0, 42, 102, 0.4) 0%, rgba(0,0,0,0) 100%); */
+  background: transparent;
+  padding: 0 12px;
+  box-sizing: border-box;
 }
 
-.chart-header h3 {
+/* Blue Decoration Bar */
+.blue-decoration {
+  position: absolute;
+  left: 12px;
+  width: 4px;
+  height: 16px;
+  background: #00f0ff;
+  box-shadow: 0 0 5px #00f0ff;
+  border-radius: 2px;
+  transform: skewX(-15deg); /* Slanted style */
+}
+
+/* Tabs Container */
+.tabs-container {
   display: flex;
   align-items: center;
-  gap: 8px; /* Standard gap */
-  margin: 0;
-  font-size: 14px; /* Standard font */
-  font-weight: 600;
-  color: var(--primary-color);
-  text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
+  margin-left: 20px; /* Space for decoration */
+  gap: 8px;
 }
 
-.chart-header h3::before {
-  content: "";
-  display: inline-block;
-  width: 4px; /* Standard marker */
-  height: 14px; /* Standard marker height */
-  background: var(--primary-color);
-  box-shadow: 0 0 8px var(--primary-color);
-  border-radius: 2px;
+.arrow-left,
+.arrow-right {
+  font-family: "Arial", sans-serif;
+  color: #00f0ff;
+  font-size: 12px;
+  opacity: 0.6;
+  letter-spacing: -2px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.tabs-list {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin: 0 8px;
+}
+
+.tab-item {
+  font-size: 14px;
+  color: #8f9bba; /* Muted color */
+  cursor: pointer;
+  font-style: italic; /* Italic style */
+  transition: all 0.3s;
+  font-weight: 500;
+  position: relative;
+}
+
+.tab-item:hover {
+  color: #ccd6ea;
+}
+
+.tab-item.active {
+  font-size: 18px; /* Larger active font */
+  color: #ffffff;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+}
+
+/* Header Right */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .header-date {
-  font-size: 12px; /* Standard date font */
-  color: var(--text-secondary);
-  font-weight: normal;
+  font-size: 13px;
+  color: #a0aec0;
+  font-family: "DIN Alternate", sans-serif;
+}
+
+.fullscreen-icon {
+  font-size: 16px;
+  color: #00f0ff;
+  cursor: pointer;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  padding: 4px;
+  border-radius: 4px;
+  background: rgba(0, 240, 255, 0.1);
+  box-shadow: 0 0 5px rgba(0, 240, 255, 0.2) inset;
+  transition: all 0.2s;
+}
+
+.fullscreen-icon:hover {
+  background: rgba(0, 240, 255, 0.2);
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.4) inset;
+}
+
+/* Bottom Glow Line */
+.bottom-glow-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 240, 255, 0) 0%,
+    rgba(0, 240, 255, 0.8) 50%,
+    rgba(0, 240, 255, 0) 100%
+  );
+  box-shadow: 0 -1px 3px rgba(0, 240, 255, 0.3);
 }
 
 .table-container {
