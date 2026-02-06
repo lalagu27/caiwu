@@ -21,7 +21,7 @@
 
         <!-- 完成率统计 - 多色环形图（延伸到底部）-->
         <!-- 月度产值 - 替换油气产量分月对比 -->
-        <monthly-output-value-card class="chart-card chart-tall" />
+        <!-- <monthly-output-value-card class="chart-card chart-tall" /> -->
       </div>
 
       <!-- Center Column - 3D Visual + Bottom Chart -->
@@ -30,7 +30,7 @@
         <center-visual class="center-visual" />
 
         <!-- 油气产量对比图 -->
-        <oil-gas-production-monthly-card class="chart-card chart-bottom" />
+        <!-- <oil-gas-production-monthly-card class="chart-card chart-bottom" /> -->
       </div>
 
       <!-- Right Column -->
@@ -38,12 +38,14 @@
         <!-- 新增经济可采储量 - 替换原来的部门数据对比 -->
         <reserves-completion-card />
         <reserves-completion-card1 />
+        <reserves-completion-card2 />
+        <reserves-completion-card3 />
 
         <!-- 重点项目执行进度 - 替换原来的分类占比 -->
-        <project-progress-card />
+        <!-- <project-progress-card /> -->
 
         <!-- 钻井动态 - 替换原来的部门排名 -->
-        <drilling-dynamics-card class="chart-tall" />
+        <!-- <drilling-dynamics-card class="chart-tall" /> -->
       </div>
     </div>
   </div>
@@ -60,6 +62,8 @@ import KPIProgressCards from "./widgets/KPIProgressCards.vue";
 import ProductionCompletionCard from "./widgets/ProductionCompletionCard.vue";
 import ReservesCompletionCard from "./widgets/ReservesCompletionCard.vue";
 import ReservesCompletionCard1 from "./widgets/ReservesCompletionCard1.vue";
+import ReservesCompletionCard2 from "./widgets/ReservesCompletionCard2.vue";
+import ReservesCompletionCard3 from "./widgets/ReservesCompletionCard3.vue";
 import ProjectProgressCard from "./widgets/ProjectProgressCard.vue";
 import CenterVisual from "./widgets/CenterVisual.vue";
 import DrillingDynamicsCard from "./widgets/DrillingDynamicsCard.vue";
@@ -80,6 +84,8 @@ export default {
     ProductionCompletionCard,
     ReservesCompletionCard,
     ReservesCompletionCard1,
+    ReservesCompletionCard2,
+    ReservesCompletionCard3,
     ProjectProgressCard,
     CenterVisual,
     DrillingDynamicsCard,
@@ -157,8 +163,7 @@ export default {
   flex-direction: column;
   gap: 4px;
   padding: 4px;
-  overflow-y: auto; /* 允许垂直滚动 */
-  overflow-x: hidden; /* 隐藏水平滚动 */
+  overflow: hidden; /* 不允许滚动，正好一页显示 */
   box-sizing: border-box;
 }
 
@@ -167,7 +172,7 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr 1.8fr 1fr 1fr;
   gap: 4px;
-  height: 200px; /* Reduced further per user request */
+  height: 150px; /* 进一步减小以适应一屏 */
   flex-shrink: 0;
 }
 
@@ -177,7 +182,8 @@ export default {
   grid-template-columns: 1fr 2fr 1fr;
   gap: 4px;
   flex: 1;
-  min-height: fit-content; /* 允许内容撑开高度 */
+  min-height: 0; /* 确保不超出可用空间 */
+  overflow: hidden; /* 防止内容溢出 */
 }
 
 .left-col,
@@ -197,7 +203,15 @@ export default {
 
 .right-col > .chart-card:nth-child(1),
 .right-col > .chart-card:nth-child(2) {
-  flex: 0.6;
+  flex: 0.3;
+}
+
+.right-col > .chart-card:nth-child(3) {
+  flex: 0.2; /* 党工群团卡片，项目少所以设置更小 */
+}
+
+.right-col > .chart-card:nth-child(4) {
+  flex: 0.3; /* 党工群团卡片，项目少所以设置更小 */
 }
 
 .center-col {
