@@ -186,9 +186,9 @@ export default {
             y2Max: 120,
           };
 
-      const textColor = "#B6C0CF";
-      const axisLineColor = "#3D485D";
-      const splitLineColor = "rgba(255, 255, 255, 0.08)";
+      const textColor = "#ffffff";
+      const axisLineColor = "#1a8fff";
+      const splitLineColor = "rgba(255, 255, 255, 0.15)";
 
       const option = {
         tooltip: {

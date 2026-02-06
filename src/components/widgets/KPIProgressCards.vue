@@ -198,7 +198,7 @@ export default {
     },
     initCharts() {
       const isDark = document.body.classList.contains("dark-theme");
-      const textColor = isDark ? "#A3AED0" : "#999";
+      const textColor = isDark ? "#ffffff" : "#999"; // Force white text in dark mode
       const lineColor = isDark ? "#2B3674" : "#E1E8ED";
       const themeBlue = isDark ? "#00F0FF" : "#2B3674";
 
@@ -210,7 +210,8 @@ export default {
         borderColor: isDark ? "#334155" : "#ddd",
         borderWidth: 1,
         textStyle: {
-          color: isDark ? "#CBD5E1" : "#333",
+          color: isDark ? "#ffffff" : "#333", // Tooltip text white
+          fontStyle: "normal",
         },
       };
 
@@ -287,7 +288,7 @@ export default {
             color: textColor,
             fontSize: 10,
             interval: 0,
-            rotate: 45,
+            rotate: 0,
           },
         },
         yAxis: {
@@ -372,7 +373,7 @@ export default {
             color: textColor,
             fontSize: 10,
             interval: 0,
-            rotate: 45,
+            rotate: 0,
           },
         },
         yAxis: {
@@ -481,7 +482,7 @@ export default {
             "12月",
           ],
           axisLine: { lineStyle: { color: lineColor } },
-          axisLabel: { color: textColor, fontSize: 10, rotate: 45 },
+          axisLabel: { color: textColor, fontSize: 10, rotate: 0 },
         },
         yAxis: {
           type: "value",

@@ -63,8 +63,8 @@ export default {
       this.chart = chart;
 
       const isDark = document.body.classList.contains("dark-theme");
-      const textColor = isDark ? "#A3AED0" : "#333";
-      const bgBarColor = isDark ? "#111C44" : "#e8eef5"; // Dark navy for dark mode bg bar
+      const textColor = isDark ? "#ffffff" : "#333";
+      const bgBarColor = isDark ? "rgba(255, 255, 255, 0.1)" : "#e8eef5"; // Light transparent for dark mode
 
       const projects = [
         {

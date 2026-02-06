@@ -58,63 +58,63 @@
    Dark Theme (Enhanced Cyberpunk / Data Center)
    ========================================= */
 .dark-theme {
-  /* 1. Primary Brand Colors - 优化的青色系 */
-  --primary-color: #00E5FF;
-  /* 更亮的霓虹青色 - 提升可读性 */
-  --primary-light: #0A0E1A;
-  /* 更深的页面背景 - 增强对比度 */
-  --primary-dark: #050911;
+  /* 1. Primary Brand Colors - 深蓝科技风格 */
+  --primary-color: #1e90ff;
+  /* 亮蓝色 - 主强调色 */
+  --primary-light: #0a1428;
+  /* 深蓝色页面背景 */
+  --primary-dark: #050a14;
   /* 最深的背景色 */
 
-  /* 2. Semantic Colors - 增强的语义色 */
+  /* 2. Semantic Colors - 科技风格语义色 */
   --success-color: #00FFA3;
-  /* 霓虹绿色 - 更鲜明的成功提示 */
-  --warning-color: #FFB800;
-  /* 金黄色 - 更强的警告感 */
+  /* 霓虹绿色 - 成功提示 */
+  --warning-color: #ffa500;
+  /* 橙黄色 - 环形图和强调 */
   --danger-color: #FF4757;
-  /* 更亮的红色 - 增强警示效果 */
-  --info-color: #4C9AFF;
-  /* 明亮的蓝色 */
+  /* 红色 - 警示效果 */
+  --info-color: #00d4ff;
+  /* 青色 - 辅助强调 */
 
-  /* 3. Text Colors - 优化的文本层次 */
-  --text-primary: #CBD5E1;
-  /* 青灰色 - 柔和舒适，非纯白 */
-  --text-secondary: #94A3B8;
-  /* 中性蓝灰 - 平衡的次要文本 */
-  --text-tertiary: #64748B;
+  /* 3. Text Colors - 清晰的文本层次 */
+  --text-primary: #ffffff;
+  /* 纯白文本 - 主要内容 */
+  --text-secondary: #8FA3C5;
+  /* 蓝灰色 - 次要文本 */
+  --text-tertiary: #6B7F9F;
   /* 深蓝灰 - 三级文本 */
-  --border-color: #1E293B;
-  /* 更深的边框 - 微妙但清晰 */
+  --border-color: #1E3A5F;
+  /* 深蓝色细边框 */
 
-  /* 4. Backgrounds - 深层次背景 */
-  --bg-main: #0A0E1A;
-  /* 深蓝黑背景 - 高级感 */
-  --bg-card: #0F1629;
-  /* 卡片背景 - 与主背景有明显区别 */
-  --bg-hover: #1A2235;
-  /* 悬浮状态 - 更亮的反馈 */
+  /* 4. Backgrounds - 深蓝科技背景 */
+  --bg-main: #0B1A2F;
+  /* 深蓝色主背景 */
+  --bg-card: #082147;
+  /* 深蓝卡片背景（用户指定） */
+  --bg-hover: #0a2958;
+  /* 悬浮状态背景 */
 
-  /* 5. Components - 增强的阴影和光晕 */
-  --shadow-xs: 0px 2px 4px rgba(0, 0, 0, 0.6);
-  --shadow-sm: 0px 4px 16px rgba(0, 229, 255, 0.2);
-  /* 更强的青色光晕 */
-  --shadow-md: 0px 8px 24px rgba(0, 229, 255, 0.25);
-  /* 中等光晕 */
-  --shadow-glow: 0px 0px 20px rgba(0, 229, 255, 0.3);
-  /* 霓虹光晕效果 */
+  /* 5. Components - 最小化阴影效果 */
+  --shadow-xs: none;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  /* 轻微阴影 */
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  /* 中等阴影 */
+  --shadow-glow: none;
+  /* 移除发光 */
 
-  /* 6. Hover States - 增强的交互反馈 */
-  --hover-border: #334155;
+  /* 6. Hover States - 交互反馈 */
+  --hover-border: #4aa3ff;
   /* 更亮的悬浮边框 */
-  --hover-glow: rgba(0, 229, 255, 0.4);
-  /* 悬浮光晕 */
+  --hover-glow: rgba(30, 144, 255, 0.6);
+  /* 悬浮发光 */
 
   /* 7. 图表专用颜色 */
-  --chart-primary: #00E5FF;
+  --chart-primary: #1e90ff;
   /* 图表主色 */
   --chart-grid: rgba(255, 255, 255, 0.05);
   /* 网格线 */
-  --chart-text: #94A3B8;
+  --chart-text: #8b9db8;
   /* 图表文本 */
 }
 
@@ -148,16 +148,18 @@ body {
   border-color: #d0d7e8;
 }
 
-/* 暗黑模式下的卡片增强 */
+/* 暗黑模式下的卡片增强 - 纯色深蓝卡片 */
 .dark-theme .d-card {
-  border-color: #1E293B;
-  box-shadow: var(--shadow-xs);
+  background: #082147;
+  border: 1px solid #1E3A5F;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .dark-theme .d-card:hover {
-  border-color: var(--hover-border);
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-2px);
+  background: #0a2958;
+  border-color: #2A4A6F;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transform: translateY(-1px);
 }
 
 /* Scrollbar */
@@ -308,9 +310,199 @@ body {
 body:not(.dark-theme) * {
   box-shadow: none !important;
 }
+
 /* 特别移除标题竖条和图标的发光效果 */
 body:not(.dark-theme) .chart-header h3::before,
 body:not(.dark-theme) .card-header h3::before,
 body:not(.dark-theme) .header-icon {
   box-shadow: none !important;
+}
+
+/* =========================================
+   暗黑模式 - 高级科技卡片样式覆盖
+   参考设计图：渐变标题栏 + 底部亮线 + 内容内框
+   ========================================= */
+
+/* 1. 卡片主体 */
+.dark-theme .chart-card,
+.dark-theme .d-card {
+  background: #082147 !important;
+  border: 1px solid #1E3A5F !important;
+  box-shadow: none !important;
+  /* 移除外发光，保持干净 */
+  overflow: visible !important;
+  /* 允许光晕溢出 */
+}
+
+/* 2. 标题栏重构 */
+/* 2. 标题栏重构 - 仿照新设计 */
+.dark-theme .chart-card .el-card__header,
+.dark-theme .d-card .el-card__header {
+  /* 科技感渐变背景：左侧亮蓝 -> 右侧透明 */
+  background: linear-gradient(90deg, rgba(0, 240, 255, 0.15) 0%, rgba(30, 144, 255, 0.05) 60%, transparent 100%) !important;
+  /* 移除默认边框，使用伪元素制作渐变底线 */
+  border-bottom: none !important;
+  padding: 0 16px !important;
+  /* 确保文字垂直居中 */
+  display: flex !important;
+  align-items: center !important;
+  position: relative;
+  z-index: 10;
+  overflow: visible !important;
+}
+
+/* 底部发光渐变线条 - 减弱亮度 */
+.dark-theme .chart-card .el-card__header::after,
+.dark-theme .d-card .el-card__header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  /* 更柔和的线条，移除强发光 */
+  background: linear-gradient(90deg, #1E3A5F 0%, rgba(30, 144, 255, 0.3) 50%, transparent 100%);
+  z-index: 2;
+  box-shadow: none;
+}
+
+/* 3. 内容区域重构 */
+.dark-theme .chart-card .el-card__body,
+.dark-theme .d-card .el-card__body {
+  /* 内缩并添加细边框 */
+  /* 内缩并添加细边框 */
+  margin: 0 10px 10px 10px !important;
+  /* 顶部无需margin，紧贴header */
+  padding: 10px !important;
+  border: 1px solid rgba(143, 155, 186, 0.15) !important;
+  /* 非常淡的内边框 */
+  background: rgba(0, 0, 0, 0.1) !important;
+  /* 深一度的内容背景 */
+  /* 圆角 */
+  border-radius: 4px;
+  /* 确保占满剩余高度 */
+  height: calc(100% - 70px) !important;
+  /* 减去header和margin */
+}
+
+/* 4. 标题文字增强 - 统一覆盖 */
+.dark-theme .card-title,
+.dark-theme .chart-header h3,
+.dark-theme .chart-card h3 {
+  color: #ffffff !important;
+  font-size: 16px !important;
+  font-style: italic !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.5) !important;
+  margin-left: 4px;
+  display: flex;
+  align-items: center;
+}
+
+
+
+/* 5. 标题左侧竖条增强 - 平行四边形 */
+.dark-theme .chart-header h3::before,
+.dark-theme .header-icon {
+  background: #00F0FF !important;
+  box-shadow: 0 0 10px #00F0FF, 0 0 20px #00F0FF !important;
+  /* 强发光 */
+  width: 6px !important;
+  height: 16px !important;
+  margin-right: 12px !important;
+  border-radius: 1px !important;
+  transform: skewX(-20deg) !important;
+  /* 倾斜变形 */
+}
+
+/* 6. 右侧图标框 (如果有) */
+.dark-theme .header-actions .icon-btn {
+  border: 1px solid #1e90ff;
+  background: rgba(30, 144, 255, 0.1);
+  box-shadow: 0 0 5px rgba(30, 144, 255, 0.3);
+}
+
+/* =========================================
+   Tab 切换样式覆盖 - 匹配用户图片
+   实心亮蓝背景 + 白色文字
+   ========================================= */
+
+/* 容器 */
+.dark-theme .custom-toggle,
+.dark-theme .chart-tabs {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid #1E3A5F !important;
+  border-radius: 4px;
+  padding: 2px;
+}
+
+/* 默认状态 */
+.dark-theme .toggle-item,
+.dark-theme .tab {
+  color: rgba(255, 255, 255, 0.7) !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 2px;
+  padding: 2px 12px !important;
+  font-size: 12px;
+  transition: all 0.3s;
+}
+
+/* 悬浮状态 */
+.dark-theme .toggle-item:hover,
+.dark-theme .tab:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 选中状态 - 关键修改 */
+.dark-theme .toggle-item.active,
+.dark-theme .tab.active,
+.dark-theme .tab-item.active {
+  background: #1e90ff !important;
+  /* 亮蓝色背景 */
+  color: #ffffff !important;
+  /* 纯白文字 */
+  box-shadow: 0 0 8px rgba(30, 144, 255, 0.5) !important;
+  font-weight: 500 !important;
+  border: none !important;
+}
+
+/* =========================================
+   用户反馈修正：图表内文字防斜体 + 强制白色
+   ========================================= */
+
+/* 强制图表容器内的所有文字正常显示（不斜体） */
+.dark-theme .chart-body,
+.dark-theme .chart-body *,
+.dark-theme .kpi-chart,
+.dark-theme .echarts-tooltip,
+.dark-theme .kpi-value,
+.dark-theme .kpi-target,
+.dark-theme .unit,
+.dark-theme .sub-label {
+  font-style: normal !important;
+}
+
+/* 强制 KPI 卡片相关文字为白色 */
+.dark-theme .kpi-value .current,
+.dark-theme .kpi-value .unit,
+.dark-theme .kpi-target,
+.dark-theme .sub-label,
+.dark-theme .trend-indicator,
+.dark-theme .year-label,
+.dark-theme .kpi-title span,
+.dark-theme .header-date {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* 稍微区分层级，年目标和日期标签 */
+.dark-theme .kpi-target,
+.dark-theme .year-label,
+.dark-theme .header-date {
+  color: #ffffff !important;
+  opacity: 0.9 !important;
+  font-weight: 500 !important;
 }

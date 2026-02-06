@@ -106,8 +106,8 @@ export default {
       this.chart = echarts.init(this.$refs.chart);
 
       const isDark = document.body.classList.contains("dark-theme");
-      const textColor = isDark ? "#A3AED0" : "#666";
-      const lineColor = isDark ? "rgba(255, 255, 255, 0.05)" : "#eee";
+      const textColor = isDark ? "#ffffff" : "#666";
+      const lineColor = isDark ? "rgba(255, 255, 255, 0.15)" : "#eee";
 
       // 模拟产值数据 (亿元) - 仅给出一月份数据
       const dataMapping = {

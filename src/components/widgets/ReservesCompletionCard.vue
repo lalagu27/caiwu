@@ -90,10 +90,10 @@ export default {
       this.chart = chart;
 
       const isDark = document.body.classList.contains("dark-theme");
-      const textColor = isDark ? "#A3AED0" : "#666";
-      const headingColor = isDark ? "#A3AED0" : "#999";
-      const axisLineColor = isDark ? "#2B3674" : "#E1E8ED";
-      const splitLineColor = isDark ? "#112240" : "#F0F4F9";
+      const textColor = isDark ? "#ffffff" : "#666";
+      const headingColor = isDark ? "#ffffff" : "#999";
+      const axisLineColor = isDark ? "#1a8fff" : "#E1E8ED";
+      const splitLineColor = isDark ? "rgba(255, 255, 255, 0.15)" : "#F0F4F9";
 
       const option = {
         tooltip: {
@@ -133,7 +133,7 @@ export default {
             "12月",
           ],
           axisLine: { lineStyle: { color: axisLineColor } },
-          axisLabel: { color: textColor, fontSize: 11, rotate: 45 },
+          axisLabel: { color: textColor, fontSize: 11, rotate: 0 },
           axisTick: { show: false },
         },
         yAxis: {
