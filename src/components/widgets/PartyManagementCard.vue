@@ -84,13 +84,12 @@ export default {
   width: 30px;
   height: 30px;
   border-radius: 8px;
-  background: var(--primary-light); /* Uniform Neutral */
+  background: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
   color: var(--primary-color); /* Uniform Navy */
-  box-shadow: 0 0 8px var(--primary-color);
 }
 
 .header-text {
@@ -102,8 +101,7 @@ export default {
 
 .card-title {
   font-size: 14px; /* Reduced from 16px */
-  font-weight: 700;
-  font-weight: 700;
+  font-weight: normal;
   color: var(--primary-color);
   text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
   line-height: 1.2;
@@ -193,7 +191,7 @@ export default {
 
 .module-name {
   font-size: 13px; /* 统一内容字体 */
-  font-weight: 600;
+  font-weight: normal;
   color: var(--text-primary);
   transition: color 0.3s;
 }

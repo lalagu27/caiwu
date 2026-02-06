@@ -121,13 +121,12 @@ export default {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: var(--bg-hover); /* Uniform Neutral Background */
+  background: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
   color: var(--primary-color); /* Uniform Navy Icon */
-  box-shadow: 0 0 8px var(--primary-color);
 }
 
 .header-text {
@@ -139,7 +138,7 @@ export default {
 
 .card-title {
   font-size: 14px; /* 统一标题字体 */
-  font-weight: 700;
+  font-weight: normal;
   color: var(--primary-color);
   text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
 }
@@ -148,7 +147,7 @@ export default {
   font-size: 12px;
   color: var(--text-secondary); /* Navy */
   margin-top: 0;
-  font-weight: 600;
+  font-weight: normal;
 }
 
 .reminders-list {
@@ -197,7 +196,7 @@ export default {
 
 .reminder-time-badge {
   font-size: 12px;
-  font-weight: 700;
+  font-weight: normal;
   color: #555;
   background: #f0f2f5;
   padding: 2px 6px;
@@ -218,7 +217,7 @@ export default {
 .reminder-text {
   font-size: 13px; /* 统一内容字体 */
   color: var(--text-primary);
-  font-weight: 600; /* 统一字重 */
+  font-weight: normal; /* 统一字重 */
 }
 
 .detail-btn {
