@@ -117,7 +117,7 @@ export default {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: center; /* 垂直居中 */
-  padding: 0 10px;
+  padding: 20px 10px; /* 增加更多上下内边距，因为只有一行且数字较大 */
   gap: 10px;
   overflow-y: auto;
   overflow-x: hidden;

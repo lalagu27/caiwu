@@ -123,8 +123,8 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-content: flex-end; /* 底部对齐 */
-  padding: 0 10px 0 10px; /* 底部留更少空间 */
+  align-content: center; /* 改为居中对齐 */
+  padding: 15px 10px; /* 增加上下内边距 */
   gap: 10px;
   overflow-y: auto;
   overflow-x: hidden;
