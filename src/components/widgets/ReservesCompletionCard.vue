@@ -312,6 +312,7 @@ export default {
   flex: 1;
   min-height: 200px;
   width: 100%;
+  height: 100%; /* 确保容器有明确高度供ECharts使用 */
 }
 
 .chart-tabs {

@@ -316,6 +316,7 @@ export default {
   flex: 1;
   min-height: 150px; /* Adjust as needed */
   width: 100%;
+  height: 100%; /* 确保容器有明确高度供ECharts使用 */
 }
 
 /* 暗黑模式下的图表卡片增强 */

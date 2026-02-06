@@ -154,7 +154,8 @@ export default {
   flex-direction: column;
   gap: 4px;
   padding: 4px;
-  overflow: hidden;
+  overflow-y: auto; /* 允许垂直滚动 */
+  overflow-x: hidden; /* 隐藏水平滚动 */
   box-sizing: border-box;
 }
 
@@ -173,7 +174,7 @@ export default {
   grid-template-columns: 1fr 2fr 1fr;
   gap: 4px;
   flex: 1;
-  min-height: 0;
+  min-height: fit-content; /* 允许内容撑开高度 */
 }
 
 .left-col,
@@ -187,6 +188,7 @@ export default {
 
 /* 左右列的高度分配 */
 .left-col > .chart-card {
+  min-height: calc(33.33vh + 30px); /* 每个卡片基础高度加30px */
   flex: 1;
 }
 

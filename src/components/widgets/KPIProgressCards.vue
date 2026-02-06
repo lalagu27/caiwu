@@ -792,7 +792,9 @@ export default {
 }
 
 .merged-card .kpi-chart {
-  height: 170px;
+  flex: 1; /* 使用flex布局自适应 */
+  height: 100%; /* 填充父容器 */
+  min-height: 0; /* 允许收缩 */
   margin-top: 0;
   background: transparent;
   border: none;
@@ -896,7 +898,9 @@ export default {
 }
 
 .kpi-chart {
-  height: 120px;
+  flex: 1; /* 使用flex布局自适应 */
+  height: 100%; /* 填充父容器 */
+  min-height: 80px; /* 设置最小高度避免过小 */
   margin-top: 8px;
   width: 100%;
   background: transparent;
