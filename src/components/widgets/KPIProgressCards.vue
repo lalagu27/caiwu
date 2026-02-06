@@ -37,35 +37,18 @@
         </div>
       </div>
 
-      <!-- 桶油五项 -->
-      <div class="kpi-card">
+      <!-- 成本效益指标 -->
+      <div class="kpi-card gauge-card cost-benefit-chart">
         <div class="kpi-header">
-          <div class="kpi-icon cost">⚡</div>
+          <div class="kpi-icon cost">💰</div>
           <div class="kpi-title">
-            桶油五项
-            <span
-              style="
-                font-size: 12px;
-                color: #999;
-                margin-left: 4px;
-                font-weight: normal;
-              "
-              >[2026]</span
-            >
+            成本效益指标
+            <span class="year-label">[2026]</span>
           </div>
         </div>
-        <div class="kpi-value">
-          <span class="current">19.14</span>
-          <span class="unit">$/桶</span>
+        <div class="chart-container-full">
+          <div class="kpi-chart" ref="costBenefitChart"></div>
         </div>
-        <div class="kpi-target">今年价格</div>
-        <div class="kpi-progress">
-          <div class="trend-indicator down">
-            <span>↓ 0.8</span>
-            <span class="label">同比下降</span>
-          </div>
-        </div>
-        <div class="kpi-chart" ref="chart2"></div>
       </div>
 
       <!-- 战新业务 (合并后的卡片) -->
@@ -192,6 +175,22 @@ export default {
           icon: "🏗️",
         },
       ],
+      costBenefitIndicators: [
+        {
+          name: "利润总额",
+          unit: "亿元",
+          target: 112.5,
+          completed: 85.2,
+          rate: 75.73,
+        },
+        {
+          name: "桶油五项成本",
+          unit: "$/B",
+          target: 19.14,
+          completed: 18.95,
+          rate: 99.01,
+        },
+      ],
       currentYear: new Date().getFullYear(),
     };
   },
@@ -242,7 +241,9 @@ export default {
       // Init 3D Cylinder Chart
       this.initCylinderChart(textColor, lineColor);
 
-      this.initChart2(textColor, lineColor, themeBlue, tooltipConfig);
+      // Init Cost Benefit Chart
+      this.initCostBenefitChart(textColor, lineColor);
+
       this.initChartCombined(textColor, lineColor, tooltipConfig);
     },
     // New function to initialize the 4 gauge charts
@@ -863,122 +864,225 @@ export default {
 
       this.charts.chart1 = chart;
     },
-    initChart2(textColor, lineColor, themeBlue, tooltipConfig) {
-      if (!this.$refs.chart2) return;
-      let chart = echarts.getInstanceByDom(this.$refs.chart2);
-      if (!chart) chart = echarts.init(this.$refs.chart2);
+    initCostBenefitChart(textColor, lineColor) {
+      if (!this.$refs.costBenefitChart) return;
+
+      // Dispose old if exists
+      if (this.charts.costBenefitChart) {
+        this.charts.costBenefitChart.dispose();
+      }
+
+      let chart = echarts.init(this.$refs.costBenefitChart);
+
+      // 准备数据
+      const categories = this.costBenefitIndicators.map((i) => i.name);
+      const rates = this.costBenefitIndicators.map((i) => i.rate);
+      const completedValues = this.costBenefitIndicators.map(
+        (i) => i.completed
+      );
+
+      // 定义颜色
+      const colors = [
+        {
+          top: "#E6A23C",
+          bottom: "#CD853F",
+          bg: "rgba(230, 162, 60, 0.2)",
+          bgTop: "#7E5B28",
+        }, // 金色 - 利润
+        {
+          top: "#00F0FF",
+          bottom: "#008B8B",
+          bg: "rgba(0, 240, 255, 0.2)",
+          bgTop: "#0C6A72",
+        }, // 青色 - 成本
+      ];
+
+      const barWidth = 40;
+
+      // 生成系列数据
+      const bgData = rates.map((rate, index) => {
+        return {
+          value: 100,
+          itemStyle: { color: colors[index].bg },
+        };
+      });
+
+      const contentData = rates.map((rate, index) => {
+        return {
+          value: rate,
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: colors[index].top },
+              { offset: 1, color: colors[index].bottom },
+            ]),
+          },
+        };
+      });
+
+      const topSymbolData = rates.map((rate, index) => {
+        return {
+          value: rate,
+          itemStyle: { color: colors[index].top },
+          symbolPosition: "end",
+        };
+      });
+
+      const bottomSymbolData = rates.map((rate, index) => {
+        return {
+          value: rate,
+          itemStyle: { color: colors[index].bottom },
+        };
+      });
+
+      const bgTopData = rates.map((rate, index) => {
+        return {
+          value: 100,
+          itemStyle: { color: colors[index].bgTop, opacity: 1 },
+        };
+      });
+
+      const bgBottomData = rates.map((rate, index) => {
+        return {
+          value: 100,
+          itemStyle: { color: colors[index].bottom, opacity: 1 },
+        };
+      });
 
       chart.setOption({
-        title: {
-          text: "$/桶",
-          textStyle: {
-            color: textColor,
-            fontSize: 10,
-            fontWeight: "normal",
-          },
-          top: 0,
-          left: 30,
-        },
         tooltip: {
           trigger: "axis",
-          formatter: "{b}: {c}$/桶",
-          ...tooltipConfig,
-        },
-        grid: { top: 15, right: 10, bottom: 35, left: 35 },
-        xAxis: {
-          type: "category",
-          data: [
-            "1月",
-            "2月",
-            "3月",
-            "4月",
-            "5月",
-            "6月",
-            "7月",
-            "8月",
-            "9月",
-            "10月",
-            "11月",
-            "12月",
-          ],
-          show: true,
-          axisLine: { show: true, lineStyle: { color: lineColor } },
-          axisTick: { show: false },
-          axisLabel: {
-            color: textColor,
-            fontSize: 10,
-            interval: 0,
-            rotate: 0,
+          formatter: (params) => {
+            const index = params[0].dataIndex;
+            const item = this.costBenefitIndicators[index];
+            return `${item.name}<br/>
+                    挑战目标: ${item.target} ${item.unit}<br/>
+                    完成数: ${item.completed} ${item.unit}<br/>
+                    完成率: ${item.rate}%`;
           },
+          backgroundColor: "rgba(15, 22, 41, 0.95)",
+          borderColor: "#334155",
+          textStyle: { color: "#fff" },
+        },
+        grid: {
+          top: 30,
+          bottom: 20,
+          left: 20,
+          right: 20,
+          containLabel: true,
+        },
+        xAxis: {
+          data: categories,
+          axisLabel: {
+            interval: 0,
+            color: textColor,
+            fontSize: 11,
+            width: 80,
+            overflow: "break",
+          },
+          axisTick: { show: false },
+          axisLine: { show: false },
         },
         yAxis: {
-          type: "value",
-          show: true,
-          min: 18.5,
-          max: 19.14,
-          splitLine: {
-            show: true,
-            lineStyle: { type: "dashed", color: lineColor },
-          },
-          axisLabel: { color: textColor, fontSize: 10 },
+          show: false,
+          max: 100,
         },
         series: [
+          // 1. 背景柱体
           {
-            data: [
-              18.95,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-            ],
-            type: "line",
-            smooth: true,
+            z: 1,
+            type: "bar",
+            barWidth: barWidth,
+            barGap: "-100%",
+            data: bgData,
+            itemStyle: { opacity: 0.6 },
+            label: { show: false },
+          },
+          // 2. 背景柱顶部
+          {
+            z: 2,
+            type: "pictorialBar",
             symbol: "circle",
-            symbolSize: 6,
-            lineStyle: { color: themeBlue, width: 2 }, // Navy Blue (Neutral/Corporate)
-            itemStyle: {
-              color: themeBlue,
-              borderWidth: 2,
-              borderColor: "#fff",
-            },
-            areaStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "rgba(43, 54, 116, 0.2)" },
-                { offset: 1, color: "rgba(43, 54, 116, 0.05)" },
-              ]),
-            },
-            markLine: {
-              symbol: ["none", "none"],
-              label: {
-                show: true,
-                position: "insideEndTop",
-                formatter: "年挑战目标: {c}",
-                color: "#ff4d4f",
-                fontSize: 10,
+            symbolSize: [barWidth, 10],
+            symbolOffset: [0, -5],
+            symbolPosition: "end",
+            data: bgTopData,
+            label: {
+              show: true,
+              position: "inside",
+              align: "right",
+              offset: [-30, -95],
+              color: "#fff",
+              fontSize: 10,
+              formatter: (params) => {
+                const item = this.costBenefitIndicators[params.dataIndex];
+                return `目标 ${item.target}`;
               },
-              lineStyle: {
-                color: "#ff4d4f",
-                type: "dashed",
-                width: 1,
-              },
-              data: [
-                {
-                  yAxis: 19.14,
-                },
-              ],
             },
+          },
+          // 3. 背景柱底部
+          {
+            z: 2,
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, 10],
+            symbolOffset: [0, 5],
+            symbolPosition: "start",
+            data: bgBottomData,
+          },
+          // 4. 液体内容柱体
+          {
+            z: 3,
+            type: "bar",
+            barWidth: barWidth,
+            data: contentData,
+            label: {
+              show: true,
+              position: "top",
+              distance: 2,
+              color: "#fff",
+              fontSize: 12,
+              fontWeight: "bold",
+              formatter: (params) => {
+                return rates[params.dataIndex] + "%";
+              },
+            },
+          },
+          // 5. 液体内容顶部
+          {
+            z: 4,
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, 10],
+            symbolOffset: [0, -5],
+            symbolPosition: "end",
+            data: topSymbolData,
+            label: {
+              show: true,
+              position: "inside",
+              align: "right",
+              offset: [-30, 0],
+              color: "#00F0FF",
+              fontSize: 10,
+              formatter: (params) => {
+                const item = this.costBenefitIndicators[params.dataIndex];
+                return `完成 ${item.completed}`;
+              },
+            },
+          },
+          // 6. 液体内容底部
+          {
+            z: 4,
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, 10],
+            symbolOffset: [0, 5],
+            symbolPosition: "start",
+            data: bottomSymbolData,
           },
         ],
       });
 
-      this.charts.chart2 = chart;
+      this.charts.costBenefitChart = chart;
     },
     initChartCombined(textColor, lineColor, tooltipConfig) {
       if (!this.$refs.chart3) return;
