@@ -1,11 +1,7 @@
 <template>
   <el-card
     class="today-reminders-card chart-card"
-    :body-style="{
-      padding: '10px',
-      height: 'calc(100% - 60px)',
-      overflowY: 'auto',
-    }"
+    :body-style="{ padding: '10px', overflowY: 'auto' }"
   >
     <div slot="header" class="card-header">
       <div class="header-icon">🔔</div>
@@ -134,24 +130,24 @@ export default {
 }
 
 .card-title {
-  font-size: 14px; /* 统一标题字体 */
-  font-weight: normal;
+  font-size: 16px; /* Increased from 14px */
+  font-weight: 600; /* Bolder */
   color: var(--primary-color);
   text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
 }
 
 .reminder-count {
-  font-size: 12px;
+  font-size: 13px; /* Increased from 12px */
   color: #ffffff;
   margin-top: 0;
-  font-weight: normal;
-  opacity: 0.8;
+  font-weight: 500;
+  opacity: 0.9; /* Improved opacity */
 }
 
 .reminders-list {
   display: flex;
   flex-direction: column;
-  gap: 8px; /* Standardized to 8px */
+  gap: 8px; /* Increased gap */
   height: 100%;
 }
 
@@ -167,7 +163,7 @@ export default {
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01); /* Reduced shadow */
   cursor: default;
-  height: 42px; /* Reduced to fit */
+  height: 41px; /* Increased from 38px to fill space */
   box-sizing: border-box;
 }
 
@@ -193,13 +189,14 @@ export default {
 }
 
 .reminder-time-badge {
-  font-size: 12px;
-  font-weight: normal;
+  font-size: 13px; /* Increased from 12px */
+  font-weight: 600;
   color: #555;
   background: #f0f2f5;
   padding: 2px 6px;
   border-radius: 4px;
   font-family: "Roboto Mono", monospace;
+  white-space: nowrap;
 }
 
 .reminder-item.urgent .reminder-time-badge {
@@ -213,14 +210,14 @@ export default {
 }
 
 .reminder-text {
-  font-size: 13px; /* 统一内容字体 */
+  font-size: 15px; /* Increased from 13px */
   color: var(--text-primary);
-  font-weight: normal; /* 统一字重 */
+  font-weight: 500; /* Bolder */
 }
 
 .detail-btn {
   padding: 0 4px;
-  font-size: 12px;
+  font-size: 14px; /* Increased from 12px */
   margin-left: 8px;
   color: #409eff; /* Element Blue */
   flex-shrink: 0;

@@ -163,7 +163,7 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr 1.8fr 1fr 1fr;
   gap: 4px;
-  height: 270px;
+  height: 200px; /* Reduced further per user request */
   flex-shrink: 0;
 }
 

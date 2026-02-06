@@ -3,7 +3,6 @@
     class="weekly-schedule-card chart-card"
     :body-style="{
       padding: '10px',
-      height: 'calc(100% - 60px)',
       overflowY: 'auto',
       display: 'flex',
       flexDirection: 'column',
@@ -220,18 +219,18 @@ export default {
 }
 
 .card-title {
-  font-size: 14px; /* Reduced from 16px */
-  font-weight: normal;
+  font-size: 16px; /* Increased from 14px */
+  font-weight: 600;
   color: var(--primary-color);
   text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
 }
 
 .schedule-count {
-  font-size: 12px;
+  font-size: 13px; /* Increased from 12px */
   color: #ffffff;
   margin-top: 0;
-  font-weight: normal;
-  opacity: 0.8;
+  font-weight: 500;
+  opacity: 0.9;
 }
 
 .schedule-list {
@@ -366,7 +365,7 @@ export default {
 .schedule-item {
   position: relative;
   transition: all 0.2s;
-  height: 42px; /* Enforcing height on wrapper */
+  height: 41px; /* Increased from 38px to fill space */
   box-sizing: border-box;
 }
 
@@ -387,7 +386,7 @@ export default {
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 12px;
+  font-size: 13px; /* Increased from 12px */
   font-weight: bold; /* Make text clearer */
 }
 
@@ -431,7 +430,7 @@ export default {
   transition: all 0.2s;
   align-items: center; /* Better vertical alignment */
   border: 1px solid #f0f2f5;
-  height: 42px;
+  height: 41px; /* Increased from 38px to fill space */
   box-sizing: border-box;
 }
 
@@ -472,19 +471,19 @@ export default {
 }
 
 .schedule-title {
-  font-size: 13px; /* 统一内容字体 */
-  font-weight: normal;
+  font-size: 15px; /* Increased from 13px */
+  font-weight: 500;
   color: var(--text-primary);
 }
 
 .schedule-time {
-  font-size: 12px;
+  font-size: 13px; /* Increased from 12px */
   color: var(--text-secondary);
 }
 
 .detail-btn {
   padding: 0 4px;
-  font-size: 12px;
+  font-size: 14px; /* Increased from 12px */
   margin-left: auto; /* Push to right */
   color: #409eff; /* Element Blue */
 }

@@ -2,45 +2,49 @@
   <el-card
     class="user-info-card chart-card"
     :body-style="{
-      padding: '16px',
+      padding: '12px',
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
       height: '100%',
-      gap: '12px',
+      justifyContent: 'space-between',
     }"
   >
-    <div class="date-badge">
-      <i class="el-icon-date"></i>
-      <span>{{ currentDate }}</span>
-    </div>
-    <div
-      class="theme-toggle"
-      @click="toggleTheme"
-      :title="isDark ? '切换亮色' : '切换暗色'"
-    >
-      <span class="toggle-icon">{{ isDark ? "🌙" : "☀️" }}</span>
-    </div>
-    <div class="avatar-container">
-      <div class="avatar">
-        <i
-          class="el-icon-user-solid"
-          style="font-size: 40px; color: var(--primary-color)"
-        ></i>
+    <!-- Top Row: Avatar & Identity -->
+    <div class="user-main-info">
+      <div class="avatar-section">
+        <div class="avatar">
+          <i class="el-icon-user-solid"></i>
+        </div>
+        <div class="online-indicator"></div>
       </div>
-      <div class="online-indicator"></div>
-    </div>
-    <div class="welcome-message">
-      <span class="welcome-icon">{{ greetingIcon }}</span>
-      <span class="welcome-text">{{ greetingText }}</span>
-    </div>
-    <div class="user-details">
-      <div class="user-name">{{ name }}</div>
-      <div class="user-position">{{ position }}</div>
+      <div class="identity-section">
+        <div class="name-row">
+          <span class="user-name">{{ name }}</span>
+          <div
+            class="theme-toggle"
+            @click="toggleTheme"
+            :title="isDark ? '切换亮色' : '切换暗色'"
+          >
+            {{ isDark ? "🌙" : "☀️" }}
+          </div>
+        </div>
+        <div class="user-position">{{ position }}</div>
+        <div class="welcome-row">
+          <span class="welcome-icon">{{ greetingIcon }}</span>
+          <span class="welcome-text">{{ greetingText }}</span>
+        </div>
+      </div>
     </div>
 
-    <!-- 统计信息 -->
+    <!-- Middle Row: Date & Time as a sub-header -->
+    <div class="meta-info">
+      <div class="date-badge">
+        <i class="el-icon-date"></i>
+        <span>{{ currentDate }}</span>
+      </div>
+    </div>
+
+    <!-- Bottom Row: Stats -->
     <div class="user-stats">
       <div class="stat-item">
         <div class="stat-value">{{ stats.reminders }}</div>
@@ -163,155 +167,119 @@ export default {
 };
 </script>
 
+
 <style scoped>
+/* User Info Card New Layout */
 .user-info-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-xs);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   height: 100%;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
 }
 
-.user-info-card:hover {
-  box-shadow: var(--shadow-sm);
-  border-color: #d0d7e8;
-  /* transform: translateY(-2px); Removed per user request */
-}
-
-/* 暗黑模式下的用户卡片增强 */
-.dark-theme .user-info-card {
-  border-color: #1e293b;
-  box-shadow: var(--shadow-xs);
-}
-
-.dark-theme .user-info-card:hover {
-  border-color: var(--hover-border);
-  box-shadow: var(--shadow-sm);
-  /* transform: translateY(-3px); Removed per user request */
-}
-
-.date-badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  padding: 4px 8px;
+.user-main-info {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  font-family: -apple-system, sans-serif;
-  z-index: 10;
+  gap: 15px;
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--bg-hover);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 10;
-  border: 1px solid var(--border-color);
-}
-
-.theme-toggle:hover {
-  transform: scale(1.1);
-  background: var(--primary-light);
-  border-color: var(--primary-color);
-}
-
-.toggle-icon {
-  font-size: 16px;
-  line-height: 1;
-}
-
-.date-badge i {
-  font-size: 14px;
-}
-
-.avatar-container {
+.avatar-section {
   position: relative;
-  margin-bottom: 8px; /* Reduced from 12px */
 }
 
 .avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  padding: 0;
-  background: var(--bg-hover); /* Light Tech Grey */
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  background: rgba(30, 144, 255, 0.1);
+  border: 1px solid rgba(30, 144, 255, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--primary-color); /* Navy Blue/Cyan */
-  font-size: 32px;
+  font-size: 28px;
+  color: #1e90ff;
 }
 
-/* ... existing styles ... */
-
-.welcome-message {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 4px;
+.online-indicator {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 10px;
+  height: 10px;
+  background: #00ffa3;
+  border-radius: 50%;
+  border: 2px solid #082147;
+  box-shadow: 0 0 5px #00ffa3;
 }
 
-.welcome-text {
-  font-size: 14px;
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.welcome-icon {
-  font-size: 16px;
-}
-
-.user-details {
+.identity-section {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 2px;
+}
+
+.name-row {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 4px; /* Reduced again */
-  text-align: center;
 }
 
 .user-name {
-  font-size: 18px; /* Moderately increased from original 16px */
+  font-size: 20px; /* Increased from 16px */
   font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 2px;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.theme-toggle {
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+
+.theme-toggle:hover {
+  opacity: 1;
 }
 
 .user-position {
-  font-size: 12px;
-  color: var(--text-secondary);
-  font-weight: normal;
+  font-size: 14px; /* Increased from 12px */
+  color: #b0c4de; /* Brighter grey-blue */
+  font-weight: 500;
 }
 
-/* ... existing styles ... */
+.welcome-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.welcome-text {
+  font-size: 14px; /* Increased from 11px */
+  color: #ffffff; /* Brighter */
+  font-weight: 500;
+}
+
+.meta-info {
+  margin: 8px 0;
+  padding: 4px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.date-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px; /* Increased from 11px */
+  color: #b0c4de; /* Brighter */
+  font-weight: 500;
+}
 
 .user-stats {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 100%;
-  padding: 8px 8px 4px 8px; /* Reduced back */
-  margin-top: 8px; /* Moderate margin */
-  border-top: 1px solid var(--border-color);
-  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .stat-item {
@@ -321,24 +289,22 @@ export default {
 }
 
 .stat-value {
-  font-size: 18px; /* Moderately increased from 16px */
-  font-weight: 700;
-  color: #00f0ff; /* Bright Cyan Neon */
-  line-height: 1.2;
-  text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
-  text-align: center;
+  font-size: 22px; /* Increased from 16px */
+  font-weight: 800;
+  color: #00f0ff;
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+  margin-bottom: 2px;
 }
 
 .stat-label {
-  font-size: 11px;
-  color: #ffffff;
-  white-space: nowrap;
-  text-align: center;
+  font-size: 12px; /* Increased from 10px */
+  color: #e0e6ed; /* Brighter white */
+  font-weight: 500;
 }
 
 .stat-divider {
   width: 1px;
-  height: 28px;
-  background: var(--border-color);
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
 }
 </style>

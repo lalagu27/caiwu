@@ -1,7 +1,7 @@
 <template>
   <el-card
     class="party-management-card chart-card"
-    :body-style="{ padding: '10px', height: 'calc(100% - 60px)' }"
+    :body-style="{ padding: '10px' }"
   >
     <div slot="header" class="card-header">
       <div class="header-icon">★</div>
@@ -97,8 +97,8 @@ export default {
 }
 
 .card-title {
-  font-size: 14px; /* Reduced from 16px */
-  font-weight: normal;
+  font-size: 16px; /* Increased from 14px */
+  font-weight: 600;
   color: var(--primary-color);
   text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
   line-height: 1.2;
@@ -131,7 +131,7 @@ export default {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  height: 42px; /* Reduced to 42px */
+  height: 41px; /* Increased from 38px to fill space */
   box-sizing: border-box;
 }
 
@@ -187,8 +187,8 @@ export default {
 }
 
 .module-name {
-  font-size: 13px; /* 统一内容字体 */
-  font-weight: normal;
+  font-size: 15px; /* Increased from 13px */
+  font-weight: 500;
   color: var(--text-primary);
   transition: color 0.3s;
 }
