@@ -117,7 +117,7 @@ export default {
           ],
           actMonth: [
             9.3,
-            null,
+            2.3,
             null,
             null,
             null,
@@ -135,7 +135,7 @@ export default {
           ],
           actCum: [
             9.3,
-            null,
+            11.6,
             null,
             null,
             null,
@@ -156,7 +156,7 @@ export default {
           planMonth: [12, 11, 13, 10, 11.5, 12, 12.5, 12.2, 13, 13.5, 14, 14.5],
           actMonth: [
             11.8,
-            null,
+            3.0,
             null,
             null,
             null,
@@ -173,7 +173,7 @@ export default {
           ],
           actCum: [
             11.8,
-            null,
+            14.8,
             null,
             null,
             null,
@@ -194,6 +194,28 @@ export default {
 
       const currentData = dataMapping[this.type];
 
+      // 3D Cylinder Config
+      const barWidth = 12;
+      const barGap = "10%";
+      // Left (-55%) / Right (55%)
+      const symbolOffsetLeft = ["-55%", 0];
+      const symbolOffsetRight = ["55%", 0];
+
+      // Colors
+      // Plan: Cyan (Vibrant/Eye-catching)
+      const planColorStr = {
+        top: "#00F0FF",
+        bodyStart: "rgba(0, 240, 255, 1)",
+        bodyEnd: "rgba(0, 173, 192, 0.8)",
+      };
+
+      // Actual: Bright Blue
+      const actColorStr = {
+        top: "#3B82F6",
+        bodyStart: "rgba(59, 130, 246, 1)",
+        bodyEnd: "rgba(30, 64, 175, 0.8)",
+      };
+
       const option = {
         tooltip: {
           trigger: "axis",
@@ -206,14 +228,17 @@ export default {
             let res = `<div style="font-weight:600;margin-bottom:4px;">${params[0].name}</div>`;
             params.forEach((p) => {
               if (
+                !p.seriesName ||
+                p.seriesName.includes("Cap") ||
                 p.value === null ||
-                p.seriesName === "" ||
                 typeof p.value === "undefined"
               ) {
                 return;
               }
               const marker = `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:${
-                p.color.colorStops ? p.color.colorStops[1].color : p.color
+                p.color && p.color.colorStops
+                  ? p.color.colorStops[0].color
+                  : p.color || "#fff"
               };"></span>`;
               res += `<div style="display:flex;justify-content:space-between;gap:20px;">
                 <span>${marker}${p.seriesName}</span>
@@ -227,10 +252,10 @@ export default {
           data: ["计划月销量", "实际月销量", "计划销量", "实际销量"],
           top: 10,
           left: "center",
-          itemWidth: 25, // 统一宽度以展示线段
-          itemHeight: 12,
+          itemWidth: 14,
+          itemHeight: 14,
           textStyle: { color: textColor, fontSize: 10 },
-          itemGap: 20,
+          itemGap: 15,
         },
         grid: {
           top: 100,
@@ -257,7 +282,7 @@ export default {
           ],
           axisTick: { show: false },
           axisLine: { lineStyle: { color: lineColor } },
-          axisLabel: { color: textColor, fontSize: 10 },
+          axisLabel: { color: textColor, fontSize: 10, interval: 0 },
         },
         yAxis: [
           {
@@ -267,9 +292,9 @@ export default {
             interval: currentData.y1Max / 5,
             nameTextStyle: {
               color: textColor,
-              fontSize: 10,
               align: "left",
-              padding: [0, 0, 8, 0],
+              padding: [0, 0, 5, -30],
+              fontSize: 10,
             },
             splitLine: { lineStyle: { color: lineColor, type: "dashed" } },
             axisLabel: { color: textColor, fontSize: 10 },
@@ -281,45 +306,73 @@ export default {
             interval: currentData.y2Max / 5,
             nameTextStyle: {
               color: textColor,
-              fontSize: 10,
               align: "right",
-              padding: [0, 0, 8, 0],
+              padding: [0, -30, 5, 0],
+              fontSize: 10,
             },
             splitLine: { show: false },
             axisLabel: { color: textColor, fontSize: 10 },
           },
         ],
         series: [
-          // ========== 计划月销量 (2D Bar) ==========
+          // ========== 计划月销量 (3D Cylinder - Grey/Blue) ==========
+          // Body
           {
             name: "计划月销量",
             type: "bar",
-            barWidth: 10,
-            barGap: "20%",
+            barWidth: barWidth,
+            barGap: barGap,
             data: currentData.planMonth,
             itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "rgba(163, 174, 208, 0.5)" },
-                { offset: 1, color: "rgba(163, 174, 208, 0.1)" },
+              color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                { offset: 0, color: planColorStr.bodyEnd },
+                { offset: 0.5, color: planColorStr.bodyStart },
+                { offset: 1, color: planColorStr.bodyEnd },
               ]),
-              borderRadius: [2, 2, 0, 0],
             },
           },
-          // ========== 实际月销量 (2D Bar) ==========
+          // Top Cap
+          {
+            name: "计划月销量",
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, barWidth * 0.45],
+            symbolOffset: symbolOffsetLeft,
+            symbolPosition: "end",
+            z: 12,
+            itemStyle: { color: planColorStr.top },
+            data: currentData.planMonth,
+            tooltip: { show: false },
+          },
+
+          // ========== 实际月销量 (3D Cylinder - Blue) ==========
+          // Body
           {
             name: "实际月销量",
             type: "bar",
-            barWidth: 10,
+            barWidth: barWidth,
+            barGap: barGap,
             data: currentData.actMonth,
             itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "#4A7BF7" },
-                { offset: 1, color: "rgba(74, 123, 247, 0.1)" },
+              color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                { offset: 0, color: actColorStr.bodyEnd },
+                { offset: 0.5, color: actColorStr.bodyStart },
+                { offset: 1, color: actColorStr.bodyEnd },
               ]),
-              borderRadius: [2, 2, 0, 0],
-              shadowBlur: 10,
-              shadowColor: "rgba(74, 123, 247, 0.3)",
             },
+          },
+          // Top Cap
+          {
+            name: "实际月销量",
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth, barWidth * 0.45],
+            symbolOffset: symbolOffsetRight,
+            symbolPosition: "end",
+            z: 12,
+            itemStyle: { color: actColorStr.top },
+            data: currentData.actMonth,
+            tooltip: { show: false },
           },
 
           // 累销线 (Plan)
@@ -350,7 +403,7 @@ export default {
             symbol: "circle",
             symbolSize: 8,
             itemStyle: {
-              color: "#4A7BF7",
+              color: "#4A7BF7", // Consistent with actColorStr bodyStart somewhat
               borderColor: "#fff",
               borderWidth: 2,
               shadowBlur: 10,
