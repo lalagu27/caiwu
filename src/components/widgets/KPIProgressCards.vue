@@ -583,9 +583,10 @@ export default {
             data: bgTopData,
             label: {
               show: true,
-              position: "left",
-              distance: 10,
-              color: "#fff", // Target value in white/grey
+              position: "inside", // Relative to center
+              align: "right", // Align text to the right (towards the cylinder)
+              offset: [-25, 0], // Shift left by 25px (15px radius + 10px gap)
+              color: "#fff",
               fontSize: 10,
               formatter: (params) => {
                 const item = this.reserveIndicators[params.dataIndex];
@@ -633,9 +634,10 @@ export default {
             data: topSymbolData,
             label: {
               show: true,
-              position: "left", // Completed value at liquid surface left
-              distance: 10,
-              color: "#00F0FF", // Highlight completed value
+              position: "inside",
+              align: "right",
+              offset: [-25, 0],
+              color: "#00F0FF",
               fontSize: 10,
               formatter: (params) => {
                 const item = this.reserveIndicators[params.dataIndex];
