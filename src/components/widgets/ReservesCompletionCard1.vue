@@ -120,9 +120,9 @@ export default {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: auto;
+  grid-auto-rows: 1fr; /* 让行自动填满可用高度 */
   justify-content: center;
-  align-content: center;
+  align-content: stretch; /* 拉伸填满整个高度 */
   padding: 5px 5px;
   gap: 2px 5px;
   overflow: visible;
@@ -147,7 +147,7 @@ export default {
 }
 
 .image-wrapper img {
-  width: 40px;
+  width: 50px;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.2));

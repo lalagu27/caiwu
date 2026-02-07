@@ -245,12 +245,12 @@ export default {
 }
 
 .right-col > .chart-card {
-  flex: 1 1 0;
+  flex: 2 1 38px; /* flex-grow:2, flex-basis:38px(头部高度)，内容区域占2份 */
   min-height: 0;
 }
 
 .right-col > .chart-card:nth-child(3) {
-  flex: 0.7 1 0;
+  flex: 1 1 38px; /* 党工群团只有1行内容，占1份 */
 }
 
 .center-col {
