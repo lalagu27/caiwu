@@ -60,8 +60,17 @@
             <span class="year-label">[2026]</span>
           </div>
         </div>
-        <div class="chart-container-full">
-          <div class="kpi-chart" ref="techChart"></div>
+        <div class="tech-split-layout">
+          <div class="tech-chart-side">
+            <div class="kpi-chart" ref="techChart"></div>
+          </div>
+          <div class="tech-project-side">
+            <div class="project-header">
+              <span class="project-title">重点项目执行进度</span>
+              <span class="year-label">[{{ currentYear }}年]</span>
+            </div>
+            <div class="projects-list" ref="projectsChart"></div>
+          </div>
         </div>
       </div>
 
@@ -166,6 +175,20 @@ export default {
           rate: 40.47,
         },
       ],
+      projects: [
+        {
+          name: "《1500米级水下采油树设计、制造及测试技术》",
+          value: 45,
+        },
+        {
+          name: "《海上超高温高压钻完井关键技术研究及示范应用》",
+          value: 78,
+        },
+        {
+          name: "《超深水超浅层气田开发关键技术研究及工程示范》",
+          value: 92,
+        },
+      ],
       currentYear: new Date().getFullYear(),
     };
   },
@@ -221,6 +244,7 @@ export default {
 
       this.initTechChart(textColor, lineColor, tooltipConfig);
       this.initIndustryChart(textColor, lineColor, tooltipConfig);
+      this.initProjectsChart(textColor, lineColor);
     },
     // New function to initialize the 4 gauge charts
     initGaugeCharts(textColor, lineColor, themeBlue) {
@@ -1494,6 +1518,187 @@ export default {
 
       this.charts.industryChart = chart;
     },
+    // 初始化重点项目执行进度图表
+    initProjectsChart(textColor, lineColor) {
+      if (!this.$refs.projectsChart) return;
+
+      // Dispose old if exists
+      if (this.charts.projectsChart) {
+        this.charts.projectsChart.dispose();
+      }
+
+      let chart = echarts.init(this.$refs.projectsChart);
+
+      const isDark = document.body.classList.contains("dark-theme");
+
+      // 交替颜色
+      const colors = [
+        {
+          // 青色
+          main: "#00F0FF",
+          track: "rgba(0, 240, 255, 0.2)",
+          shadow: "rgba(0, 240, 255, 0.6)",
+        },
+        {
+          // 蓝色
+          main: "#4A7BF7",
+          track: "rgba(74, 123, 247, 0.2)",
+          shadow: "rgba(74, 123, 247, 0.6)",
+        },
+      ];
+
+      // 脉冲图标路径
+      const pulsePath = "path://M0,5 L3,5 L5,1 L7,9 L9,5 L12,5";
+
+      const option = {
+        grid: {
+          top: 15,
+          right: 30,
+          bottom: 5,
+          left: 10,
+          containLabel: false,
+        },
+        xAxis: {
+          type: "value",
+          min: 0,
+          max: 100,
+          show: false,
+        },
+        yAxis: {
+          type: "category",
+          data: this.projects.map((p) => p.name),
+          axisLine: { show: false },
+          axisTick: { show: false },
+          axisLabel: { show: false },
+          splitLine: { show: false },
+          inverse: true, // 从上到下
+        },
+        series: [
+          // 1. 背景轨道（细线）
+          {
+            name: "Track",
+            type: "bar",
+            z: 1,
+            barGap: "-100%",
+            barCategoryGap: "60%", // 项目之间的间距
+            data: this.projects.map((p, i) => ({
+              value: 100,
+              itemStyle: {
+                color: colors[i % 2].track,
+                borderRadius: 2,
+              },
+            })),
+            barWidth: 2, // 细线
+            silent: true,
+          },
+          // 2. 进度条（细线带阴影）
+          {
+            name: "Progress",
+            type: "bar",
+            z: 2,
+            barCategoryGap: "60%",
+            data: this.projects.map((p, i) => ({
+              value: p.value,
+              itemStyle: {
+                color: colors[i % 2].main,
+                borderRadius: 2,
+                shadowColor: colors[i % 2].shadow,
+                shadowBlur: 6,
+              },
+            })),
+            barWidth: 2,
+            label: { show: false },
+          },
+          // 3. 发光端点
+          {
+            name: "Knob",
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: 8,
+            symbolOffset: [0, 0],
+            z: 3,
+            symbolPosition: "end",
+            data: this.projects.map((p, i) => ({
+              value: p.value,
+              itemStyle: {
+                color: "#fff",
+                borderWidth: 2,
+                borderColor: colors[i % 2].main,
+                shadowColor: colors[i % 2].shadow,
+                shadowBlur: 6,
+              },
+            })),
+          },
+          // 4. 项目标签（左上带脉冲图标）
+          {
+            name: "Label",
+            type: "scatter",
+            symbol: pulsePath,
+            symbolSize: [12, 10],
+            symbolOffset: [0, -15],
+            clip: false,
+            z: 4,
+            data: this.projects.map((p, i) => ({
+              value: [0, i],
+              name: p.name,
+              itemStyle: {
+                color: colors[i % 2].main,
+              },
+              label: {
+                show: true,
+                position: "right",
+                formatter: `{p|${p.name}}`,
+                align: "left",
+                verticalAlign: "middle",
+                offset: [4, 0],
+                rich: {
+                  p: {
+                    color: isDark ? "#fff" : "#333",
+                    fontSize: 10,
+                    fontWeight: 500,
+                  },
+                },
+              },
+            })),
+          },
+          // 5. 百分比标签（右侧）
+          {
+            name: "Value",
+            type: "scatter",
+            symbolSize: 0,
+            z: 4,
+            data: this.projects.map((p, i) => [100, i]),
+            label: {
+              show: true,
+              position: "right",
+              formatter: (params) => {
+                const val = this.projects[params.data[1]].value;
+                return `{val|${val}}{unit|%}`;
+              },
+              rich: {
+                val: {
+                  color: "#fff",
+                  fontSize: 14,
+                  fontWeight: "bold",
+                  fontStyle: "italic",
+                  padding: [0, 2, 0, 0],
+                },
+                unit: {
+                  color: colors[0].shadow,
+                  fontSize: 10,
+                  padding: [0, 0, 3, 0],
+                },
+              },
+              color: (params) => colors[params.data[1] % 2].main,
+            },
+          },
+        ],
+      };
+
+      this.chart = chart;
+      chart.setOption(option);
+      this.charts.projectsChart = chart;
+    },
   },
 };
 </script>
@@ -1872,5 +2077,51 @@ export default {
 
 .num-font {
   font-family: "DIN Alternate", "Helvetica Neue", Helvetica, sans-serif; /* Use tech font if available */
+}
+
+/* 科技创新卡片的分栏布局 */
+.tech-split-layout {
+  flex: 1;
+  display: flex;
+  gap: 8px;
+  min-height: 0;
+}
+
+.tech-chart-side {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.tech-project-side {
+  flex: 1.5;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 8px;
+  border: 1px solid rgba(0, 240, 255, 0.1);
+}
+
+.project-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+}
+
+.project-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.projects-list {
+  flex: 1;
+  min-height: 0;
 }
 </style>
