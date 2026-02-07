@@ -33,8 +33,8 @@ export default {
     return {
       currentDate: "",
       items: [
-        { value: "1413", unit: "人", label: "在岗员工" },
-        { value: "36.6", unit: "岁", label: "平均年龄" },
+        { value: "142", unit: "个", label: "党组织" },
+        { value: "45", unit: "%", label: "党员占比" },
       ],
     };
   },
@@ -113,30 +113,24 @@ export default {
 
 .image-gallery {
   flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-content: center; /* 垂直居中 */
-  padding: 20px 10px; /* 增加更多上下内边距，因为只有一行且数字较大 */
-  gap: 10px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  width: 100%;
-  height: 100%;
-}
-
-.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: min-content;
   justify-content: center;
+  align-content: center;
+  padding: 10px 20px;
+  gap: 10px;
+  overflow: hidden;
+  width: 100%;
 }
 
 .image-item {
-  width: calc((100% - 30px) / 4);
-  height: auto; /* Changed from 45% to auto to remove vertical gap */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 5px;
+  min-width: 0;
+  padding: 2px;
 }
 
 .image-wrapper {
@@ -148,11 +142,10 @@ export default {
 }
 
 .image-wrapper img {
-  width: 60%; /* 进一步缩小图片 */
+  width: 40px;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.2));
-  transition: transform 0.3s ease;
 }
 
 .image-wrapper:hover img {
@@ -162,16 +155,16 @@ export default {
 
 .image-number {
   position: absolute;
-  top: -20%; /* Moved higher again per user request */
+  top: -10px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 20px; /* 缩小数字字号 */
+  font-size: 14px;
   font-weight: bold;
   color: #fff;
   text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
   pointer-events: none;
   z-index: 10;
-  white-space: nowrap; /* Prevent wrapping for longer text */
+  white-space: nowrap;
 }
 
 .image-unit {
@@ -180,10 +173,10 @@ export default {
 }
 
 .image-label {
-  font-size: 12px; /* 缩小标签字号 */
-  color: #fff; /* Changed to white */
+  font-size: 11px;
+  color: #fff;
   text-align: center;
-  white-space: normal;
-  margin-top: -5px; /* Pull up slightly closer to image */
+  white-space: nowrap;
+  margin-top: -3px;
 }
 </style>

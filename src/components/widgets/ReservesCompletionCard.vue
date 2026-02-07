@@ -115,26 +115,24 @@ export default {
 
 .image-gallery {
   flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-content: center;
-  padding: 30px 10px 10px 10px; /* 修复后的 padding */
-  gap: 10px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: min-content;
+  justify-content: center;
+  align-content: start;
+  padding: 8px 5px;
+  gap: 5px;
+  overflow: hidden;
   width: 100%;
-  height: 100%;
 }
 
 .image-item {
-  width: calc((100% - 30px) / 4);
-  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 5px;
+  min-width: 0;
+  padding: 2px;
 }
 
 .image-wrapper {
@@ -146,11 +144,10 @@ export default {
 }
 
 .image-wrapper img {
-  width: 60%; /* 进一步缩小图片 */
+  width: 45px;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.2));
-  transition: transform 0.3s ease;
 }
 
 .image-wrapper:hover img {
@@ -160,16 +157,16 @@ export default {
 
 .image-number {
   position: absolute;
-  top: 15%; /* 修复后的 top */
+  top: -10px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 18px; /* 修复后的字号 */
+  font-size: 14px;
   font-weight: bold;
   color: #fff;
   text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
   pointer-events: none;
   z-index: 10;
-  white-space: nowrap; /* Prevent wrapping for longer text */
+  white-space: nowrap;
 }
 
 .image-unit {
@@ -178,11 +175,11 @@ export default {
 }
 
 .image-label {
-  font-size: 12px; /* 缩小标签字号 */
-  color: #fff; /* Changed to white */
+  font-size: 10px;
+  color: #fff;
   text-align: center;
-  white-space: normal; /* Allow wrapping */
+  white-space: nowrap;
   line-height: 1.2;
-  margin-top: -5px; /* Pull up slightly closer to image */
+  margin-top: -3px;
 }
 </style>

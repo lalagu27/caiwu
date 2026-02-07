@@ -194,21 +194,17 @@ export default {
 
 /* 左右列的高度分配 */
 .left-col > .chart-card {
-  min-height: calc(33.33vh + 30px); /* 每个卡片基础高度加30px */
+  min-height: 0;
   flex: 1;
 }
 
-.right-col > .chart-card:nth-child(1),
-.right-col > .chart-card:nth-child(2) {
-  flex: 0.3;
+.right-col > .chart-card {
+  flex: 1 1 0;
+  min-height: 0;
 }
 
 .right-col > .chart-card:nth-child(3) {
-  flex: 0.2; /* 党工群团卡片，项目少所以设置更小 */
-}
-
-.right-col > .chart-card:nth-child(4) {
-  flex: 0.3; /* 党工群团卡片，项目少所以设置更小 */
+  flex: 0.7 1 0;
 }
 
 .center-col {

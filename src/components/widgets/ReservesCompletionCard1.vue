@@ -118,30 +118,24 @@ export default {
 
 .image-gallery {
   flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-content: center; /* 改为居中对齐 */
-  padding: 15px 10px; /* 增加上下内边距 */
-  gap: 10px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  width: 100%;
-  height: 100%;
-}
-
-.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: auto;
   justify-content: center;
+  align-content: center;
+  padding: 5px 5px;
+  gap: 2px 5px;
+  overflow: visible;
+  width: 100%;
 }
 
 .image-item {
-  width: calc((100% - 30px) / 4);
-  height: auto; /* Changed from 45% to auto to remove vertical gap */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 5px;
+  min-width: 0;
+  padding: 2px;
 }
 
 .image-wrapper {
@@ -149,15 +143,14 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .image-wrapper img {
-  width: 60%; /* 进一步缩小图片 */
+  width: 40px;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.2));
-  transition: transform 0.3s ease;
 }
 
 .image-wrapper:hover img {
@@ -167,16 +160,16 @@ export default {
 
 .image-number {
   position: absolute;
-  top: -20%; /* Moved higher again per user request */
+  top: -10px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 20px; /* 缩小数字字号 */
+  font-size: 13px;
   font-weight: bold;
   color: #fff;
   text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
   pointer-events: none;
   z-index: 10;
-  white-space: nowrap; /* Prevent wrapping for longer text */
+  white-space: nowrap;
 }
 
 .image-unit {
@@ -185,10 +178,11 @@ export default {
 }
 
 .image-label {
-  font-size: 12px; /* 缩小标签字号 */
-  color: #fff; /* Changed to white */
+  font-size: 9px;
+  color: #fff;
   text-align: center;
-  white-space: normal; /* Allow wrapping */
-  margin-top: -5px; /* Pull up slightly closer to image */
+  white-space: nowrap;
+  margin-top: -2px;
+  line-height: 1.1;
 }
 </style>
