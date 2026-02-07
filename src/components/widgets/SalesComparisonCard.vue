@@ -169,22 +169,22 @@ export default {
 }
 
 .kpi-value {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: bold;
   color: #fff;
   line-height: 1.2;
 }
 
 .kpi-unit {
-  font-size: 10px;
-  color: var(--text-secondary);
+  font-size: 14px;
+  color: #fff;
   line-height: 1;
   margin-top: 2px;
 }
 
 .kpi-label {
-  font-size: 12px;
-  color: var(--text-secondary);
+  font-size: 14px;
+  color: #fff;
   margin-top: 4px;
   text-align: center;
 }

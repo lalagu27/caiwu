@@ -1104,11 +1104,11 @@ export default {
       // 定义颜色
       const colors = [
         {
-          top: "#00F0FF",
-          bottom: "#008B8B",
-          bg: "rgba(0, 240, 255, 0.2)",
-          bgTop: "#0C6A72",
-        }, // 青色 - 研发经费
+          top: "#22C55E",
+          bottom: "#16A34A",
+          bg: "rgba(34, 197, 94, 0.2)",
+          bgTop: "#15803D",
+        }, // 绿色 - 研发经费
       ];
 
       const barWidth = 40;
