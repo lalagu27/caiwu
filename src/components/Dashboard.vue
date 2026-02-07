@@ -19,6 +19,9 @@
         <!-- 销量情况运行 (替换油气销售对比) -->
         <sales-comparison-card class="chart-card production-card" />
 
+        <!-- 在琼经济贡献 -->
+        <hainan-economic-card class="chart-card" />
+
         <!-- 完成率统计 - 多色环形图（延伸到底部）-->
         <!-- 月度产值 - 替换油气产量分月对比 -->
         <!-- <monthly-output-value-card class="chart-card chart-tall" /> -->
@@ -65,6 +68,7 @@ import ProjectProgressCard from "./widgets/ProjectProgressCard.vue";
 import CenterVisual from "./widgets/CenterVisual.vue";
 import DrillingDynamicsCard from "./widgets/DrillingDynamicsCard.vue";
 import SalesComparisonCard from "./widgets/SalesComparisonCard.vue";
+import HainanEconomicCard from "./widgets/HainanEconomicCard.vue";
 import MonthlyOutputValueCard from "./widgets/MonthlyOutputValueCard.vue";
 import OilGasProductionMonthlyCard from "./widgets/OilGasProductionMonthlyCard.vue";
 
@@ -87,12 +91,14 @@ export default {
     CenterVisual,
     DrillingDynamicsCard,
     SalesComparisonCard,
+    HainanEconomicCard,
     MonthlyOutputValueCard,
     OilGasProductionMonthlyCard,
   },
   mounted() {
     this.$nextTick(() => {
       this.initCharts();
+      this.handleScale(); // 初始化时计算缩放
       window.addEventListener("resize", this.handleResize);
       window.addEventListener("theme-change", this.handleThemeChange);
     });
@@ -108,6 +114,9 @@ export default {
     return {
       charts: {},
       currentDate: "",
+      // 设计稿基准尺寸
+      designWidth: 1920,
+      designHeight: 1080,
     };
   },
   created() {
@@ -117,7 +126,39 @@ export default {
       .padStart(2, "0")}`;
   },
   methods: {
+    // 计算并应用缩放比例
+    handleScale() {
+      const dashboard = this.$el;
+      if (!dashboard) return;
+
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+
+      // 计算宽度和高度的缩放比例，取较小值以确保完整显示
+      const scaleX = windowWidth / this.designWidth;
+      const scaleY = windowHeight / this.designHeight;
+      const scale = Math.min(scaleX, scaleY);
+
+      // 应用缩放变换
+      dashboard.style.transform = `scale(${scale})`;
+      dashboard.style.transformOrigin = "top left";
+      dashboard.style.width = `${this.designWidth}px`;
+      dashboard.style.height = `${this.designHeight}px`;
+
+      // 调整父容器以适应缩放后的大小
+      const scaledWidth = this.designWidth * scale;
+      const scaledHeight = this.designHeight * scale;
+
+      // 居中显示（如果需要）
+      const marginLeft = (windowWidth - scaledWidth) / 2;
+      const marginTop = (windowHeight - scaledHeight) / 2;
+      dashboard.style.marginLeft = marginLeft > 0 ? `${marginLeft}px` : "0";
+      dashboard.style.marginTop = marginTop > 0 ? `${marginTop}px` : "0";
+    },
     handleResize() {
+      // 调整缩放
+      this.handleScale();
+      // 更新图表尺寸
       Object.values(this.charts).forEach((chart) => {
         if (chart) chart.resize();
       });
@@ -154,13 +195,14 @@ export default {
 
 <style scoped>
 .dashboard {
-  width: 100%;
-  height: 100vh;
+  /* 固定设计稿尺寸，由JS进行缩放 */
+  width: 1920px;
+  height: 1080px;
   display: flex;
   flex-direction: column;
   gap: 4px;
   padding: 4px;
-  overflow: hidden; /* 不允许滚动，正好一页显示 */
+  overflow: hidden;
   box-sizing: border-box;
 }
 
@@ -169,7 +211,7 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr 1.8fr 1fr 1fr;
   gap: 4px;
-  height: 195px; /* 增加60px */
+  height: 195px; /* 固定高度 */
   flex-shrink: 0;
 }
 
@@ -196,6 +238,10 @@ export default {
 .left-col > .chart-card {
   min-height: 0;
   flex: 1;
+}
+
+.left-col > .chart-card:first-child {
+  flex: 2;
 }
 
 .right-col > .chart-card {
