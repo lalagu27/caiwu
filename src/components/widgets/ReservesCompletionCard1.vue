@@ -147,7 +147,7 @@ export default {
 }
 
 .image-wrapper img {
-  width: 50px;
+  width: 65px;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.2));
@@ -160,10 +160,10 @@ export default {
 
 .image-number {
   position: absolute;
-  top: -10px;
+  top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 13px;
+  font-size: 17px;
   font-weight: bold;
   color: #fff;
   text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
@@ -178,7 +178,7 @@ export default {
 }
 
 .image-label {
-  font-size: 9px;
+  font-size: 11px;
   color: #fff;
   text-align: center;
   white-space: nowrap;
