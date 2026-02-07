@@ -58,7 +58,7 @@ export default {
         {
           label: "全员劳动生产率",
           val: 1194,
-          unit: "万元/人",
+          unit: "万元/人年",
           img: imgC1,
           shadowColor: "#00F0FF", // Cyan Blue
         },
