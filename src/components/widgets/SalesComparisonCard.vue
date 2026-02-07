@@ -1,17 +1,18 @@
 <template>
   <el-card
-    class="chart-card"
+    class="kpi-card"
     :body-style="{
       padding: '0px',
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
+      height: '100%',
     }"
   >
-    <div slot="header" class="chart-header">
+    <div slot="header" class="card-header">
       <h3>
         <div class="header-icon"></div>
-        销量情况运行
+        国资委"一利五率"
         <span
           style="
             font-size: 12px;
@@ -22,431 +23,93 @@
           >[2026]</span
         >
       </h3>
-      <div class="header-actions">
-        <div class="custom-toggle">
-          <div
-            class="toggle-item"
-            :class="{ active: type === 'gas' }"
-            @click="type = 'gas'"
-          >
-            天然气
-          </div>
-          <div
-            class="toggle-item"
-            :class="{ active: type === 'oil' }"
-            @click="type = 'oil'"
-          >
-            凝析油
-          </div>
-        </div>
-      </div>
     </div>
 
-    <div class="chart-wrapper">
-      <div class="chart-body" ref="chart"></div>
+    <div class="kpi-container">
+      <div class="kpi-item" v-for="(item, index) in kpiData" :key="index">
+        <div class="image-wrapper">
+          <img :src="item.img" alt="kpi-ring" />
+          <div class="kpi-content-overlay">
+            <div
+              class="kpi-value"
+              :style="{ textShadow: '0 0 10px ' + item.shadowColor }"
+            >
+              {{ item.val }}
+            </div>
+            <div class="kpi-unit">{{ item.unit }}</div>
+          </div>
+        </div>
+        <div class="kpi-label">{{ item.label }}</div>
+      </div>
     </div>
   </el-card>
 </template>
 
 <script>
-import * as echarts from "echarts";
+import imgC1 from "@/assets/c1.png";
+import imgC2 from "@/assets/c2.png";
+import imgC3 from "@/assets/c3.png";
 
 export default {
-  name: "SalesComparisonCard",
+  name: "SASACKPICard",
   data() {
     return {
-      chart: null,
-      type: "gas", // gas | oil
-      resizeObserver: null,
+      kpiData: [
+        {
+          label: "全员劳动生产率",
+          val: 1194,
+          unit: "万元/人",
+          img: imgC1,
+          shadowColor: "#00F0FF", // Cyan Blue
+        },
+        {
+          label: "研发投入强度",
+          val: 3.94,
+          unit: "%",
+          img: imgC2,
+          shadowColor: "#35E56B", // Bright Green
+        },
+        {
+          label: "营业收现率",
+          val: 100,
+          unit: "%",
+          img: imgC3,
+          shadowColor: "#FFD700", // Gold
+        },
+      ],
     };
-  },
-  watch: {
-    type() {
-      this.initChart();
-    },
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.initChart();
-      window.addEventListener("resize", this.handleResize);
-      window.addEventListener("theme-change", this.handleThemeChange);
-      if (this.$refs.chart) {
-        this.resizeObserver = new ResizeObserver(() => {
-          this.handleResize();
-        });
-        this.resizeObserver.observe(this.$refs.chart.parentNode);
-      }
-    });
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.handleResize);
-    window.removeEventListener("theme-change", this.handleThemeChange);
-    if (this.resizeObserver) {
-      this.resizeObserver.disconnect();
-      this.resizeObserver = null;
-    }
-    if (this.chart) {
-      this.chart.dispose();
-    }
-  },
-  methods: {
-    handleResize() {
-      if (this.chart) {
-        this.chart.resize();
-      }
-    },
-    handleThemeChange() {
-      this.initChart();
-    },
-    initChart() {
-      if (!this.$refs.chart) return;
-      if (this.chart) {
-        this.chart.dispose();
-      }
-      this.chart = echarts.init(this.$refs.chart);
-
-      const isDark = document.body.classList.contains("dark-theme");
-      const textColor = isDark ? "#ffffff" : "#666";
-      const lineColor = isDark ? "rgba(255, 255, 255, 0.15)" : "#eee";
-
-      // 模拟数据 (销量数据)
-      const dataMapping = {
-        gas: {
-          planMonth: [
-            9.5, 8.5, 9.8, 8.2, 9.2, 9.7, 10.1, 9.9, 10.2, 10.5, 10.8, 11.2,
-          ],
-          actMonth: [
-            9.3,
-            2.3,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-          ],
-          planCum: [
-            9.5, 17.88, 27.68, 35.88, 45.08, 54.78, 64.88, 74.78, 84.98, 95.48,
-            106.28, 117.48,
-          ],
-          actCum: [
-            9.3,
-            11.6,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-          ],
-          y1Max: 15,
-          y2Max: 150,
-          unitLeft: "月销气 (亿方)",
-          unitRight: "年销气 (亿方)",
-        },
-        oil: {
-          planMonth: [12, 11, 13, 10, 11.5, 12, 12.5, 12.2, 13, 13.5, 14, 14.5],
-          actMonth: [
-            11.8,
-            3.0,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-          ],
-          planCum: [
-            12, 23, 36, 46, 57.5, 69.5, 82, 94.2, 107.2, 120.7, 134.7, 149.2,
-          ],
-          actCum: [
-            11.8,
-            14.8,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-          ],
-          y1Max: 20,
-          y2Max: 200,
-          unitLeft: "月销油 (万吨)",
-          unitRight: "年销油 (万吨)",
-        },
-      };
-
-      const currentData = dataMapping[this.type];
-
-      // 3D Cylinder Config
-      const barWidth = 12;
-      const barGap = "10%";
-      // Left (-55%) / Right (55%)
-      const symbolOffsetLeft = ["-55%", 0];
-      const symbolOffsetRight = ["55%", 0];
-
-      // Colors
-      // Plan: Cyan (Vibrant/Eye-catching)
-      const planColorStr = {
-        top: "#00F0FF",
-        bodyStart: "rgba(0, 240, 255, 1)",
-        bodyEnd: "rgba(0, 173, 192, 0.8)",
-      };
-
-      // Actual: Bright Blue
-      const actColorStr = {
-        top: "#3B82F6",
-        bodyStart: "rgba(59, 130, 246, 1)",
-        bodyEnd: "rgba(30, 64, 175, 0.8)",
-      };
-
-      const option = {
-        tooltip: {
-          trigger: "axis",
-          backgroundColor: "rgba(15, 22, 41, 0.9)",
-          borderColor: "#334155",
-          borderWidth: 1,
-          textStyle: { color: "#CBD5E1", fontSize: 12 },
-          axisPointer: { type: "shadow" },
-          formatter: (params) => {
-            let res = `<div style="font-weight:600;margin-bottom:4px;">${params[0].name}</div>`;
-            params.forEach((p) => {
-              if (
-                !p.seriesName ||
-                p.seriesName.includes("Cap") ||
-                p.value === null ||
-                typeof p.value === "undefined"
-              ) {
-                return;
-              }
-              const marker = `<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:${
-                p.color && p.color.colorStops
-                  ? p.color.colorStops[0].color
-                  : p.color || "#fff"
-              };"></span>`;
-              res += `<div style="display:flex;justify-content:space-between;gap:20px;">
-                <span>${marker}${p.seriesName}</span>
-                <span style="font-weight:600;">${p.value}</span>
-              </div>`;
-            });
-            return res;
-          },
-        },
-        legend: {
-          data: ["计划月销量", "实际月销量", "计划销量", "实际销量"],
-          top: 10,
-          left: "center",
-          itemWidth: 14,
-          itemHeight: 14,
-          textStyle: { color: textColor, fontSize: 10 },
-          itemGap: 15,
-        },
-        grid: {
-          top: 100,
-          left: 10,
-          right: 10,
-          bottom: 10,
-          containLabel: true,
-        },
-        xAxis: {
-          type: "category",
-          data: [
-            "1月",
-            "2月",
-            "3月",
-            "4月",
-            "5月",
-            "6月",
-            "7月",
-            "8月",
-            "9月",
-            "10月",
-            "11月",
-            "12月",
-          ],
-          axisTick: { show: false },
-          axisLine: { lineStyle: { color: lineColor } },
-          axisLabel: { color: textColor, fontSize: 10, interval: 0 },
-        },
-        yAxis: [
-          {
-            type: "value",
-            name: currentData.unitLeft,
-            max: currentData.y1Max,
-            interval: currentData.y1Max / 5,
-            nameTextStyle: {
-              color: textColor,
-              align: "left",
-              padding: [0, 0, 5, -30],
-              fontSize: 10,
-            },
-            splitLine: { lineStyle: { color: lineColor, type: "dashed" } },
-            axisLabel: { color: textColor, fontSize: 10 },
-          },
-          {
-            type: "value",
-            name: currentData.unitRight,
-            max: currentData.y2Max,
-            interval: currentData.y2Max / 5,
-            nameTextStyle: {
-              color: textColor,
-              align: "right",
-              padding: [0, -30, 5, 0],
-              fontSize: 10,
-            },
-            splitLine: { show: false },
-            axisLabel: { color: textColor, fontSize: 10 },
-          },
-        ],
-        series: [
-          // ========== 计划月销量 (3D Cylinder - Cyan) ==========
-          // Body
-          {
-            name: "计划月销量",
-            type: "bar",
-            barWidth: barWidth,
-            barGap: barGap,
-            data: currentData.planMonth,
-            itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                { offset: 0, color: planColorStr.bodyEnd },
-                { offset: 0.5, color: planColorStr.bodyStart },
-                { offset: 1, color: planColorStr.bodyEnd },
-              ]),
-            },
-          },
-          // Top Cap
-          {
-            name: "计划月销量",
-            type: "pictorialBar",
-            symbol: "circle",
-            symbolSize: [barWidth, barWidth * 0.45],
-            symbolOffset: symbolOffsetLeft,
-            symbolPosition: "end",
-            z: 12,
-            itemStyle: { color: planColorStr.top },
-            data: currentData.planMonth,
-            tooltip: { show: false },
-          },
-
-          // ========== 实际月销量 (3D Cylinder - Blue) ==========
-          // Body
-          {
-            name: "实际月销量",
-            type: "bar",
-            barWidth: barWidth,
-            barGap: barGap,
-            data: currentData.actMonth,
-            itemStyle: {
-              color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                { offset: 0, color: actColorStr.bodyEnd },
-                { offset: 0.5, color: actColorStr.bodyStart },
-                { offset: 1, color: actColorStr.bodyEnd },
-              ]),
-            },
-          },
-          // Top Cap
-          {
-            name: "实际月销量",
-            type: "pictorialBar",
-            symbol: "circle",
-            symbolSize: [barWidth, barWidth * 0.45],
-            symbolOffset: symbolOffsetRight,
-            symbolPosition: "end",
-            z: 12,
-            itemStyle: { color: actColorStr.top },
-            data: currentData.actMonth,
-            tooltip: { show: false },
-          },
-
-          // 累销线 (Plan)
-          {
-            name: "计划销量",
-            type: "line",
-            yAxisIndex: 1,
-            z: 20,
-            data: currentData.planCum,
-            smooth: true,
-            showSymbol: false,
-            lineStyle: { color: "#FFD700", width: 3 },
-            itemStyle: {
-              color: "#FFD700",
-              shadowBlur: 5,
-              shadowColor: "rgba(255, 215, 0, 0.5)",
-            },
-          },
-          // 累销线 (Actual)
-          {
-            name: "实际销量",
-            type: "line",
-            yAxisIndex: 1,
-            z: 20,
-            data: currentData.actCum,
-            connectNulls: true,
-            smooth: true,
-            symbol: "circle",
-            symbolSize: 8,
-            itemStyle: {
-              color: "#4A7BF7",
-              borderColor: "#fff",
-              borderWidth: 2,
-              shadowBlur: 10,
-              shadowColor: "rgba(74, 123, 247, 0.5)",
-            },
-            lineStyle: { color: "#4A7BF7", width: 3 },
-          },
-        ],
-      };
-
-      this.chart.setOption(option, true);
-    },
   },
 };
 </script>
 
 <style scoped>
-.chart-card {
+.kpi-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  box-shadow: none; /* 移除阴影以对齐整体风格 */
+  box-shadow: none;
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
 }
 
-.chart-card ::v-deep .el-card__header {
+.kpi-card ::v-deep .el-card__header {
   padding: 0 12px;
   height: 48px;
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
 }
 
-.chart-header {
+.card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
 
-.chart-header h3 {
+.card-header h3 {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
@@ -460,51 +123,69 @@ export default {
   display: none;
 }
 
-.header-actions {
+.kpi-container {
+  flex: 1;
   display: flex;
-  gap: 12px;
+  justify-content: space-around;
   align-items: center;
+  padding: 10px;
+  gap: 10px;
 }
 
-.custom-toggle {
+.kpi-item {
   display: flex;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
-  padding: 2px;
-  border: 1px solid var(--border-color);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 }
 
-.toggle-item {
+.image-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  margin-bottom: 8px;
+}
+
+.image-wrapper img {
+  width: 80%; /* 稍微放大图片以匹配仪表盘的视觉效果 */
+  height: auto;
+  object-fit: contain;
+}
+
+.kpi-content-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 4px; /* 微调垂直居中 */
+}
+
+.kpi-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.kpi-unit {
+  font-size: 10px;
+  color: var(--text-secondary);
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.kpi-label {
   font-size: 12px;
   color: var(--text-secondary);
-  padding: 2px 10px;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: all 0.3s;
-}
-
-.toggle-item:hover {
-  color: var(--text-primary);
-}
-
-.toggle-item.active {
-  background: var(--primary-color);
-  color: var(--primary-dark);
-  font-weight: 600;
-  box-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
-}
-
-.chart-wrapper {
-  flex: 1;
-  min-height: 0;
-  position: relative;
-  width: 100%;
-  background: transparent;
-  border: none;
-}
-
-.chart-body {
-  width: 100%;
-  height: 100%;
+  margin-top: 4px;
+  text-align: center;
 }
 </style>
