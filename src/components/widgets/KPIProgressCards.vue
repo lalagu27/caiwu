@@ -460,11 +460,11 @@ export default {
           bgTop: "#0C6A72",
         }, // Cyan
         {
-          top: "#00F0FF",
-          bottom: "#008B8B",
-          bg: "rgba(0, 240, 255, 0.2)",
-          bgTop: "#0C6A72",
-        }, // Cyan
+          top: "#A855F7",
+          bottom: "#7C3AED",
+          bg: "rgba(168, 85, 247, 0.2)",
+          bgTop: "#5B21B6",
+        }, // Purple
         {
           top: "#4A7BF7",
           bottom: "#4169E1",
