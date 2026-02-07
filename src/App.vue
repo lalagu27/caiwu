@@ -21,30 +21,22 @@ export default {
 
 <style scoped>
 #app {
-  height: 100vh;
   width: 100%;
+  height: 100%;
   background-color: var(--bg-main);
   color: var(--text-primary);
   overflow: hidden;
 }
 
 .main-content {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  padding-top: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
 .content-body {
-  flex: 1;
-  padding: 0;
   width: 100%;
-  /* Removed max-width */
-  margin: 0; /* Consistent margin */
-  box-sizing: border-box;
+  height: 100%;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 </style>

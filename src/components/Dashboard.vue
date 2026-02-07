@@ -134,26 +134,19 @@ export default {
       const windowWidth = window.innerWidth;
       const windowHeight = window.innerHeight;
 
-      // 计算宽度和高度的缩放比例，取较小值以确保完整显示
+      // 分别计算宽度和高度的缩放比例，充满整个屏幕
       const scaleX = windowWidth / this.designWidth;
       const scaleY = windowHeight / this.designHeight;
-      const scale = Math.min(scaleX, scaleY);
 
-      // 应用缩放变换
-      dashboard.style.transform = `scale(${scale})`;
+      // 应用非等比缩放变换，充满屏幕
+      dashboard.style.transform = `scale(${scaleX}, ${scaleY})`;
       dashboard.style.transformOrigin = "top left";
       dashboard.style.width = `${this.designWidth}px`;
       dashboard.style.height = `${this.designHeight}px`;
 
-      // 调整父容器以适应缩放后的大小
-      const scaledWidth = this.designWidth * scale;
-      const scaledHeight = this.designHeight * scale;
-
-      // 居中显示（如果需要）
-      const marginLeft = (windowWidth - scaledWidth) / 2;
-      const marginTop = (windowHeight - scaledHeight) / 2;
-      dashboard.style.marginLeft = marginLeft > 0 ? `${marginLeft}px` : "0";
-      dashboard.style.marginTop = marginTop > 0 ? `${marginTop}px` : "0";
+      // 不需要居中，直接从左上角开始
+      dashboard.style.marginLeft = "0";
+      dashboard.style.marginTop = "0";
     },
     handleResize() {
       // 调整缩放
@@ -237,11 +230,11 @@ export default {
 /* 左右列的高度分配 */
 .left-col > .chart-card {
   min-height: 0;
-  flex: 1;
+  flex: 1 1 48px; /* 默认内容占1份，头部高度48px */
 }
 
 .left-col > .chart-card:first-child {
-  flex: 2;
+  flex: 2 1 48px; /* 作业动态内容占2份 */
 }
 
 .right-col > .chart-card {
