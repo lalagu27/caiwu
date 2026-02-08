@@ -75,6 +75,7 @@
                 完成 {{ techInnovationIndicators[0].completed }}亿元 / 目标
                 {{ techInnovationIndicators[0].target }}亿元
               </div>
+              <div class="kpi-chart-title-bottom">研发经费投入目标完成率</div>
             </div>
           </div>
           <div class="tech-project-side">
@@ -2106,5 +2107,16 @@ export default {
   z-index: 5;
   position: relative;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8); /* Better readability */
+}
+
+.kpi-chart-title-bottom {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #ffffff;
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
+  font-weight: bold;
+  text-align: center;
+  z-index: 5;
+  position: relative;
 }
 </style>
