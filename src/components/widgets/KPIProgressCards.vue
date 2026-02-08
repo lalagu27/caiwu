@@ -584,9 +584,9 @@ export default {
             data: bgTopData,
             label: {
               show: true,
-              position: "inside", // Relative to center
-              align: "right", // Align text to the right (towards the cylinder)
-              offset: [-25, -78], // Shift left by 25px (15px radius + 10px gap)
+              position: "top", // 放在顶部上方
+              offset: [-70, 10], // 向左移动20px，向下移动10px
+              align: "left",
               color: "#fff",
               fontSize: 12,
               formatter: (params) => {
@@ -623,6 +623,22 @@ export default {
                 return rates[params.dataIndex] + "%";
               },
             },
+            markPoint: {
+              symbol: "rect",
+              symbolSize: 1,
+              label: {
+                show: true,
+                position: "left",
+                offset: [-15, 2], // 向左偏移30px
+                color: "#00F0FF",
+                fontSize: 12,
+                formatter: (params) => {
+                  const item = this.reserveIndicators[params.dataIndex];
+                  return `完成 ${item.completed}`;
+                },
+              },
+              data: rates.map((rate, idx) => ({ xAxis: idx, yAxis: rate })),
+            },
           },
           // 5. Liquid Content Top
           {
@@ -633,18 +649,7 @@ export default {
             symbolOffset: [0, -5],
             symbolPosition: "end",
             data: topSymbolData,
-            label: {
-              show: true,
-              position: "inside",
-              align: "right",
-              offset: [-25, 0], // Consistent left spacing
-              color: "#00F0FF",
-              fontSize: 12,
-              formatter: (params) => {
-                const item = this.reserveIndicators[params.dataIndex];
-                return `完成 ${item.completed}`;
-              },
-            },
+            label: { show: false }, // 隐藏，已在bar上显示
           },
           // 6. Liquid Content Bottom
           {
@@ -1008,9 +1013,9 @@ export default {
             data: bgTopData,
             label: {
               show: true,
-              position: "inside",
-              align: "right",
-              offset: [-30, -95],
+              position: "top", // 放在顶部上方
+              offset: [-70, 10], // 向左移动70px，向下移动10px
+              align: "left",
               color: "#fff",
               fontSize: 12,
               formatter: (params) => {
@@ -1046,6 +1051,22 @@ export default {
                 return rates[params.dataIndex] + "%";
               },
             },
+            markPoint: {
+              symbol: "rect",
+              symbolSize: 1,
+              label: {
+                show: true,
+                position: "left",
+                offset: [-15, 2], // 向左偏移30px
+                color: "#00F0FF",
+                fontSize: 12,
+                formatter: (params) => {
+                  const item = this.costBenefitIndicators[params.dataIndex];
+                  return `完成 ${item.completed}`;
+                },
+              },
+              data: rates.map((rate, idx) => ({ xAxis: idx, yAxis: rate })),
+            },
           },
           // 5. 液体内容顶部
           {
@@ -1056,18 +1077,7 @@ export default {
             symbolOffset: [0, -5],
             symbolPosition: "end",
             data: topSymbolData,
-            label: {
-              show: true,
-              position: "inside",
-              align: "right",
-              offset: [-30, 0],
-              color: "#00F0FF",
-              fontSize: 12,
-              formatter: (params) => {
-                const item = this.costBenefitIndicators[params.dataIndex];
-                return `完成 ${item.completed}`;
-              },
-            },
+            label: { show: false }, // 隐藏，已在bar上显示
           },
           // 6. 液体内容底部
           {
@@ -1111,7 +1121,7 @@ export default {
         }, // 绿色 - 研发经费
       ];
 
-      const barWidth = 40;
+      const barWidth = 30;
 
       // 生成系列数据
       const bgData = rates.map((rate, index) => {
@@ -1222,9 +1232,9 @@ export default {
             data: bgTopData,
             label: {
               show: true,
-              position: "inside",
-              align: "right",
-              offset: [-30, -95],
+              position: "top", // 放在顶部上方
+              offset: [-70, 10], // 向左移动70px，向下移动10px
+              align: "left",
               color: "#fff",
               fontSize: 12,
               formatter: (params) => {
@@ -1260,6 +1270,22 @@ export default {
                 return rates[params.dataIndex] + "%";
               },
             },
+            markPoint: {
+              symbol: "rect",
+              symbolSize: 1,
+              label: {
+                show: true,
+                position: "left",
+                offset: [-15, 2], // 向左偏移30px
+                color: "#00F0FF",
+                fontSize: 12,
+                formatter: (params) => {
+                  const item = this.techInnovationIndicators[params.dataIndex];
+                  return `完成 ${item.completed}`;
+                },
+              },
+              data: rates.map((rate, idx) => ({ xAxis: idx, yAxis: rate })),
+            },
           },
           // 5. 液体内容顶部
           {
@@ -1270,18 +1296,7 @@ export default {
             symbolOffset: [0, -5],
             symbolPosition: "end",
             data: topSymbolData,
-            label: {
-              show: true,
-              position: "inside",
-              align: "right",
-              offset: [-30, 0],
-              color: "#00F0FF",
-              fontSize: 12,
-              formatter: (params) => {
-                const item = this.techInnovationIndicators[params.dataIndex];
-                return `完成 ${item.completed}`;
-              },
-            },
+            label: { show: false }, // 隐藏，已在bar上显示
           },
           // 6. 液体内容底部
           {
@@ -1442,9 +1457,9 @@ export default {
             data: bgTopData,
             label: {
               show: true,
-              position: "inside",
-              align: "right",
-              offset: [-30, -95],
+              position: "top", // 放在顶部上方
+              offset: [-70, 10], // 向左移动70px,向下移动10px
+              align: "left",
               color: "#fff",
               fontSize: 12,
               formatter: (params) => {
@@ -1480,6 +1495,23 @@ export default {
                 return rates[params.dataIndex] + "%";
               },
             },
+            markPoint: {
+              symbol: "rect",
+              symbolSize: 1,
+              label: {
+                show: true,
+                position: "left",
+                offset: [-15, 2], // 向左偏移30px
+                color: "#00F0FF",
+                fontSize: 12,
+                formatter: (params) => {
+                  const item =
+                    this.strategicIndustryIndicators[params.dataIndex];
+                  return `完成 ${item.completed}`;
+                },
+              },
+              data: rates.map((rate, idx) => ({ xAxis: idx, yAxis: rate })),
+            },
           },
           // 5. 液体内容顶部
           {
@@ -1490,18 +1522,7 @@ export default {
             symbolOffset: [0, -5],
             symbolPosition: "end",
             data: topSymbolData,
-            label: {
-              show: true,
-              position: "inside",
-              align: "right",
-              offset: [-30, 0],
-              color: "#00F0FF",
-              fontSize: 12,
-              formatter: (params) => {
-                const item = this.strategicIndustryIndicators[params.dataIndex];
-                return `完成 ${item.completed}`;
-              },
-            },
+            label: { show: false }, // 隐藏，已在bar上显示
           },
           // 6. 液体内容底部
           {
