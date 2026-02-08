@@ -487,9 +487,7 @@ export default {
       // Prepare data
       // Use rates for height (max 100 for background), but clamping visual height
       // Colors: 1st is Gold, others Blue
-      const categories = this.reserveIndicators.map((i) =>
-        i.name.length > 5 ? i.name.substring(0, 4) + ".." : i.name
-      );
+      const categories = this.reserveIndicators.map((i) => i.name);
       const rates = this.reserveIndicators.map((i) => i.rate);
       const completedValues = this.reserveIndicators.map((i) => i.completed);
 
@@ -590,7 +588,7 @@ export default {
         },
         grid: {
           top: 30,
-          bottom: 20,
+          bottom: 45,
           left: 10,
           right: 10,
           containLabel: true,
@@ -601,7 +599,7 @@ export default {
             interval: 0,
             color: textColor,
             fontSize: 12,
-            width: 60,
+            width: 70, // Slightly increase width
             overflow: "break",
           },
           axisTick: { show: false },
