@@ -589,7 +589,7 @@ export default {
           textStyle: { color: "#fff" },
         },
         grid: {
-          top: 30,
+          top: 45,
           bottom: 45,
           left: 10,
           right: 10,
@@ -638,10 +638,12 @@ export default {
               align: "center",
               color: "#fff",
               fontSize: 12,
-              lineHeight: 16,
+              align: "center",
+              color: "#fff",
+              fontSize: 12,
               formatter: (params) => {
                 const item = this.reserveIndicators[params.dataIndex];
-                return `目标\n${item.target}`;
+                return `目标 ${item.target}`;
               },
             },
           },
