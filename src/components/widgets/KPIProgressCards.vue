@@ -62,11 +62,24 @@
         </div>
         <div class="tech-split-layout">
           <div class="tech-chart-side">
-            <div class="kpi-chart" ref="techChart"></div>
+            <div class="kpi-chart-image-wrapper">
+              <img
+                :src="require('@/assets/baifenbi.png')"
+                class="kpi-chart-img"
+              />
+              <div class="chart-overlay-value">
+                <span class="num">{{ techInnovationIndicators[0].rate }}</span>
+                <span class="unit">%</span>
+              </div>
+              <div class="kpi-chart-label">
+                完成 {{ techInnovationIndicators[0].completed }}亿元 / 目标
+                {{ techInnovationIndicators[0].target }}亿元
+              </div>
+            </div>
           </div>
           <div class="tech-project-side">
             <div class="project-header">
-              <span class="project-title">重点项目执行进度</span>
+              <span class="project-title">重大科技项目任务完成率</span>
               <span class="year-label">[{{ currentYear }}年]</span>
             </div>
             <div class="projects-list" ref="projectsChart"></div>
@@ -242,7 +255,7 @@ export default {
       // Init Cost Benefit Chart
       this.initCostBenefitChart(textColor, lineColor);
 
-      this.initTechChart(textColor, lineColor, tooltipConfig);
+      // this.initTechChart(textColor, lineColor, tooltipConfig); // Removed as per user request to use image
       this.initIndustryChart(textColor, lineColor, tooltipConfig);
       this.initProjectsChart(textColor, lineColor);
     },
@@ -1097,216 +1110,85 @@ export default {
     initTechChart(textColor, lineColor, tooltipConfig) {
       if (!this.$refs.techChart) return;
 
-      // Dispose old if exists
       if (this.charts.techChart) {
         this.charts.techChart.dispose();
       }
 
       let chart = echarts.init(this.$refs.techChart);
 
-      // 准备数据
-      const categories = this.techInnovationIndicators.map((i) => i.name);
-      const rates = this.techInnovationIndicators.map((i) => i.rate);
-      const completedValues = this.techInnovationIndicators.map(
-        (i) => i.completed
-      );
-
-      // 定义颜色
-      const colors = [
-        {
-          top: "#22C55E",
-          bottom: "#16A34A",
-          bg: "rgba(34, 197, 94, 0.2)",
-          bgTop: "#15803D",
-        }, // 绿色 - 研发经费
-      ];
-
-      const barWidth = 30;
-
-      // 生成系列数据
-      const bgData = rates.map((rate, index) => {
-        return {
-          value: 100,
-          itemStyle: { color: colors[index].bg },
-        };
-      });
-
-      const contentData = rates.map((rate, index) => {
-        return {
-          value: rate,
-          itemStyle: {
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: colors[index].top },
-              { offset: 1, color: colors[index].bottom },
-            ]),
-          },
-        };
-      });
-
-      const topSymbolData = rates.map((rate, index) => {
-        return {
-          value: rate,
-          itemStyle: { color: colors[index].top },
-          symbolPosition: "end",
-        };
-      });
-
-      const bottomSymbolData = rates.map((rate, index) => {
-        return {
-          value: rate,
-          itemStyle: { color: colors[index].bottom },
-        };
-      });
-
-      const bgTopData = rates.map((rate, index) => {
-        return {
-          value: 100,
-          itemStyle: { color: colors[index].bgTop, opacity: 1 },
-        };
-      });
-
-      const bgBottomData = rates.map((rate, index) => {
-        return {
-          value: 100,
-          itemStyle: { color: colors[index].bottom, opacity: 1 },
-        };
-      });
+      const item = this.techInnovationIndicators[0];
+      const rate = item.rate;
 
       chart.setOption({
-        tooltip: {
-          trigger: "axis",
-          formatter: (params) => {
-            const index = params[0].dataIndex;
-            const item = this.techInnovationIndicators[index];
-            return `${item.name}<br/>
-                    2026年目标: ${item.target} ${item.unit}<br/>
-                    完成数: ${item.completed} ${item.unit}<br/>
-                    完成率: ${item.rate}%`;
-          },
-          backgroundColor: "rgba(15, 22, 41, 0.95)",
-          borderColor: "#334155",
-          textStyle: { color: "#fff" },
-        },
-        grid: {
-          top: 30,
-          bottom: 20,
-          left: 10, // 与增储上产一致
-          right: 56, // 增加右边距，使单根柱子显示在左侧
-          containLabel: true,
-        },
-        xAxis: {
-          data: categories,
-          axisLabel: {
-            interval: 0,
-            color: textColor,
-            fontSize: 13,
-            width: 100,
-            overflow: "break",
-          },
-          axisTick: { show: false },
-          axisLine: { show: false },
-        },
-        yAxis: {
-          show: false,
-          max: 100,
-        },
+        tooltip: { show: false },
         series: [
-          // 1. 背景柱体
+          // 1. Outer Thin Ring (Decoration)
           {
-            z: 1,
-            type: "bar",
-            barWidth: barWidth,
-            barGap: "-100%",
-            data: bgData,
-            itemStyle: { opacity: 0.6 },
-            label: { show: false },
-          },
-          // 2. 背景柱顶部
-          {
-            z: 2,
-            type: "pictorialBar",
-            symbol: "circle",
-            symbolSize: [barWidth, 10],
-            symbolOffset: [0, -5],
-            symbolPosition: "end",
-            data: bgTopData,
-            label: {
-              show: true,
-              position: "top", // 放在顶部上方
-              offset: [-70, 10], // 向左移动70px，向下移动10px
-              align: "left",
-              color: "#fff",
-              fontSize: 12,
-              formatter: (params) => {
-                const item = this.techInnovationIndicators[params.dataIndex];
-                return `目标 ${item.target}`;
+            type: "gauge",
+            startAngle: 90,
+            endAngle: -270,
+            radius: "90%",
+            axisLine: {
+              lineStyle: {
+                width: 1,
+                color: [[1, "rgba(0, 240, 255, 0.3)"]],
               },
             },
+            axisTick: { show: false },
+            splitLine: { show: false },
+            axisLabel: { show: false },
+            detail: { show: false },
+            pointer: { show: false },
           },
-          // 3. 背景柱底部
+          // 2. Main Progress Ring
           {
-            z: 2,
-            type: "pictorialBar",
-            symbol: "circle",
-            symbolSize: [barWidth, 10],
-            symbolOffset: [0, 5],
-            symbolPosition: "start",
-            data: bgBottomData,
-          },
-          // 4. 液体内容柱体
-          {
-            z: 3,
-            type: "bar",
-            barWidth: barWidth,
-            data: contentData,
-            label: {
+            type: "gauge",
+            startAngle: 270, // Start from bottom
+            endAngle: -89.9,
+            radius: "75%",
+            axisLine: {
+              lineStyle: {
+                width: 10, // Thicker track
+                color: [[1, "rgba(255, 255, 255, 0.08)"]], // Visible dark track
+              },
+            },
+            progress: {
               show: true,
-              position: "top",
-              distance: 2,
-              color: "#fff",
-              fontSize: 14,
+              width: 10,
+              roundCap: false, // Flat ends as per target
+              itemStyle: {
+                color: "#05CD99", // Pure Green
+                shadowColor: "rgba(5, 205, 153, 0.3)",
+                shadowBlur: 5,
+              },
+            },
+            pointer: { show: false },
+            axisTick: { show: false },
+            splitLine: { show: false },
+            axisLabel: { show: false },
+            detail: {
+              valueAnimation: true,
+              fontSize: 24,
               fontWeight: "bold",
-              formatter: (params) => {
-                return rates[params.dataIndex] + "%";
-              },
+              fontFamily: "DIN Alternate",
+              color: "#05CD99",
+              offsetCenter: [0, 0],
+              formatter: "{value}%",
             },
-            markPoint: {
-              symbol: "rect",
-              symbolSize: 1,
-              label: {
-                show: true,
-                position: "left",
-                offset: [-15, 2], // 向左偏移30px
-                color: "#00F0FF",
-                fontSize: 12,
-                formatter: (params) => {
-                  const item = this.techInnovationIndicators[params.dataIndex];
-                  return `完成 ${item.completed}`;
-                },
-              },
-              data: rates.map((rate, idx) => ({ xAxis: idx, yAxis: rate })),
+            data: [{ value: rate }], // No name, just value
+          },
+        ],
+        graphic: [
+          {
+            type: "text",
+            left: "center",
+            bottom: "5%",
+            style: {
+              text: `完成 ${item.completed} / 目标 ${item.target}`,
+              fill: "#00F0FF",
+              fontSize: 12,
+              fontFamily: "Microsoft YaHei",
             },
-          },
-          // 5. 液体内容顶部
-          {
-            z: 4,
-            type: "pictorialBar",
-            symbol: "circle",
-            symbolSize: [barWidth, 10],
-            symbolOffset: [0, -5],
-            symbolPosition: "end",
-            data: topSymbolData,
-            label: { show: false }, // 隐藏，已在bar上显示
-          },
-          // 6. 液体内容底部
-          {
-            z: 4,
-            type: "pictorialBar",
-            symbol: "circle",
-            symbolSize: [barWidth, 10],
-            symbolOffset: [0, 5],
-            symbolPosition: "start",
-            data: bottomSymbolData,
           },
         ],
       });
@@ -1573,10 +1455,10 @@ export default {
 
       const option = {
         grid: {
-          top: 15,
-          right: 30,
-          bottom: 5,
-          left: 10,
+          top: 35, // 增加顶部距离
+          right: 55, // 增加右侧距离防止数值被截断
+          bottom: 10,
+          left: 5,
           containLabel: false,
         },
         xAxis: {
@@ -1592,42 +1474,40 @@ export default {
           axisTick: { show: false },
           axisLabel: { show: false },
           splitLine: { show: false },
-          inverse: true, // 从上到下
+          inverse: true,
         },
         series: [
-          // 1. 背景轨道（细线）
+          // 1. 背景轨道
           {
             name: "Track",
             type: "bar",
             z: 1,
             barGap: "-100%",
-            barCategoryGap: "60%", // 项目之间的间距
+            barCategoryGap: "50%", // 增加行间距
             data: this.projects.map((p, i) => ({
               value: 100,
               itemStyle: {
                 color: colors[i % 2].track,
-                borderRadius: 2,
+                borderRadius: 3, //稍微圆润一点
               },
             })),
-            barWidth: 2, // 细线
+            barWidth: 4, // 稍微加粗
             silent: true,
           },
-          // 2. 进度条（细线带阴影）
+          // 2. 进度条
           {
             name: "Progress",
             type: "bar",
             z: 2,
-            barCategoryGap: "60%",
             data: this.projects.map((p, i) => ({
               value: p.value,
               itemStyle: {
-                color: colors[i % 2].main,
-                borderRadius: 2,
-                shadowColor: colors[i % 2].shadow,
-                shadowBlur: 6,
+                color: "#00F0FF",
+                shadowColor: "rgba(0, 240, 255, 0.4)",
+                shadowBlur: 4,
               },
             })),
-            barWidth: 2,
+            barWidth: 4,
             label: { show: false },
           },
           // 3. 发光端点
@@ -1635,7 +1515,7 @@ export default {
             name: "Knob",
             type: "pictorialBar",
             symbol: "circle",
-            symbolSize: 8,
+            symbolSize: 10, // 稍微加大
             symbolOffset: [0, 0],
             z: 3,
             symbolPosition: "end",
@@ -1644,26 +1524,26 @@ export default {
               itemStyle: {
                 color: "#fff",
                 borderWidth: 2,
-                borderColor: colors[i % 2].main,
-                shadowColor: colors[i % 2].shadow,
+                borderColor: "#00F0FF",
+                shadowColor: "rgba(0, 240, 255, 0.4)",
                 shadowBlur: 6,
               },
             })),
           },
-          // 4. 项目标签（左上带脉冲图标）
+          // 4. 项目名称标签 (位于进度条上方)
           {
             name: "Label",
             type: "scatter",
             symbol: pulsePath,
-            symbolSize: [12, 10],
-            symbolOffset: [0, -15],
+            symbolSize: [10, 8],
+            symbolOffset: [-5, -18], // 向上移动，位于进度条上方
             clip: false,
             z: 4,
             data: this.projects.map((p, i) => ({
               value: [0, i],
               name: p.name,
               itemStyle: {
-                color: colors[i % 2].main,
+                color: "#00F0FF",
               },
               label: {
                 show: true,
@@ -1671,18 +1551,20 @@ export default {
                 formatter: `{p|${p.name}}`,
                 align: "left",
                 verticalAlign: "middle",
-                offset: [4, 0],
+                offset: [5, 0], // 图标和文字的间距
                 rich: {
                   p: {
-                    color: isDark ? "#fff" : "#333",
+                    color: isDark ? "#e0e6ed" : "#333", // 稍微柔和的白色
                     fontSize: 12,
-                    fontWeight: 500,
+                    fontFamily: "Microsoft YaHei",
+                    fontWeight: 400,
+                    textShadowBlur: 0,
                   },
                 },
               },
             })),
           },
-          // 5. 百分比标签（右侧）
+          // 5. 百分比数值 (右侧跟随)
           {
             name: "Value",
             type: "scatter",
@@ -1692,6 +1574,8 @@ export default {
             label: {
               show: true,
               position: "right",
+              offset: [10, 0], // 向右偏移
+              color: "#00F0FF",
               formatter: (params) => {
                 const val = this.projects[params.data[1]].value;
                 return `{val|${val}}{unit|%}`;
@@ -1699,18 +1583,17 @@ export default {
               rich: {
                 val: {
                   color: "#fff",
-                  fontSize: 16,
+                  fontSize: 15,
                   fontWeight: "bold",
-                  fontStyle: "italic",
+                  fontFamily: "DIN Alternate", // 数字字体
                   padding: [0, 2, 0, 0],
                 },
                 unit: {
-                  color: colors[0].shadow,
-                  fontSize: 12,
-                  padding: [0, 0, 3, 0],
+                  color: colors[0].shadow, // 使用淡色
+                  fontSize: 11,
+                  padding: [0, 0, 2, 0],
                 },
               },
-              color: (params) => colors[params.data[1] % 2].main,
             },
           },
         ],
@@ -2104,8 +1987,9 @@ export default {
 .tech-split-layout {
   flex: 1;
   display: flex;
-  gap: 8px;
+  gap: 12px; /* Adjusted gap */
   min-height: 0;
+  padding-right: 8px;
 }
 
 .tech-chart-side {
@@ -2113,36 +1997,110 @@ export default {
   min-width: 0;
   display: flex;
   flex-direction: column;
+  padding-right: 16px; /* Add padding for separator */
+  border-right: 1px dashed rgba(0, 240, 255, 0.2); /* Dashed separator */
 }
 
 .tech-project-side {
-  flex: 1.5;
+  flex: 1.8; /* Give more width to the project list */
   min-width: 0;
   display: flex;
   flex-direction: column;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  padding: 8px;
-  border: 1px solid rgba(0, 240, 255, 0.1);
+  background: transparent; /* No box background */
+  border-radius: 0;
+  padding: 0;
+  border: none;
 }
 
 .project-header {
   display: flex;
   align-items: center;
-  gap: 4px;
-  margin-bottom: 8px;
-  padding-bottom: 4px;
-  border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 6px 12px; /* Increased padding */
+  border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+  /* Dark Blue/Cyan Gradient Background */
+  background: linear-gradient(
+    90deg,
+    rgba(0, 70, 110, 0.6) 0%,
+    rgba(0, 40, 80, 0.3) 60%,
+    transparent 100%
+  );
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .project-title {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--primary-color);
+  color: #00f0ff; /* Bright Cyan */
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.4); /* Glow effect */
 }
 
 .projects-list {
   flex: 1;
   min-height: 0;
+  padding-left: 4px;
+}
+
+.kpi-chart-image-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  /* Ensure it fills the side */
+  height: 100%;
+}
+
+.kpi-chart-img {
+  max-width: 90%;
+  max-height: 80%; /* Slightly smaller to fit label */
+  object-fit: contain;
+  /* Add a subtle glow to image */
+  filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.3));
+}
+
+.chart-overlay-value {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: baseline;
+  z-index: 5;
+  text-shadow: 0 0 10px rgba(0, 160, 255, 0.4);
+}
+
+.chart-overlay-value .num {
+  font-family: "DIN Alternate", "Helvetica Neue", sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  background: linear-gradient(180deg, #4dcfff 0%, #2f80ed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #2f80ed;
+}
+
+.chart-overlay-value .unit {
+  font-family: "DIN Alternate", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 2px;
+  color: #2f80ed;
+}
+
+.kpi-chart-label {
+  margin-top: 4px;
+  font-size: 11px;
+  color: #00f0ff;
+  font-family: "Microsoft YaHei", sans-serif;
+  text-align: center;
+  font-weight: 500;
+  z-index: 5;
+  position: relative;
 }
 </style>
