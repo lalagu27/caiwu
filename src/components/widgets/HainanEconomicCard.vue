@@ -9,7 +9,7 @@
     }"
   >
     <div slot="header" class="chart-header">
-      <h3>在琼经济贡献 <span class="year-label">[2026]</span></h3>
+      <h3>在琼经济贡献 <span class="header-year">[2026]</span></h3>
     </div>
 
     <div class="economic-content">
@@ -205,9 +205,9 @@ export default {
   border-radius: 2px;
 }
 
-.year-label {
+.header-year {
   font-size: 12px;
-  color: #8f9bba;
+  color: var(--text-secondary);
   margin-left: 8px;
   font-weight: normal;
 }
