@@ -487,7 +487,9 @@ export default {
       // Prepare data
       // Use rates for height (max 100 for background), but clamping visual height
       // Colors: 1st is Gold, others Blue
-      const categories = this.reserveIndicators.map((i) => i.name);
+      const categories = this.reserveIndicators.map(
+        (i) => `${i.name}\n(${i.unit})`
+      );
       const rates = this.reserveIndicators.map((i) => i.rate);
       const completedValues = this.reserveIndicators.map((i) => i.completed);
 
@@ -639,7 +641,7 @@ export default {
               lineHeight: 16,
               formatter: (params) => {
                 const item = this.reserveIndicators[params.dataIndex];
-                return `目标\n${item.target} ${item.unit}`;
+                return `目标\n${item.target}`;
               },
             },
           },
@@ -690,7 +692,7 @@ export default {
                 align: "left",
                 formatter: (params) => {
                   const item = this.reserveIndicators[params.dataIndex];
-                  return `完成\n${item.completed} ${item.unit}`;
+                  return `完成\n${item.completed}`;
                 },
               },
               data: rates.map((rate, idx) => ({ xAxis: idx, yAxis: rate })),
