@@ -229,13 +229,17 @@ export default {
 }
 
 .section-title {
-  font-size: 12px;
-  color: var(--primary-color);
-  font-weight: 600;
+  font-size: 16px; /* 字体变大 */
+  font-weight: bold;
   padding-left: 8px;
   border-left: 3px solid var(--primary-color);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   line-height: 1.2;
+  background: linear-gradient(90deg, #ffffff 0%, #00f0ff 100%); /* 渐变色 */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block; /* 确保背景裁剪生效 */
+  width: fit-content;
 }
 
 .indicators-grid {
