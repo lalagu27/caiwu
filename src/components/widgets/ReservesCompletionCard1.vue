@@ -165,21 +165,22 @@ export default {
   transform: translateX(-50%);
   font-size: 19px;
   font-weight: bold;
-  color: #fff;
-  text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
-  pointer-events: none;
-  z-index: 10;
-  white-space: nowrap;
+  background: linear-gradient(180deg, #fff 0%, #00f0ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-family: "DIN Alternate", sans-serif;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
 }
 
 .image-unit {
   font-size: 0.5em; /* Half size of the number */
-  margin-left: 2px;
+  color: #a3aed0;
 }
 
 .image-label {
   font-size: 14px;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.85);
   text-align: center;
   white-space: nowrap;
   margin-top: -2px;
