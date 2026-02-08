@@ -1894,7 +1894,7 @@ export default {
 }
 
 .kpi-icon.strategic {
-  background: rgba(0, 240, 255, 0.1);
+  background: transparent;
   color: #00f0ff;
 }
 
