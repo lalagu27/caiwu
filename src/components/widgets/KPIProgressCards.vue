@@ -691,9 +691,9 @@ export default {
               },
             },
             markPoint: {
-              symbol: "path://M100 0 L75 15 L0 15 L0 17 L75 17 L100 2 Z",
-              symbolSize: [90, 22], // 增大标记尺寸
-              symbolOffset: [-60, 12],
+              symbol: "path://M100 0 L75 25 L0 25 L0 28 L75 28 L100 3 Z", // 更高的指示线
+              symbolSize: [70, 30], // 更高以容纳两行文字
+              symbolOffset: [-50, 16], // 向右调整
               itemStyle: {
                 color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
                   { offset: 0, color: "rgba(0, 240, 255, 0.8)" },
@@ -705,13 +705,14 @@ export default {
               label: {
                 show: true,
                 position: "insideBottomLeft",
-                offset: [-8, 0],
+                offset: [-6, 2],
                 color: "#ffffff",
                 fontSize: 13,
                 fontWeight: "500",
+                lineHeight: 16,
                 formatter: (params) => {
                   const item = this.reserveIndicators[params.dataIndex];
-                  return `完成 ${item.completed}`;
+                  return `完成\n${item.completed}`;
                 },
               },
               data: rates.map((rate, idx) => ({ xAxis: idx, yAxis: rate })),
@@ -1180,7 +1181,7 @@ export default {
             markPoint: {
               symbol: "path://M100 0 L75 25 L0 25 L0 28 L75 28 L100 3 Z", // 更高的指示线
               symbolSize: [80, 32], // 更高以容纳两行文字
-              symbolOffset: [-50, 18], // 向左偏移更多
+              symbolOffset: [-50, 16], // 向左偏移更多
               itemStyle: {
                 color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
                   { offset: 0, color: "rgba(0, 240, 255, 0.8)" },
@@ -1194,7 +1195,7 @@ export default {
                 position: "insideBottomLeft",
                 offset: [-8, 2],
                 color: "#ffffff",
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: "500",
                 lineHeight: 16,
                 formatter: (params) => {
