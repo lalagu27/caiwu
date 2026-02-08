@@ -39,7 +39,12 @@
       <div class="bottom-glow-line"></div>
     </div>
 
-    <div class="table-container">
+    <div
+      class="table-container"
+      ref="tableContainer"
+      @mouseenter="stopScroll"
+      @mouseleave="startScroll"
+    >
       <table class="custom-table">
         <thead>
           <tr>
@@ -51,7 +56,6 @@
           </tr>
         </thead>
         <tbody>
-          <!-- 模拟不同Tab的数据可能是相同的，除非有真实数据源。这里保持使用 tableData -->
           <tr v-for="(item, index) in tableData" :key="index">
             <td class="well-name" :title="item.name">{{ item.name }}</td>
             <td :title="item.designDepth">{{ item.designDepth }}</td>
@@ -123,6 +127,8 @@ export default {
           activity: "一开钻进",
         },
       ],
+      scrollTimer: null,
+      isScrolling: false,
     };
   },
   created() {
@@ -130,6 +136,63 @@ export default {
     this.currentDate = `${today.getFullYear()}-${(today.getMonth() + 1)
       .toString()
       .padStart(2, "0")}-${today.getDate().toString().padStart(2, "0")}`;
+  },
+  mounted() {
+    // Duplicate data to enable seamless scrolling
+    // Ensure we have enough data to exceed container height significantly
+    // Duplicate until we have at least 20 items, then double it for the loop buffer
+    let baseData = [...this.tableData];
+    while (baseData.length < 20) {
+      baseData = [...baseData, ...this.tableData];
+    }
+    // Now double the base data for the seamless loop (first half -> second half)
+    this.tableData = [...baseData, ...baseData];
+
+    this.$nextTick(() => {
+      this.startScroll();
+    });
+  },
+  beforeDestroy() {
+    this.stopScroll();
+  },
+  methods: {
+    startScroll() {
+      if (this.isScrolling) return;
+      this.isScrolling = true;
+      const container = this.$refs.tableContainer;
+
+      // Clear any existing timer
+      if (this.scrollTimer) clearInterval(this.scrollTimer);
+
+      this.scrollTimer = setInterval(() => {
+        if (!container) return;
+
+        const rowHeight = 44; // Approximate row height
+        const halfHeight = container.scrollHeight / 2;
+
+        // Check if we need to reset position for seamless loop
+        if (container.scrollTop >= halfHeight) {
+          // Reset instantly to the equivalent position in the first set
+          container.scrollTo({
+            top: container.scrollTop - halfHeight,
+            behavior: "auto",
+          });
+        }
+
+        // Smooth scroll to next row
+        container.scrollBy({
+          top: rowHeight,
+          behavior: "smooth",
+        });
+      }, 2000); // Scroll every 2 seconds
+    },
+    stopScroll() {
+      this.isScrolling = false;
+      if (this.scrollTimer) {
+        clearInterval(this.scrollTimer);
+        this.scrollTimer = null;
+      }
+    },
   },
 };
 </script>
@@ -305,8 +368,18 @@ export default {
 
 .table-container {
   flex: 1;
-  overflow-y: auto; /* Keep scroll */
+  overflow-y: hidden; /* Hide scrollbar for auto-scroll visual */
   padding: 0;
+}
+
+/* Manual scroll support if user wants to drag (optional), mostly handled by overflow-y hidden to force auto scroll look, 
+   but 'auto' is safer if JS fails. Let's stick to 'hidden' to force the clean look 
+   and rely on JS. Or use 'auto' and hide scrollbar via CSS. */
+.table-container:hover {
+  overflow-y: overlay; /* Show scrollbar on hover if supported, or auto */
+}
+.table-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar */
 }
 
 .custom-table {
@@ -317,37 +390,42 @@ export default {
 }
 
 .custom-table th {
-  background-color: var(--bg-hover); /* Very light grey, almost white */
-  color: var(--text-secondary); /* Slate Grey for headers */
+  position: sticky; /* Sticky header */
+  top: 0;
+  z-index: 10;
+  background-color: rgba(0, 70, 120, 0.8); /* Lighter blue background */
+  color: #cbd5e1; /* Lighter text color */
   font-weight: 600;
-  padding: 10px 8px; /* Slightly more padding */
+  padding: 8px 4px;
   text-align: center;
-  white-space: nowrap;
-  border-bottom: 1px solid var(--border-color);
+  white-space: normal; /* Allow wrap */
+  line-height: 1.2;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+  backdrop-filter: blur(4px);
 }
 
 .custom-table td {
   padding: 10px 8px;
   text-align: center;
-  border-bottom: 1px solid var(--border-color);
-  color: var(--text-primary); /* Dark grey for content */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #e2e8f0; /* Light text for content */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .custom-table tr:hover td {
-  background-color: var(--bg-hover);
+  background-color: rgba(0, 240, 255, 0.1); /* Hover highlight */
 }
 
 .well-name {
-  color: var(--primary-color); /* Navy Blue */
+  color: #00f0ff; /* Bright Cyan */
   font-weight: 600; /* Reduced from 700 */
 }
 
 .activity-content {
   text-align: left;
   padding-left: 12px;
-  color: var(--text-secondary);
+  color: #cbd5e1;
 }
 </style>
