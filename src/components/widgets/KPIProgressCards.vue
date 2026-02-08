@@ -27,10 +27,7 @@
       <div class="kpi-card gauge-card active-well-chart">
         <div class="kpi-header">
           <div class="kpi-icon profit">🛢️</div>
-          <div class="kpi-title">
-            增储上产
-            <span class="year-label">[2026]</span>
-          </div>
+          <div class="kpi-title">增储上产</div>
         </div>
         <div class="chart-container-full">
           <div class="kpi-chart" ref="cylinderChart"></div>
@@ -41,10 +38,7 @@
       <div class="kpi-card gauge-card cost-benefit-chart">
         <div class="kpi-header">
           <div class="kpi-icon cost">💰</div>
-          <div class="kpi-title">
-            成本效益指标
-            <span class="year-label">[2026]</span>
-          </div>
+          <div class="kpi-title">成本效益指标</div>
         </div>
         <div class="chart-container-full">
           <div class="kpi-chart" ref="costBenefitChart"></div>
@@ -55,10 +49,7 @@
       <div class="kpi-card gauge-card tech-innovation-chart">
         <div class="kpi-header">
           <div class="kpi-icon innovation">🔬</div>
-          <div class="kpi-title">
-            科技创新
-            <span class="year-label">[2026]</span>
-          </div>
+          <div class="kpi-title">科技创新</div>
         </div>
         <div class="tech-split-layout">
           <div class="tech-chart-side">
@@ -127,10 +118,7 @@
       <div class="kpi-card gauge-card strategic-industry-chart">
         <div class="kpi-header">
           <div class="kpi-icon strategic">🚀</div>
-          <div class="kpi-title">
-            战新产业
-            <span class="year-label">[2026]</span>
-          </div>
+          <div class="kpi-title">战新产业</div>
         </div>
         <div class="chart-container-full">
           <div class="kpi-chart" ref="industryChart"></div>
@@ -1761,7 +1749,7 @@ export default {
   width: auto;
   height: auto;
   background: transparent;
-  font-size: 18px;
+  font-size: 20px;
   margin-right: 4px;
 }
 
@@ -1776,7 +1764,7 @@ export default {
 }
 
 .kpi-title {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--text-primary);
 }
