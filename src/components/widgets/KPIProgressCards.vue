@@ -1190,8 +1190,8 @@ export default {
         grid: {
           top: 30,
           bottom: 20,
-          left: 40,
-          right: 40,
+          left: 10, // 与增储上产一致
+          right: 56, // 增加右边距，使单根柱子显示在左侧
           containLabel: true,
         },
         xAxis: {
