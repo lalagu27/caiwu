@@ -595,8 +595,8 @@ export default {
           textStyle: { color: "#fff" },
         },
         grid: {
-          top: 45,
-          bottom: 45,
+          top: 25,
+          bottom: 30,
           left: 10,
           right: 10,
           containLabel: true,
@@ -606,9 +606,10 @@ export default {
           axisLabel: {
             interval: 0,
             color: textColor,
-            fontSize: 12,
+            fontSize: 14,
             width: 70, // Slightly increase width
             overflow: "break",
+            margin: 28,
           },
           axisTick: { show: false },
           axisLine: { show: false },
@@ -1083,8 +1084,8 @@ export default {
           textStyle: { color: "#fff" },
         },
         grid: {
-          top: 50,
-          bottom: 50,
+          top: 25,
+          bottom: 30,
           left: 5,
           right: 5,
           containLabel: true,
@@ -1094,9 +1095,10 @@ export default {
           axisLabel: {
             interval: 0,
             color: textColor,
-            fontSize: 13,
+            fontSize: 14,
             width: 80,
             overflow: "break",
+            margin: 28,
           },
           axisTick: { show: false },
           axisLine: { show: false },
@@ -1456,8 +1458,8 @@ export default {
           textStyle: { color: "#fff" },
         },
         grid: {
-          top: 50,
-          bottom: 50,
+          top: 25,
+          bottom: 30,
           left: 5,
           right: 5,
           containLabel: true,
@@ -1467,9 +1469,10 @@ export default {
           axisLabel: {
             interval: 0,
             color: textColor,
-            fontSize: 13,
+            fontSize: 14,
             width: 80,
             overflow: "break",
+            margin: 28,
           },
           axisTick: { show: false },
           axisLine: { show: false },
