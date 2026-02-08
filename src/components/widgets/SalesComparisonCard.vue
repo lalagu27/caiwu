@@ -151,7 +151,7 @@ export default {
 }
 
 .image-wrapper img {
-  width: 80%; /* 稍微放大图片以匹配仪表盘的视觉效果 */
+  width: 70%; /* 缩小图片 */
   height: auto;
   object-fit: contain;
 }
@@ -169,21 +169,21 @@ export default {
 }
 
 .kpi-value {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: bold;
   color: #fff;
   line-height: 1.2;
 }
 
 .kpi-unit {
-  font-size: 14px;
+  font-size: 12px;
   color: #fff;
   line-height: 1;
   margin-top: 2px;
 }
 
 .kpi-label {
-  font-size: 14px;
+  font-size: 16px;
   color: #fff;
   margin-top: 4px;
   text-align: center;

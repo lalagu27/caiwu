@@ -312,7 +312,7 @@ export default {
 .custom-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 12px;
+  font-size: 14px;
   table-layout: fixed;
 }
 
