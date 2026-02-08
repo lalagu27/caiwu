@@ -1031,8 +1031,8 @@ export default {
         grid: {
           top: 45,
           bottom: 45,
-          left: 20,
-          right: 20,
+          left: 5,
+          right: 5,
           containLabel: true,
         },
         xAxis: {
@@ -1352,8 +1352,8 @@ export default {
         grid: {
           top: 45,
           bottom: 45,
-          left: 20,
-          right: 20,
+          left: 5,
+          right: 5,
           containLabel: true,
         },
         xAxis: {
