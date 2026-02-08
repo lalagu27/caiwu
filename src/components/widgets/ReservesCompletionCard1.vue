@@ -178,7 +178,7 @@ export default {
 }
 
 .image-label {
-  font-size: 11px;
+  font-size: 14px;
   color: #fff;
   text-align: center;
   white-space: nowrap;
