@@ -2071,36 +2071,40 @@ export default {
   display: flex;
   align-items: baseline;
   z-index: 5;
-  text-shadow: 0 0 10px rgba(0, 160, 255, 0.4);
+  /* Removed blur for clarity */
 }
 
 .chart-overlay-value .num {
-  font-family: "DIN Alternate", "Helvetica Neue", sans-serif;
-  font-size: 28px;
+  font-family: "DIN Alternate", "Helvetica Neue", Arial, sans-serif;
+  font-size: 36px; /* Larger */
   font-weight: bold;
-  background: linear-gradient(180deg, #4dcfff 0%, #2f80ed 100%);
+  /* Brighter gradient */
+  background: linear-gradient(180deg, #e0f7ff 0%, #00a0ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: #2f80ed;
+  color: #00a0ff;
+  letter-spacing: 1px;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5)); /* Sharp shadow */
 }
 
 .chart-overlay-value .unit {
-  font-family: "DIN Alternate", "Helvetica Neue", sans-serif;
-  font-size: 16px;
+  font-family: "DIN Alternate", "Helvetica Neue", Arial, sans-serif;
+  font-size: 20px;
   font-weight: bold;
   margin-left: 2px;
-  color: #2f80ed;
+  color: #00a0ff;
 }
 
 .kpi-chart-label {
   margin-top: 4px;
-  font-size: 11px;
+  font-size: 13px; /* Clearer */
   color: #00f0ff;
   font-family: "Microsoft YaHei", sans-serif;
   text-align: center;
   font-weight: 500;
   z-index: 5;
   position: relative;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8); /* Better readability */
 }
 </style>
