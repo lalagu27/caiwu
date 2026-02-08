@@ -95,7 +95,7 @@ export default {
         {
           label: "产值",
           value: "140",
-          unit: "亿",
+          unit: "亿元",
           desc: "工业总产值",
           image: zhibiao2,
         },
