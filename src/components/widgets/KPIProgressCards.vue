@@ -481,36 +481,43 @@ export default {
       const rates = this.reserveIndicators.map((i) => i.rate);
       const completedValues = this.reserveIndicators.map((i) => i.completed);
 
-      // Define colors
-      // Added bgTop for distinct background top color
+      // 定义更鲜艳的颜色方案，增加发光效果
       const colors = [
         {
-          top: "#E6A23C",
-          bottom: "#CD853F",
-          bg: "rgba(230, 162, 60, 0.2)",
-          bgTop: "#7E5B28",
+          top: "#FFD770", // 更亮的金色
+          middle: "#E6A23C", // 中间色
+          bottom: "#B8860B", // 深金色
+          bg: "rgba(230, 162, 60, 0.15)",
+          bgTop: "#5C4A1E",
+          glow: "rgba(255, 215, 112, 0.6)", // 发光色
         }, // Gold
         {
-          top: "#00F0FF",
-          bottom: "#008B8B",
-          bg: "rgba(0, 240, 255, 0.2)",
-          bgTop: "#0C6A72",
+          top: "#7FFFFF", // 更亮的青色
+          middle: "#00F0FF", // 中间色
+          bottom: "#006B6B", // 深青色
+          bg: "rgba(0, 240, 255, 0.15)",
+          bgTop: "#0A4A52",
+          glow: "rgba(0, 240, 255, 0.6)",
         }, // Cyan
         {
-          top: "#A855F7",
-          bottom: "#7C3AED",
-          bg: "rgba(168, 85, 247, 0.2)",
-          bgTop: "#5B21B6",
+          top: "#D8B4FE", // 更亮的紫色
+          middle: "#A855F7", // 中间色
+          bottom: "#5B21B6", // 深紫色
+          bg: "rgba(168, 85, 247, 0.15)",
+          bgTop: "#3B1886",
+          glow: "rgba(168, 85, 247, 0.6)",
         }, // Purple
         {
-          top: "#4A7BF7",
-          bottom: "#4169E1",
-          bg: "rgba(74, 123, 247, 0.2)",
-          bgTop: "#2C4A96",
+          top: "#93C5FD", // 更亮的蓝色
+          middle: "#4A7BF7", // 中间色
+          bottom: "#1E40AF", // 深蓝色
+          bg: "rgba(74, 123, 247, 0.15)",
+          bgTop: "#1E3A8A",
+          glow: "rgba(74, 123, 247, 0.6)",
         }, // Royal Blue
       ];
 
-      const barWidth = 30;
+      const barWidth = 45; // 增加宽度使圆柱更明显
 
       // Generate series data with specific styles per bar
       const bgData = rates.map((rate, index) => {
@@ -520,22 +527,34 @@ export default {
         };
       });
 
+      // 液体内容 - 使用三层渐变和阴影发光
       const contentData = rates.map((rate, index) => {
         return {
           value: rate,
           itemStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
               { offset: 0, color: colors[index].top },
+              { offset: 0.3, color: colors[index].middle },
               { offset: 1, color: colors[index].bottom },
             ]),
+            // 添加内发光效果
+            shadowColor: colors[index].glow,
+            shadowBlur: 15,
+            shadowOffsetX: 0,
+            shadowOffsetY: 0,
           },
         };
       });
 
+      // 液面顶部 - 增加发光效果
       const topSymbolData = rates.map((rate, index) => {
         return {
           value: rate,
-          itemStyle: { color: colors[index].top },
+          itemStyle: {
+            color: colors[index].top,
+            shadowColor: colors[index].glow,
+            shadowBlur: 12,
+          },
           symbolPosition: "end",
         };
       });
@@ -547,19 +566,18 @@ export default {
         };
       });
 
-      // Background tops/bottoms
-      // Use explicit bgTop color and remove extra opacity
+      // 背景顶部/底部
       const bgTopData = rates.map((rate, index) => {
         return {
           value: 100,
-          itemStyle: { color: colors[index].bgTop, opacity: 1 },
+          itemStyle: { color: colors[index].bgTop, opacity: 0.9 },
         };
       });
       const bgBottomData = rates.map((rate, index) => {
         return {
           value: 100,
-          itemStyle: { color: colors[index].bottom, opacity: 1 },
-        }; // Match foreground bottom for consistency
+          itemStyle: { color: colors[index].bottom, opacity: 0.5 },
+        };
       });
 
       chart.setOption({
@@ -600,85 +618,97 @@ export default {
           max: 120, // Increase max to prevent top label clipping
         },
         series: [
-          // 1. Background Cylinder Body
+          // 1. 背景圆柱体
           {
             z: 1,
             type: "bar",
             barWidth: barWidth,
             barGap: "-100%",
             data: bgData,
-            itemStyle: { opacity: 0.6 },
-            label: { show: false }, // Remove label from body
+            itemStyle: {
+              opacity: 0.5,
+              borderRadius: [4, 4, 0, 0], // 增加圆角
+            },
+            label: { show: false },
           },
-          // 2. Background Cylinder Top
+          // 2. 背景圆柱顶部
           {
             z: 2,
             type: "pictorialBar",
             symbol: "circle",
-            symbolSize: [barWidth, 10],
-            symbolOffset: [0, -5],
+            symbolSize: [barWidth, 14], // 增加椭圆高度增强3D感
+            symbolOffset: [0, -7],
             symbolPosition: "end",
             data: bgTopData,
             label: {
               show: true,
               position: "top",
-              offset: [0, -2],
+              offset: [0, -4],
               align: "center",
               color: "#ffffff",
-              fontSize: 13,
-              textShadowColor: "rgba(0, 0, 0, 0.5)",
-              textShadowBlur: 2,
+              fontSize: 14,
+              fontWeight: "bold",
+              fontFamily: "DIN Alternate, Arial",
+              textShadowColor: "rgba(0, 0, 0, 0.7)",
+              textShadowBlur: 4,
               formatter: (params) => {
                 const item = this.reserveIndicators[params.dataIndex];
                 return `目标 ${item.target}`;
               },
             },
           },
-          // 3. Background Cylinder Bottom
+          // 3. 背景圆柱底部
           {
             z: 2,
             type: "pictorialBar",
             symbol: "circle",
-            symbolSize: [barWidth, 10],
-            symbolOffset: [0, 5],
+            symbolSize: [barWidth, 14],
+            symbolOffset: [0, 7],
             symbolPosition: "start",
             data: bgBottomData,
           },
-          // 4. Liquid Content Body
+          // 4. 液体内容主体
           {
             z: 3,
             type: "bar",
             barWidth: barWidth,
             data: contentData,
+            itemStyle: {
+              borderRadius: [4, 4, 0, 0],
+            },
             label: {
               show: true,
               position: "top",
-              distance: 5,
+              distance: 8,
               color: "#fff",
-              fontSize: 16,
+              fontSize: 20, // 增大字号
               fontWeight: "bold",
-              fontFamily: "DIN Alternate",
-              textShadowColor: "rgba(0, 240, 255, 0.5)",
-              textShadowBlur: 5,
+              fontFamily: "DIN Alternate, Arial",
+              textShadowColor: "rgba(0, 240, 255, 0.8)",
+              textShadowBlur: 10,
               formatter: (params) => {
                 return rates[params.dataIndex] + "%";
               },
             },
             markPoint: {
               symbol: "path://M100 0 L75 15 L0 15 L0 17 L75 17 L100 2 Z",
-              symbolSize: [80, 20],
-              symbolOffset: [-55, 10], // Connects to the left side, goes down-left to avoid center text
+              symbolSize: [90, 22], // 增大标记尺寸
+              symbolOffset: [-60, 12],
               itemStyle: {
-                color: "#00F0FF",
-                shadowColor: "rgba(0, 240, 255, 0.6)",
-                shadowBlur: 4,
+                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                  { offset: 0, color: "rgba(0, 240, 255, 0.8)" },
+                  { offset: 1, color: "rgba(0, 240, 255, 0.3)" },
+                ]),
+                shadowColor: "rgba(0, 240, 255, 0.8)",
+                shadowBlur: 8,
               },
               label: {
                 show: true,
                 position: "insideBottomLeft",
-                offset: [-5, 0], // Adjusted for single line
+                offset: [-8, 0],
                 color: "#ffffff",
-                fontSize: 12,
+                fontSize: 13,
+                fontWeight: "500",
                 formatter: (params) => {
                   const item = this.reserveIndicators[params.dataIndex];
                   return `完成 ${item.completed}`;
@@ -687,24 +717,42 @@ export default {
               data: rates.map((rate, idx) => ({ xAxis: idx, yAxis: rate })),
             },
           },
-          // 5. Liquid Content Top
+          // 5. 液面顶部 (发光椭圆)
           {
-            z: 4,
+            z: 5,
             type: "pictorialBar",
             symbol: "circle",
-            symbolSize: [barWidth, 10],
-            symbolOffset: [0, -5],
+            symbolSize: [barWidth, 14],
+            symbolOffset: [0, -7],
             symbolPosition: "end",
             data: topSymbolData,
-            label: { show: false }, // 隐藏，已在bar上显示
+            label: { show: false },
           },
-          // 6. Liquid Content Bottom
+          // 6. 液面内部高光 (更小的椭圆，制造高光效果)
+          {
+            z: 6,
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth * 0.6, 8],
+            symbolOffset: [0, -5],
+            symbolPosition: "end",
+            data: rates.map((rate, index) => ({
+              value: rate,
+              itemStyle: {
+                color: new echarts.graphic.RadialGradient(0.5, 0.5, 1, [
+                  { offset: 0, color: "rgba(255, 255, 255, 0.8)" },
+                  { offset: 1, color: "rgba(255, 255, 255, 0)" },
+                ]),
+              },
+            })),
+          },
+          // 7. 液体底部
           {
             z: 4,
             type: "pictorialBar",
             symbol: "circle",
-            symbolSize: [barWidth, 10],
-            symbolOffset: [0, 5], // Align with bottom of bar
+            symbolSize: [barWidth, 14],
+            symbolOffset: [0, 7],
             symbolPosition: "start",
             data: bottomSymbolData,
           },
@@ -935,25 +983,29 @@ export default {
         (i) => i.completed
       );
 
-      // 定义颜色
+      // 定义更鲜艳的颜色方案，与增储上产保持一致风格
       const colors = [
         {
-          top: "#E6A23C",
-          bottom: "#CD853F",
-          bg: "rgba(230, 162, 60, 0.2)",
-          bgTop: "#7E5B28",
+          top: "#FFD770", // 更亮的金色
+          middle: "#E6A23C", // 中间色
+          bottom: "#B8860B", // 深金色
+          bg: "rgba(230, 162, 60, 0.15)",
+          bgTop: "#5C4A1E",
+          glow: "rgba(255, 215, 112, 0.6)",
         }, // 金色 - 利润
         {
-          top: "#00F0FF",
-          bottom: "#008B8B",
-          bg: "rgba(0, 240, 255, 0.2)",
-          bgTop: "#0C6A72",
+          top: "#7FFFFF", // 更亮的青色
+          middle: "#00F0FF", // 中间色
+          bottom: "#006B6B", // 深青色
+          bg: "rgba(0, 240, 255, 0.15)",
+          bgTop: "#0A4A52",
+          glow: "rgba(0, 240, 255, 0.6)",
         }, // 青色 - 成本
       ];
 
-      const barWidth = 30;
+      const barWidth = 45; // 与增储上产卡片保持一致
 
-      // 生成系列数据
+      // 生成系列数据 - 背景
       const bgData = rates.map((rate, index) => {
         return {
           value: 100,
@@ -961,22 +1013,33 @@ export default {
         };
       });
 
+      // 液体内容 - 使用三层渐变和阴影发光
       const contentData = rates.map((rate, index) => {
         return {
           value: rate,
           itemStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
               { offset: 0, color: colors[index].top },
+              { offset: 0.3, color: colors[index].middle },
               { offset: 1, color: colors[index].bottom },
             ]),
+            shadowColor: colors[index].glow,
+            shadowBlur: 15,
+            shadowOffsetX: 0,
+            shadowOffsetY: 0,
           },
         };
       });
 
+      // 液面顶部 - 增加发光效果
       const topSymbolData = rates.map((rate, index) => {
         return {
           value: rate,
-          itemStyle: { color: colors[index].top },
+          itemStyle: {
+            color: colors[index].top,
+            shadowColor: colors[index].glow,
+            shadowBlur: 12,
+          },
           symbolPosition: "end",
         };
       });
@@ -988,17 +1051,18 @@ export default {
         };
       });
 
+      // 背景顶部/底部
       const bgTopData = rates.map((rate, index) => {
         return {
           value: 100,
-          itemStyle: { color: colors[index].bgTop, opacity: 1 },
+          itemStyle: { color: colors[index].bgTop, opacity: 0.9 },
         };
       });
 
       const bgBottomData = rates.map((rate, index) => {
         return {
           value: 100,
-          itemStyle: { color: colors[index].bottom, opacity: 1 },
+          itemStyle: { color: colors[index].bottom, opacity: 0.5 },
         };
       });
 
@@ -1018,8 +1082,8 @@ export default {
           textStyle: { color: "#fff" },
         },
         grid: {
-          top: 45,
-          bottom: 45,
+          top: 50,
+          bottom: 50,
           left: 5,
           right: 5,
           containLabel: true,
@@ -1041,111 +1105,142 @@ export default {
           max: 120,
         },
         series: [
-          // 1. 背景柱体
+          // 1. 背景圆柱体
           {
             z: 1,
             type: "bar",
             barWidth: barWidth,
             barGap: "-100%",
             data: bgData,
-            itemStyle: { opacity: 0.6 },
+            itemStyle: {
+              opacity: 0.5,
+              borderRadius: [4, 4, 0, 0],
+            },
             label: { show: false },
           },
-          // 2. 背景柱顶部
+          // 2. 背景圆柱顶部
           {
             z: 2,
             type: "pictorialBar",
             symbol: "circle",
-            symbolSize: [barWidth, 10],
-            symbolOffset: [0, -5],
+            symbolSize: [barWidth, 16], // 增加椭圆高度
+            symbolOffset: [0, -8],
             symbolPosition: "end",
             data: bgTopData,
             label: {
               show: true,
               position: "top",
-              offset: [0, -2],
+              offset: [0, -4],
               align: "center",
               color: "#ffffff",
-              fontSize: 13,
-              textShadowColor: "rgba(0, 0, 0, 0.5)",
-              textShadowBlur: 2,
+              fontSize: 14,
+              fontWeight: "bold",
+              fontFamily: "DIN Alternate, Arial",
+              textShadowColor: "rgba(0, 0, 0, 0.7)",
+              textShadowBlur: 4,
               formatter: (params) => {
                 const item = this.costBenefitIndicators[params.dataIndex];
                 return `目标 ${item.target}`;
               },
             },
           },
-          // 3. 背景柱底部
+          // 3. 背景圆柱底部
           {
             z: 2,
             type: "pictorialBar",
             symbol: "circle",
-            symbolSize: [barWidth, 10],
-            symbolOffset: [0, 5],
+            symbolSize: [barWidth, 16],
+            symbolOffset: [0, 8],
             symbolPosition: "start",
             data: bgBottomData,
           },
-          // 4. 液体内容柱体
+          // 4. 液体内容主体
           {
             z: 3,
             type: "bar",
             barWidth: barWidth,
             data: contentData,
+            itemStyle: {
+              borderRadius: [4, 4, 0, 0],
+            },
             label: {
               show: true,
               position: "top",
-              distance: 5,
+              distance: 10,
               color: "#fff",
-              fontSize: 16,
+              fontSize: 22, // 增大字号
               fontWeight: "bold",
-              fontFamily: "DIN Alternate",
-              textShadowColor: "rgba(0, 240, 255, 0.5)",
-              textShadowBlur: 5,
+              fontFamily: "DIN Alternate, Arial",
+              textShadowColor: "rgba(0, 240, 255, 0.8)",
+              textShadowBlur: 10,
               formatter: (params) => {
                 return rates[params.dataIndex] + "%";
               },
             },
             markPoint: {
-              symbol: "path://M100 0 L75 15 L0 15 L0 17 L75 17 L100 2 Z",
-              symbolSize: [80, 20],
-              symbolOffset: [-55, 10], // Connects to the left side, goes down-left to avoid center text
+              symbol: "path://M100 0 L75 25 L0 25 L0 28 L75 28 L100 3 Z", // 更高的指示线
+              symbolSize: [80, 32], // 更高以容纳两行文字
+              symbolOffset: [-50, 18], // 向左偏移更多
               itemStyle: {
-                color: "#00F0FF",
-                shadowColor: "rgba(0, 240, 255, 0.6)",
-                shadowBlur: 4,
+                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                  { offset: 0, color: "rgba(0, 240, 255, 0.8)" },
+                  { offset: 1, color: "rgba(0, 240, 255, 0.3)" },
+                ]),
+                shadowColor: "rgba(0, 240, 255, 0.8)",
+                shadowBlur: 8,
               },
               label: {
                 show: true,
                 position: "insideBottomLeft",
-                offset: [-5, 0],
+                offset: [-8, 2],
                 color: "#ffffff",
                 fontSize: 12,
+                fontWeight: "500",
+                lineHeight: 16,
                 formatter: (params) => {
                   const item = this.costBenefitIndicators[params.dataIndex];
-                  return `完成 ${item.completed}`;
+                  return `完成\n${item.completed}`;
                 },
               },
               data: rates.map((rate, idx) => ({ xAxis: idx, yAxis: rate })),
             },
           },
-          // 5. 液体内容顶部
+          // 5. 液面顶部 (发光椭圆)
           {
-            z: 4,
+            z: 5,
             type: "pictorialBar",
             symbol: "circle",
-            symbolSize: [barWidth, 10],
-            symbolOffset: [0, -5],
+            symbolSize: [barWidth, 16],
+            symbolOffset: [0, -8],
             symbolPosition: "end",
             data: topSymbolData,
-            label: { show: false }, // 隐藏，已在bar上显示
+            label: { show: false },
           },
-          // 6. 液体内容底部
+          // 6. 液面内部高光
+          {
+            z: 6,
+            type: "pictorialBar",
+            symbol: "circle",
+            symbolSize: [barWidth * 0.6, 10],
+            symbolOffset: [0, -6],
+            symbolPosition: "end",
+            data: rates.map((rate, index) => ({
+              value: rate,
+              itemStyle: {
+                color: new echarts.graphic.RadialGradient(0.5, 0.5, 1, [
+                  { offset: 0, color: "rgba(255, 255, 255, 0.8)" },
+                  { offset: 1, color: "rgba(255, 255, 255, 0)" },
+                ]),
+              },
+            })),
+          },
+          // 7. 液体底部
           {
             z: 4,
             type: "pictorialBar",
             symbol: "circle",
-            symbolSize: [barWidth, 10],
-            symbolOffset: [0, 5],
+            symbolSize: [barWidth, 16],
+            symbolOffset: [0, 8],
             symbolPosition: "start",
             data: bottomSymbolData,
           },
