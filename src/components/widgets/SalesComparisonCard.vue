@@ -151,7 +151,7 @@ export default {
 }
 
 .image-wrapper img {
-  width: 70%; /* 缩小图片 */
+  width: 55%; /* 进一步缩小图片 */
   height: auto;
   object-fit: contain;
 }
@@ -169,14 +169,14 @@ export default {
 }
 
 .kpi-value {
-  font-size: 28px;
+  font-size: 22px;
   font-weight: bold;
   color: #fff;
   line-height: 1.2;
 }
 
 .kpi-unit {
-  font-size: 12px;
+  font-size: 10px;
   color: #fff;
   line-height: 1;
   margin-top: 2px;
@@ -185,7 +185,7 @@ export default {
 .kpi-label {
   font-size: 16px;
   color: #fff;
-  margin-top: 4px;
+  margin-top: 2px;
   text-align: center;
 }
 </style>

@@ -1,51 +1,73 @@
 <template>
-  <el-card class="hainan-card">
-    <div slot="header" class="card-header">
-      <h3>
-        <div class="header-icon"></div>
-        在琼经济贡献
-        <span class="year-label">[2026]</span>
-      </h3>
+  <el-card
+    class="chart-card"
+    :body-style="{
+      padding: '0px',
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+    }"
+  >
+    <div slot="header" class="chart-header">
+      <h3>在琼经济贡献 <span class="year-label">[2026]</span></h3>
     </div>
 
-    <div class="content-wrapper">
+    <div class="economic-content">
       <!-- 海南公司 -->
-      <div class="data-group">
-        <div class="group-title">海南公司</div>
-        <div class="data-row">
-          <div class="data-item">
-            <span class="label">固投</span>
-            <span class="value">46<span class="unit">亿</span></span>
-          </div>
-          <div class="data-item">
-            <span class="label">产值</span>
-            <span class="value">140<span class="unit">亿</span></span>
-          </div>
-          <div class="data-item">
-            <span class="label">纳税</span>
-            <span class="value">4.1<span class="unit">亿元</span></span>
+      <div class="section">
+        <div class="section-title">海南公司</div>
+        <div class="indicators-grid">
+          <div
+            class="indicator-item"
+            v-for="(item, index) in hainanCompany"
+            :key="index"
+          >
+            <div class="circle-wrapper">
+              <img :src="item.image" alt="指标" />
+              <div class="circle-content">
+                <span class="value-number">{{ item.value }}</span>
+              </div>
+            </div>
+            <div class="text-wrapper">
+              <div
+                class="indicator-name"
+                :style="{ color: getItemColor(index) }"
+              >
+                {{ item.label }}
+              </div>
+              <div class="indicator-desc">{{ item.unit }}</div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- 分割线 -->
-      <div class="divider"></div>
+      <div class="section-divider"></div>
 
       <!-- 区域单位整体 -->
-      <div class="data-group">
-        <div class="group-title">区域单位整体</div>
-        <div class="data-row">
-          <div class="data-item">
-            <span class="label">固投</span>
-            <span class="value">60<span class="unit">亿元</span></span>
-          </div>
-          <div class="data-item">
-            <span class="label">产值</span>
-            <span class="value">1333<span class="unit">亿元</span></span>
-          </div>
-          <div class="data-item">
-            <span class="label">上缴税费</span>
-            <span class="value">53<span class="unit">亿元</span></span>
+      <div class="section">
+        <div class="section-title">区域单位整体</div>
+        <div class="indicators-grid">
+          <div
+            class="indicator-item"
+            v-for="(item, index) in regionalUnits"
+            :key="index"
+          >
+            <div class="circle-wrapper">
+              <img :src="item.image" alt="指标" />
+              <div class="circle-content">
+                <span class="value-number">{{ item.value }}</span>
+              </div>
+            </div>
+            <div class="text-wrapper">
+              <div
+                class="indicator-name"
+                :style="{ color: getItemColor(index) }"
+              >
+                {{ item.label }}
+              </div>
+              <div class="indicator-desc">{{ item.unit }}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -54,39 +76,115 @@
 </template>
 
 <script>
+import zhibiao1 from "@/assets/zhibiao1.png";
+import zhibiao2 from "@/assets/zhibiao2.png";
+import zhibiao3 from "@/assets/zhibiao3.png";
+
 export default {
   name: "HainanEconomicCard",
+  data() {
+    return {
+      hainanCompany: [
+        {
+          label: "固投",
+          value: "46",
+          unit: "亿",
+          desc: "固定资产投资",
+          image: zhibiao1,
+        },
+        {
+          label: "产值",
+          value: "140",
+          unit: "亿",
+          desc: "工业总产值",
+          image: zhibiao2,
+        },
+        {
+          label: "纳税",
+          value: "4.1",
+          unit: "亿元",
+          desc: "税收贡献",
+          image: zhibiao3,
+        },
+      ],
+      regionalUnits: [
+        {
+          label: "固投",
+          value: "60",
+          unit: "亿元",
+          desc: "固定资产投资",
+          image: zhibiao1,
+        },
+        {
+          label: "产值",
+          value: "1333",
+          unit: "亿元",
+          desc: "工业总产值",
+          image: zhibiao2,
+        },
+        {
+          label: "纳税",
+          value: "53",
+          unit: "亿元",
+          desc: "税费总额",
+          image: zhibiao3,
+        },
+      ],
+    };
+  },
+  methods: {
+    getItemColor(index) {
+      const colors = ["#FFA500", "#52C41A", "#00F0FF"];
+      return colors[index % colors.length];
+    },
+  },
 };
 </script>
 
 <style scoped>
-.hainan-card {
+.chart-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  box-shadow: none;
+  box-shadow: var(--shadow-xs);
+  flex: 1;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 0;
   overflow: hidden;
+  transition: all 0.3s ease;
 }
 
-.hainan-card ::v-deep .el-card__header {
-  padding: 0 12px;
-  height: 48px;
+.chart-card:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: #d0d7e8;
+}
+
+.chart-card ::v-deep .el-card__header {
+  padding: 8px 12px !important;
+  height: auto !important;
+  min-height: 38px !important;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--border-color);
-  flex-shrink: 0;
+  border-bottom: none;
+  margin: 0 !important;
 }
 
-.card-header {
+.chart-card ::v-deep .el-card__body {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.chart-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0;
+  border-bottom: none;
   width: 100%;
+  margin: 0;
 }
 
-.card-header h3 {
+.chart-header h3 {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
@@ -96,88 +194,151 @@ export default {
   align-items: center;
 }
 
+.chart-header h3::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 14px;
+  background: var(--primary-color);
+  box-shadow: 0 0 8px var(--primary-color);
+  margin-right: 8px;
+  border-radius: 2px;
+}
+
 .year-label {
   font-size: 12px;
-  color: var(--text-secondary);
+  color: #8f9bba;
   margin-left: 8px;
   font-weight: normal;
 }
 
-.header-icon {
-  display: none;
-}
-
-.content-wrapper {
+.economic-content {
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 8px 12px;
-  justify-content: space-between;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   min-height: 0;
 }
 
-.data-group {
-  display: flex;
-  flex-direction: column;
-  gap: 4px; /* Maintain gap between title and row */
-}
-
-.group-title {
-  font-size: 13px;
+.section-title {
+  font-size: 12px;
   color: var(--primary-color);
   font-weight: 600;
   padding-left: 8px;
   border-left: 3px solid var(--primary-color);
-  line-height: 1;
-  margin-bottom: 2px;
+  margin-bottom: 6px;
+  line-height: 1.2;
 }
 
-.data-row {
+.indicators-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  align-items: center;
+  min-height: 0;
+}
+
+.indicator-item {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  background: rgba(255, 255, 255, 0.03);
-  padding: 6px 8px; /* Reduced vertical padding */
-  border-radius: 6px;
+  align-items: center;
+  gap: 0; /* 移除 gap，让图片和文字紧凑 */
+  min-width: 0;
+  padding: 0;
+  position: relative;
 }
 
-.data-item {
+.circle-wrapper {
+  position: relative;
+  width: 130px; /* 进一步放大图片宽度 */
+  height: 80px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* 图片靠左 */
+}
+
+.circle-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* 图片本身包含右侧线条，所以需要调整定位 */
+  transform: translateX(-10px);
+}
+
+.circle-content {
+  position: absolute;
+  top: 50%;
+  left: 35px; /* 手动调整到圆环中心位置 */
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 1;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
 }
 
-.label {
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-bottom: 4px;
-}
-
-.value {
-  font-size: 18px;
+.value-number {
+  font-size: 24px; /* 加大数字 */
   font-weight: bold;
   color: #fff;
+  line-height: 1;
   text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
-  font-family: "D-DIN", sans-serif;
+  font-family: "DIN Alternate", sans-serif;
 }
 
-.unit {
+.value-unit {
   font-size: 10px;
-  font-weight: normal;
-  color: var(--text-secondary);
-  margin-left: 2px;
-  text-shadow: none;
+  color: #fff;
+  margin-top: -2px;
+  opacity: 0.8;
 }
 
-.divider {
+.text-wrapper {
+  position: absolute;
+  left: 85px; /* 定位到图片线条右侧上方 */
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  z-index: 2;
+}
+
+.indicator-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #00f0ff; /* 默认青色 */
+  line-height: 1.2;
+  margin-bottom: 2px;
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
+}
+
+.indicator-desc {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.2;
+}
+
+.section-divider {
   height: 1px;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.1) 50%,
+    rgba(0, 240, 255, 0.3) 50%,
     transparent 100%
   );
-  margin: 2px 0; /* Reduced margin */
+  margin: 4px 0;
+  flex-shrink: 0;
 }
 </style>

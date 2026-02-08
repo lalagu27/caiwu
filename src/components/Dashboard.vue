@@ -234,7 +234,15 @@ export default {
 }
 
 .left-col > .chart-card:first-child {
-  flex: 1.6 1 48px; /* 作业动态内容占1.3份，给下面腾空间 */
+  flex: 1.6 1 48px; /* 作业动态内容占1.6份 */
+}
+
+.left-col > .chart-card:nth-child(2) {
+  flex: 0.7 1 48px; /* 国资委"一利五率"占0.7份，较小 */
+}
+
+.left-col > .chart-card:nth-child(3) {
+  flex: 1.3 1 48px; /* 在琼经济贡献占1.3份，较大 */
 }
 
 .right-col > .chart-card {
