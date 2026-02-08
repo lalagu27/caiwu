@@ -938,7 +938,9 @@ export default {
       let chart = echarts.init(this.$refs.costBenefitChart);
 
       // 准备数据
-      const categories = this.costBenefitIndicators.map((i) => i.name);
+      const categories = this.costBenefitIndicators.map(
+        (i) => `${i.name}\n(${i.unit})`
+      );
       const rates = this.costBenefitIndicators.map((i) => i.rate);
       const completedValues = this.costBenefitIndicators.map(
         (i) => i.completed
@@ -1027,8 +1029,8 @@ export default {
           textStyle: { color: "#fff" },
         },
         grid: {
-          top: 30,
-          bottom: 20,
+          top: 45,
+          bottom: 45,
           left: 20,
           right: 20,
           containLabel: true,
@@ -1072,8 +1074,8 @@ export default {
             label: {
               show: true,
               position: "top", // 放在顶部上方
-              offset: [-70, 10], // 向左移动70px，向下移动10px
-              align: "left",
+              offset: [0, -2],
+              align: "center",
               color: "#fff",
               fontSize: 12,
               formatter: (params) => {
@@ -1110,13 +1112,19 @@ export default {
               },
             },
             markPoint: {
-              symbol: "rect",
-              symbolSize: 1,
+              symbol: "path://M100 0 L75 15 L0 15 L0 17 L75 17 L100 2 Z",
+              symbolSize: [80, 20],
+              symbolOffset: [-55, 10], // Connects to the left side, goes down-left to avoid center text
+              itemStyle: {
+                color: "#00F0FF",
+                shadowColor: "rgba(0, 240, 255, 0.6)",
+                shadowBlur: 4,
+              },
               label: {
                 show: true,
-                position: "left",
-                offset: [-15, 2], // 向左偏移30px
-                color: "#00F0FF",
+                position: "insideBottomLeft",
+                offset: [-5, 0],
+                color: "#ffffff",
                 fontSize: 12,
                 formatter: (params) => {
                   const item = this.costBenefitIndicators[params.dataIndex];
@@ -1251,7 +1259,9 @@ export default {
       let chart = echarts.init(this.$refs.industryChart);
 
       // 准备数据
-      const categories = this.strategicIndustryIndicators.map((i) => i.name);
+      const categories = this.strategicIndustryIndicators.map(
+        (i) => `${i.name}\n(${i.unit})`
+      );
       const rates = this.strategicIndustryIndicators.map((i) => i.rate);
       const completedValues = this.strategicIndustryIndicators.map(
         (i) => i.completed
@@ -1340,8 +1350,8 @@ export default {
           textStyle: { color: "#fff" },
         },
         grid: {
-          top: 30,
-          bottom: 20,
+          top: 45,
+          bottom: 45,
           left: 20,
           right: 20,
           containLabel: true,
@@ -1385,8 +1395,8 @@ export default {
             label: {
               show: true,
               position: "top", // 放在顶部上方
-              offset: [-70, 10], // 向左移动70px,向下移动10px
-              align: "left",
+              offset: [0, -2],
+              align: "center",
               color: "#fff",
               fontSize: 12,
               formatter: (params) => {
@@ -1423,13 +1433,19 @@ export default {
               },
             },
             markPoint: {
-              symbol: "rect",
-              symbolSize: 1,
+              symbol: "path://M100 0 L75 15 L0 15 L0 17 L75 17 L100 2 Z",
+              symbolSize: [80, 20],
+              symbolOffset: [-55, 10], // Connects to the left side, goes down-left to avoid center text
+              itemStyle: {
+                color: "#00F0FF",
+                shadowColor: "rgba(0, 240, 255, 0.6)",
+                shadowBlur: 4,
+              },
               label: {
                 show: true,
-                position: "left",
-                offset: [-15, 2], // 向左偏移30px
-                color: "#00F0FF",
+                position: "insideBottomLeft",
+                offset: [-5, 0],
+                color: "#ffffff",
                 fontSize: 12,
                 formatter: (params) => {
                   const item =
