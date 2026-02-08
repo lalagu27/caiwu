@@ -685,14 +685,12 @@ export default {
               label: {
                 show: true,
                 position: "insideBottomLeft",
-                offset: [-8, 0], // Move further left
+                offset: [-5, 0], // Adjusted for single line
                 color: "#ffffff",
                 fontSize: 12,
-                lineHeight: 16,
-                align: "left",
                 formatter: (params) => {
                   const item = this.reserveIndicators[params.dataIndex];
-                  return `完成\n${item.completed}`;
+                  return `完成 ${item.completed}`;
                 },
               },
               data: rates.map((rate, idx) => ({ xAxis: idx, yAxis: rate })),
