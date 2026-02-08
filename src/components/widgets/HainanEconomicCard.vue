@@ -233,7 +233,7 @@ export default {
   font-weight: bold;
   padding-left: 8px;
   border-left: 3px solid var(--primary-color);
-  margin-bottom: 8px;
+  margin-bottom: 0px; /* 减少间距 */
   line-height: 1.2;
   background: linear-gradient(90deg, #ffffff 0%, #00f0ff 100%); /* 渐变色 */
   -webkit-background-clip: text;
@@ -281,7 +281,7 @@ export default {
 .circle-content {
   position: absolute;
   top: 50%;
-  left: 30px; /* 随图片放大，数字稍右移居中 */
+  left: 28px; /* 数字稍微左移 */
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
