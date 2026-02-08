@@ -671,12 +671,18 @@ export default {
               },
             },
             markPoint: {
-              symbol: "rect",
-              symbolSize: 1,
+              symbol: "path://M100 20 L80 0 L0 0 L0 2 L80 2 L100 22 Z",
+              symbolSize: [60, 15],
+              symbolOffset: [-45, -8], // Adjust position to connect to the left side of the bar
+              itemStyle: {
+                color: "#00F0FF",
+                shadowColor: "rgba(0, 240, 255, 0.6)",
+                shadowBlur: 4,
+              },
               label: {
                 show: true,
-                position: "left",
-                offset: [-15, 2], // 向左偏移30px
+                position: "top",
+                offset: [0, 2], // Fine tune vertical position
                 color: "#00F0FF",
                 fontSize: 12,
                 formatter: (params) => {
