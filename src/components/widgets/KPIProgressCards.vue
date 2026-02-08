@@ -2210,8 +2210,8 @@ export default {
 }
 
 .kpi-chart-img {
-  max-width: 90%;
-  max-height: 80%; /* Slightly smaller to fit label */
+  max-width: 70%;
+  max-height: 70%; /* Slightly smaller to fit label */
   object-fit: contain;
   /* Add a subtle glow to image */
   filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.3));
@@ -2219,7 +2219,7 @@ export default {
 
 .chart-overlay-value {
   position: absolute;
-  top: 38%;
+  top: 42%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
@@ -2230,7 +2230,7 @@ export default {
 
 .chart-overlay-value .num {
   font-family: "DIN Alternate", "Helvetica Neue", Arial, sans-serif;
-  font-size: 36px; /* Larger */
+  font-size: 30px; /* Larger */
   font-weight: bold;
   /* Brighter gradient */
   background: linear-gradient(180deg, #e0f7ff 0%, #00a0ff 100%);
@@ -2244,7 +2244,7 @@ export default {
 
 .chart-overlay-value .unit {
   font-family: "DIN Alternate", "Helvetica Neue", Arial, sans-serif;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   margin-left: 2px;
   color: #00a0ff;
