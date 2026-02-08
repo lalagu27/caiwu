@@ -176,8 +176,8 @@ export default {
           name: "利润总额",
           unit: "亿元",
           target: 112.5,
-          completed: 85.2,
-          rate: 75.73,
+          completed: 35.2,
+          rate: 31.29,
         },
         {
           name: "桶油五项成本",
@@ -597,7 +597,7 @@ export default {
         },
         yAxis: {
           show: false,
-          max: 100,
+          max: 120, // Increase max to prevent top label clipping
         },
         series: [
           // 1. Background Cylinder Body
@@ -621,14 +621,13 @@ export default {
             data: bgTopData,
             label: {
               show: true,
-              position: "top", // 放在顶部上方
+              position: "top",
               offset: [0, -2],
               align: "center",
-              color: "#fff",
-              fontSize: 12,
-              align: "center",
-              color: "#fff",
-              fontSize: 12,
+              color: "#ffffff",
+              fontSize: 13,
+              textShadowColor: "rgba(0, 0, 0, 0.5)",
+              textShadowBlur: 2,
               formatter: (params) => {
                 const item = this.reserveIndicators[params.dataIndex];
                 return `目标 ${item.target}`;
@@ -653,13 +652,15 @@ export default {
             data: contentData,
             label: {
               show: true,
-              position: "top", // Floating on top of liquid
-              distance: 2,
+              position: "top",
+              distance: 5,
               color: "#fff",
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: "bold",
+              fontFamily: "DIN Alternate",
+              textShadowColor: "rgba(0, 240, 255, 0.5)",
+              textShadowBlur: 5,
               formatter: (params) => {
-                // Show percentage
                 return rates[params.dataIndex] + "%";
               },
             },
@@ -1037,7 +1038,7 @@ export default {
         },
         yAxis: {
           show: false,
-          max: 100,
+          max: 120,
         },
         series: [
           // 1. 背景柱体
@@ -1061,11 +1062,13 @@ export default {
             data: bgTopData,
             label: {
               show: true,
-              position: "top", // 放在顶部上方
+              position: "top",
               offset: [0, -2],
               align: "center",
-              color: "#fff",
-              fontSize: 12,
+              color: "#ffffff",
+              fontSize: 13,
+              textShadowColor: "rgba(0, 0, 0, 0.5)",
+              textShadowBlur: 2,
               formatter: (params) => {
                 const item = this.costBenefitIndicators[params.dataIndex];
                 return `目标 ${item.target}`;
@@ -1091,10 +1094,13 @@ export default {
             label: {
               show: true,
               position: "top",
-              distance: 2,
+              distance: 5,
               color: "#fff",
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: "bold",
+              fontFamily: "DIN Alternate",
+              textShadowColor: "rgba(0, 240, 255, 0.5)",
+              textShadowBlur: 5,
               formatter: (params) => {
                 return rates[params.dataIndex] + "%";
               },
@@ -1358,7 +1364,7 @@ export default {
         },
         yAxis: {
           show: false,
-          max: 100,
+          max: 120,
         },
         series: [
           // 1. 背景柱体
@@ -1382,11 +1388,13 @@ export default {
             data: bgTopData,
             label: {
               show: true,
-              position: "top", // 放在顶部上方
+              position: "top",
               offset: [0, -2],
               align: "center",
-              color: "#fff",
-              fontSize: 12,
+              color: "#ffffff",
+              fontSize: 13,
+              textShadowColor: "rgba(0, 0, 0, 0.5)",
+              textShadowBlur: 2,
               formatter: (params) => {
                 const item = this.strategicIndustryIndicators[params.dataIndex];
                 return `目标 ${item.target}`;
@@ -1412,10 +1420,13 @@ export default {
             label: {
               show: true,
               position: "top",
-              distance: 2,
+              distance: 5,
               color: "#fff",
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: "bold",
+              fontFamily: "DIN Alternate",
+              textShadowColor: "rgba(0, 240, 255, 0.5)",
+              textShadowBlur: 5,
               formatter: (params) => {
                 return rates[params.dataIndex] + "%";
               },
