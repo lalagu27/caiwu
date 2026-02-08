@@ -632,13 +632,14 @@ export default {
             label: {
               show: true,
               position: "top", // 放在顶部上方
-              offset: [-70, 10], // 向左移动20px，向下移动10px
-              align: "left",
+              offset: [0, -2],
+              align: "center",
               color: "#fff",
               fontSize: 12,
+              lineHeight: 16,
               formatter: (params) => {
                 const item = this.reserveIndicators[params.dataIndex];
-                return `目标 ${item.target} ${item.unit}`;
+                return `目标\n${item.target} ${item.unit}`;
               },
             },
           },
