@@ -195,8 +195,8 @@ export default {
           name: "桶油五项成本",
           unit: "$/B",
           target: 19.14,
-          completed: 18.95,
-          rate: 99.01,
+          completed: 16.95,
+          rate: 88.56,
         },
       ],
       strategicIndustryIndicators: [
@@ -638,7 +638,7 @@ export default {
               fontSize: 12,
               formatter: (params) => {
                 const item = this.reserveIndicators[params.dataIndex];
-                return `目标 ${item.target}`;
+                return `目标 ${item.target} ${item.unit}`;
               },
             },
           },
@@ -671,9 +671,9 @@ export default {
               },
             },
             markPoint: {
-              symbol: "path://M100 20 L80 0 L0 0 L0 2 L80 2 L100 22 Z",
-              symbolSize: [60, 15],
-              symbolOffset: [-45, -8], // Adjust position to connect to the left side of the bar
+              symbol: "path://M100 0 L75 15 L0 15 L0 17 L75 17 L100 2 Z",
+              symbolSize: [80, 20],
+              symbolOffset: [-55, 10], // Connects to the left side, goes down-left to avoid center text
               itemStyle: {
                 color: "#00F0FF",
                 shadowColor: "rgba(0, 240, 255, 0.6)",
@@ -681,13 +681,15 @@ export default {
               },
               label: {
                 show: true,
-                position: "top",
-                offset: [0, 2], // Fine tune vertical position
-                color: "#00F0FF",
+                position: "insideBottomLeft",
+                offset: [-8, 0], // Move further left
+                color: "#ffffff",
                 fontSize: 12,
+                lineHeight: 16,
+                align: "left",
                 formatter: (params) => {
                   const item = this.reserveIndicators[params.dataIndex];
-                  return `完成 ${item.completed}`;
+                  return `完成\n${item.completed} ${item.unit}`;
                 },
               },
               data: rates.map((rate, idx) => ({ xAxis: idx, yAxis: rate })),

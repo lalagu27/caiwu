@@ -48,11 +48,11 @@
       <table class="custom-table">
         <thead>
           <tr>
-            <th width="20%">活动井名称</th>
+            <th width="25%">活动井名称</th>
             <th width="15%">设计井深(m)</th>
             <th width="15%">当前井深(m)</th>
-            <th width="10%">进度(%)</th>
-            <th width="40%">24小时作业内容</th>
+            <th width="15%">进度(%)</th>
+            <th width="30%">24小时作业内容</th>
           </tr>
         </thead>
         <tbody>
