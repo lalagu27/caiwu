@@ -258,8 +258,8 @@ export default {
 
 .circle-wrapper {
   position: relative;
-  width: 130px; /* 进一步放大图片宽度 */
-  height: 80px;
+  width: 160px; /* 大幅放大图片宽度 */
+  height: 110px; /* 增加高度 */
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -277,7 +277,7 @@ export default {
 .circle-content {
   position: absolute;
   top: 50%;
-  left: 30px;
+  left: 30px; /* 随图片放大，数字稍右移居中 */
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
@@ -305,8 +305,8 @@ export default {
 
 .text-wrapper {
   position: absolute;
-  left: 85px;
-  top: 25%;
+  left: 80px;
+  top: 35%;
   display: flex;
   flex-direction: column;
   justify-content: center;
