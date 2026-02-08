@@ -277,7 +277,7 @@ export default {
 .circle-content {
   position: absolute;
   top: 50%;
-  left: 35px; /* 手动调整到圆环中心位置 */
+  left: 30px;
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
@@ -305,9 +305,8 @@ export default {
 
 .text-wrapper {
   position: absolute;
-  left: 85px; /* 定位到图片线条右侧上方 */
-  top: 50%;
-  transform: translateY(-50%);
+  left: 85px;
+  top: 25%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -318,16 +317,17 @@ export default {
 .indicator-name {
   font-size: 14px;
   font-weight: 600;
-  color: #00f0ff; /* 默认青色 */
-  line-height: 1.2;
+  color: #00f0ff;
+  line-height: 1.1;
   margin-bottom: 2px;
   text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
 }
 
 .indicator-desc {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.2;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1;
+  font-weight: normal;
 }
 
 .section-divider {
