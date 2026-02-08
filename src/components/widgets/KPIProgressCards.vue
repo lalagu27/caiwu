@@ -551,7 +551,7 @@ export default {
           axisLabel: {
             interval: 0,
             color: textColor,
-            fontSize: 10,
+            fontSize: 12,
             width: 60,
             overflow: "break",
           },
@@ -588,7 +588,7 @@ export default {
               align: "right", // Align text to the right (towards the cylinder)
               offset: [-25, -78], // Shift left by 25px (15px radius + 10px gap)
               color: "#fff",
-              fontSize: 10,
+              fontSize: 12,
               formatter: (params) => {
                 const item = this.reserveIndicators[params.dataIndex];
                 return `目标 ${item.target}`;
@@ -616,7 +616,7 @@ export default {
               position: "top", // Floating on top of liquid
               distance: 2,
               color: "#fff",
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: "bold",
               formatter: (params) => {
                 // Show percentage
@@ -639,7 +639,7 @@ export default {
               align: "right",
               offset: [-25, 0], // Consistent left spacing
               color: "#00F0FF",
-              fontSize: 10,
+              fontSize: 12,
               formatter: (params) => {
                 const item = this.reserveIndicators[params.dataIndex];
                 return `完成 ${item.completed}`;
@@ -975,7 +975,7 @@ export default {
           axisLabel: {
             interval: 0,
             color: textColor,
-            fontSize: 11,
+            fontSize: 13,
             width: 80,
             overflow: "break",
           },
@@ -1012,7 +1012,7 @@ export default {
               align: "right",
               offset: [-30, -95],
               color: "#fff",
-              fontSize: 10,
+              fontSize: 12,
               formatter: (params) => {
                 const item = this.costBenefitIndicators[params.dataIndex];
                 return `目标 ${item.target}`;
@@ -1040,7 +1040,7 @@ export default {
               position: "top",
               distance: 2,
               color: "#fff",
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: "bold",
               formatter: (params) => {
                 return rates[params.dataIndex] + "%";
@@ -1062,7 +1062,7 @@ export default {
               align: "right",
               offset: [-30, 0],
               color: "#00F0FF",
-              fontSize: 10,
+              fontSize: 12,
               formatter: (params) => {
                 const item = this.costBenefitIndicators[params.dataIndex];
                 return `完成 ${item.completed}`;
@@ -1189,7 +1189,7 @@ export default {
           axisLabel: {
             interval: 0,
             color: textColor,
-            fontSize: 11,
+            fontSize: 13,
             width: 100,
             overflow: "break",
           },
@@ -1226,7 +1226,7 @@ export default {
               align: "right",
               offset: [-30, -95],
               color: "#fff",
-              fontSize: 10,
+              fontSize: 12,
               formatter: (params) => {
                 const item = this.techInnovationIndicators[params.dataIndex];
                 return `目标 ${item.target}`;
@@ -1254,7 +1254,7 @@ export default {
               position: "top",
               distance: 2,
               color: "#fff",
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: "bold",
               formatter: (params) => {
                 return rates[params.dataIndex] + "%";
@@ -1276,7 +1276,7 @@ export default {
               align: "right",
               offset: [-30, 0],
               color: "#00F0FF",
-              fontSize: 10,
+              fontSize: 12,
               formatter: (params) => {
                 const item = this.techInnovationIndicators[params.dataIndex];
                 return `完成 ${item.completed}`;
@@ -1409,7 +1409,7 @@ export default {
           axisLabel: {
             interval: 0,
             color: textColor,
-            fontSize: 11,
+            fontSize: 13,
             width: 80,
             overflow: "break",
           },
@@ -1446,7 +1446,7 @@ export default {
               align: "right",
               offset: [-30, -95],
               color: "#fff",
-              fontSize: 10,
+              fontSize: 12,
               formatter: (params) => {
                 const item = this.strategicIndustryIndicators[params.dataIndex];
                 return `目标 ${item.target}`;
@@ -1474,7 +1474,7 @@ export default {
               position: "top",
               distance: 2,
               color: "#fff",
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: "bold",
               formatter: (params) => {
                 return rates[params.dataIndex] + "%";
@@ -1496,7 +1496,7 @@ export default {
               align: "right",
               offset: [-30, 0],
               color: "#00F0FF",
-              fontSize: 10,
+              fontSize: 12,
               formatter: (params) => {
                 const item = this.strategicIndustryIndicators[params.dataIndex];
                 return `完成 ${item.completed}`;
@@ -1654,7 +1654,7 @@ export default {
                 rich: {
                   p: {
                     color: isDark ? "#fff" : "#333",
-                    fontSize: 10,
+                    fontSize: 12,
                     fontWeight: 500,
                   },
                 },
@@ -1678,14 +1678,14 @@ export default {
               rich: {
                 val: {
                   color: "#fff",
-                  fontSize: 14,
+                  fontSize: 16,
                   fontWeight: "bold",
                   fontStyle: "italic",
                   padding: [0, 2, 0, 0],
                 },
                 unit: {
                   color: colors[0].shadow,
-                  fontSize: 10,
+                  fontSize: 12,
                   padding: [0, 0, 3, 0],
                 },
               },
