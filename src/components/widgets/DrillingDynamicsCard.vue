@@ -252,21 +252,20 @@ export default {
 
 /* Blue Decoration Bar */
 .blue-decoration {
-  position: absolute;
-  left: 12px;
   width: 4px;
-  height: 16px;
+  height: 12px;
   background: #00f0ff;
-  box-shadow: 0 0 5px #00f0ff;
-  border-radius: 2px;
+  box-shadow: 0 0 12px #00f0ff;
+  border-radius: 4px;
   transform: skewX(-15deg); /* Slanted style */
+  margin-right: 12px;
+  flex-shrink: 0;
 }
 
 /* Tabs Container */
 .tabs-container {
   display: flex;
   align-items: center;
-  margin-left: 20px; /* Space for decoration */
   gap: 8px;
   flex: 1;
   min-width: 0;
