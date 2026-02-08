@@ -53,10 +53,10 @@
         <tbody>
           <!-- 模拟不同Tab的数据可能是相同的，除非有真实数据源。这里保持使用 tableData -->
           <tr v-for="(item, index) in tableData" :key="index">
-            <td class="well-name">{{ item.name }}</td>
-            <td>{{ item.designDepth }}</td>
-            <td>{{ item.currentDepth }}</td>
-            <td>{{ item.progress }}</td>
+            <td class="well-name" :title="item.name">{{ item.name }}</td>
+            <td :title="item.designDepth">{{ item.designDepth }}</td>
+            <td :title="item.currentDepth">{{ item.currentDepth }}</td>
+            <td :title="item.progress">{{ item.progress }}</td>
             <td class="activity-content" :title="item.activity">
               {{ item.activity }}
             </td>

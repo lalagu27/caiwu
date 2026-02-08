@@ -234,7 +234,7 @@ export default {
 }
 
 .left-col > .chart-card:first-child {
-  flex: 2 1 48px; /* 作业动态内容占2份 */
+  flex: 1.6 1 48px; /* 作业动态内容占1.3份，给下面腾空间 */
 }
 
 .right-col > .chart-card {

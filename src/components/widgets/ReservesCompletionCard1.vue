@@ -160,7 +160,7 @@ export default {
 
 .image-number {
   position: absolute;
-  top: -12px;
+  top: -2px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 17px;
