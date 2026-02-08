@@ -83,7 +83,42 @@
               <span class="project-title">重大科技项目任务完成率</span>
               <span class="year-label">[{{ currentYear }}年]</span>
             </div>
-            <div class="projects-list" ref="projectsChart"></div>
+            <div class="projects-list-html">
+              <div
+                v-for="(project, index) in projects"
+                :key="index"
+                class="project-item-box"
+              >
+                <!-- Decorative Corners -->
+                <div class="corner top-right"></div>
+                <div class="corner bottom-left"></div>
+
+                <div class="project-info-row">
+                  <span class="p-icon">
+                    <svg viewBox="0 0 24 24" width="14" height="14">
+                      <path
+                        d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"
+                        fill="currentColor"
+                      ></path>
+                    </svg>
+                  </span>
+                  <span class="p-name">{{ project.name }}</span>
+                </div>
+                <div class="project-track-row">
+                  <div class="p-progress-track">
+                    <div
+                      class="p-progress-bar"
+                      :style="{ width: project.value + '%' }"
+                    >
+                      <div class="p-progress-glow"></div>
+                    </div>
+                  </div>
+                  <div class="p-value">
+                    {{ project.value }}<span class="unit">%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -258,7 +293,7 @@ export default {
 
       // this.initTechChart(textColor, lineColor, tooltipConfig); // Removed as per user request to use image
       this.initIndustryChart(textColor, lineColor, tooltipConfig);
-      this.initProjectsChart(textColor, lineColor);
+      // this.initProjectsChart(textColor, lineColor); // Replaced by HTML/CSS
     },
     // New function to initialize the 4 gauge charts
     initGaugeCharts(textColor, lineColor, themeBlue) {
@@ -2039,10 +2074,128 @@ export default {
   text-shadow: 0 0 5px rgba(0, 240, 255, 0.4); /* Glow effect */
 }
 
-.projects-list {
+.projects-list-html {
+  flex: 1; /* Fill remaining height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around; /* Distribute items evenly */
+  padding: 0 4px;
+}
+
+.project-item-box {
+  position: relative;
+  background: rgba(0, 40, 80, 0.2);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 8px; /* Spacing between items */
+  transition: all 0.3s ease;
+}
+
+.project-item-box:hover {
+  background: rgba(0, 40, 80, 0.4);
+  border-color: rgba(0, 240, 255, 0.5);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+}
+
+/* Corner Decorations */
+.project-item-box .corner {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #00f0ff;
+  opacity: 0.8;
+}
+
+.project-item-box .corner.top-right {
+  top: -1px;
+  right: -1px;
+  border-bottom: none;
+  border-left: none;
+  border-top-right-radius: 6px;
+}
+
+.project-item-box .corner.bottom-left {
+  bottom: -1px;
+  left: -1px;
+  border-top: none;
+  border-right: none;
+  border-bottom-left-radius: 6px;
+}
+
+.project-info-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.p-icon {
+  color: #00f0ff;
+  margin-right: 6px;
+  font-size: 14px;
+  filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.5));
+}
+
+.p-name {
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #e2e8f0;
+}
+
+.project-track-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.p-progress-track {
   flex: 1;
-  min-height: 0;
-  padding-left: 4px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: visible; /* Allow glow to spill if needed */
+  position: relative;
+}
+
+.p-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(0, 240, 255, 0.4) 0%, #00f0ff 100%);
+  border-radius: 4px;
+  position: relative;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+}
+
+/* Optional glow/knob at the end */
+.p-progress-glow {
+  position: absolute;
+  right: -4px;
+  top: -2px;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
+  opacity: 1;
+}
+
+.p-value {
+  font-family: "DIN Alternate", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #00f0ff;
+  min-width: 45px;
+  text-align: right;
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.4);
+}
+
+.p-value .unit {
+  font-size: 12px;
+  margin-left: 2px;
+  opacity: 0.8;
 }
 
 .kpi-chart-image-wrapper {
