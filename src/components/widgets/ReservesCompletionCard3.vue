@@ -165,7 +165,7 @@ export default {
   top: -2px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   color: #fff;
   text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
