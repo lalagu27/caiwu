@@ -596,7 +596,7 @@ export default {
         },
         grid: {
           top: 25,
-          bottom: 30,
+          bottom: 25,
           left: 10,
           right: 10,
           containLabel: true,
@@ -1085,7 +1085,7 @@ export default {
         },
         grid: {
           top: 25,
-          bottom: 30,
+          bottom: 25,
           left: 5,
           right: 5,
           containLabel: true,
@@ -1459,7 +1459,7 @@ export default {
         },
         grid: {
           top: 25,
-          bottom: 30,
+          bottom: 25,
           left: 5,
           right: 5,
           containLabel: true,
