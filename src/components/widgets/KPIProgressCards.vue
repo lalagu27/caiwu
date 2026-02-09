@@ -1177,7 +1177,11 @@ export default {
               textShadowColor: "rgba(0, 240, 255, 0.8)",
               textShadowBlur: 10,
               formatter: (params) => {
-                return rates[params.dataIndex] + "%";
+                // 只在第一个指标(利润总额)显示百分比,第二个指标(桶油五项成本)不显示
+                if (params.dataIndex === 0) {
+                  return rates[params.dataIndex] + "%";
+                }
+                return "";
               },
             },
             markPoint: {
@@ -1202,7 +1206,9 @@ export default {
                 lineHeight: 16,
                 formatter: (params) => {
                   const item = this.costBenefitIndicators[params.dataIndex];
-                  return `完成\n${item.completed}`;
+                  // 桶油五项成本(index=1)显示"当月",其他显示"完成"
+                  const label = params.dataIndex === 1 ? "当月" : "完成";
+                  return `${label}\n${item.completed}`;
                 },
               },
               data: rates.map((rate, idx) => ({ xAxis: idx, yAxis: rate })),

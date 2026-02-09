@@ -39,7 +39,7 @@ export default {
         { value: "19", unit: "座", label: "生产平台" },
         { value: "177", unit: "口", label: "在生产井" },
         { value: "3", unit: "个", label: "陆岸终端" },
-        { value: "2", unit: "条", label: "海底管线(全长2030.9公里)" },
+        { value: "38", unit: "条", label: "海底管线(全长2030.9公里)" },
       ],
     };
   },
