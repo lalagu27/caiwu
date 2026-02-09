@@ -166,6 +166,8 @@ export default {
   color: transparent;
   font-family: "DIN Alternate", sans-serif;
   text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+  white-space: nowrap; /* 确保数字和单位不换行 */
+  width: max-content; /* 让容器宽度适应内容 */
 }
 
 .image-unit {
